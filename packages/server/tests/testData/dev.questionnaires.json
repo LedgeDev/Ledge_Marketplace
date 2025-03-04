@@ -1,0 +1,60 @@
+[{
+  "_id": {
+    "$oid": "6685ddcf6ecfcafb2ce90ce0"
+  },
+  "name": "Pathfinder questionnaire",
+  "createdAt": {
+    "$date": "2024-07-02T21:16:10.320Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-02T22:16:04.786Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6685dcb16ecfcafb2ce90cd8"
+  },
+  "name": "Scout questionnaire",
+  "createdAt": {
+    "$date": "2024-07-02T21:16:10.320Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-02T22:16:04.786Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6685ddfb6ecfcafb2ce90ce6"
+  },
+  "name": "Chief Explorer questionnaire",
+  "createdAt": {
+    "$date": "2024-07-02T21:16:10.320Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-02T22:16:04.786Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6685ddd86ecfcafb2ce90ce1"
+  },
+  "name": "Explorer questionnaire",
+  "createdAt": {
+    "$date": "2024-07-02T21:16:10.320Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-02T22:16:04.786Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6685ddea6ecfcafb2ce90ce2"
+  },
+  "name": "Trailblazer questionnaire",
+  "createdAt": {
+    "$date": "2024-07-02T21:16:10.320Z"
+  },
+  "updatedAt": {
+    "$date": "2024-07-02T22:16:04.786Z"
+  }
+}]

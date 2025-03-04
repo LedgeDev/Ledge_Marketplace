@@ -1,0 +1,84 @@
+{
+  "locationQuestionId": "67ad49bb8335430298620c1d",
+  "usernameOnboardingQuestionId": "668ea239b6285f9fad903fda",
+  "targetGenderQuestionId": "66e4255f018a80846e5ea67b",
+  "budgetQuestionId": "668ea239b6285f9fad903fdc",
+  "interestsQuestionId": "668ea239b6285f9fad903fdd",
+  "ratingQuestionId": "66ca5cce84372ef3340ad191",
+  "exitQuestion": "669011ba6e2df4aade6820d8",
+  "removeBrand":"659011ba6e2df4aade7820d8",
+  "removeBrandFromForYou": "65e325789d254f982b121c01",
+  "removeBrandFromDiscovery": "65e325789d254f982b121c02",
+  "productFeedbackQuestionIds": [
+    "66fc10a39aec02b59ddaafe4",
+    "66fc110b9aec02b59ddaafe5",
+    "66fc11579aec02b59ddaafe6",
+    "66fc117b9aec02b59ddaafe7"
+  ],
+  "levelGenderQuestionId": "66c364630a7b3e2061d61bd6",
+  "favouriteSocialMediaQuestion": "66c3549b0a7b3e2061d61bc7",
+  "productFeedbackClassId": "64a8953307235edccf8e488f",
+  "dealExpirationDays": 40,
+  "pushNotificationIds": {
+    "levelQuestionsAway": "672280e3c005bf262da0fc32",
+    "levelBrandsAway": "672281aec005bf262da0fc33",
+    "brandProductOpinion": "67228212c005bf262da0fc34",
+    "comeBack": "6722822cc005bf262da0fc35",
+    "missingOut": "67228240c005bf262da0fc36",
+    "dealsExpiring": "67228255c005bf262da0fc37",
+    "newForYouBrands": "6722826ec005bf262da0fc38"
+  },
+  "ageQuestionId": "66bb764e0a7b3e2061d61bb4",
+  "deleteForbiddenIds": [
+    "668ea239b6285f9fad903fda",
+    "66e4255f018a80846e5ea67b",
+    "668ea239b6285f9fad903fdc",
+    "668ea239b6285f9fad903fdd",
+    "66ca5cce84372ef3340ad191",
+    "669011ba6e2df4aade6820d8",
+    "659011ba6e2df4aade7820d8",
+    "65e325789d254f982b121c01",
+    "65e325789d254f982b121c02",
+    "66fc10a39aec02b59ddaafe4",
+    "66fc110b9aec02b59ddaafe5",
+    "66fc11579aec02b59ddaafe6",
+    "66fc117b9aec02b59ddaafe7",
+    "64a8953307235edccf8e488f",
+    "672280e3c005bf262da0fc32",
+    "672281aec005bf262da0fc33",
+    "67228212c005bf262da0fc34",
+    "6722822cc005bf262da0fc35",
+    "67228240c005bf262da0fc36",
+    "67228255c005bf262da0fc37",
+    "6722826ec005bf262da0fc38",
+    "66bb764e0a7b3e2061d61bb4"
+  ],
+  "authentication": {
+    "entity": "user",
+    "service": "users",
+    "secret": "",
+    "authStrategies": ["auth0", "jwt", "local"],
+    "jwtOptions": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "",
+      "algorithm": "RS256",
+      "expiresIn": "1d"
+    },
+    "local": {
+      "usernameField": "email",
+      "passwordField": "password"
+    },
+    "oauth": {
+      "auth0": {
+        "entityId": "_id",
+        "key": "",
+        "secret": "",
+        "subdomain": "",
+        "domain": "",
+        "scope": ["openid", "profile", "email"]
+      }
+    }
+  }
+}

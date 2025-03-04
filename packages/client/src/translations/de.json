@@ -1,0 +1,346 @@
+{
+  "welcome": {
+    "logIn": "Anmelden",
+    "signUp": "Registrieren",
+    "createAccount": "Konto erstellen",
+    "continueWith": "fortfahren mit",
+    "termsText": "Durch die weitere Nutzung stimmst du unseren AGB und Datenschutzrichtlinien zu",
+    "introTitle": "Es gibt so viel, das wir dir zeigen möchten — aber wo sollen wir anfangen?",
+    "introDescription": "Sag uns, was dir gefällt, und wir verbinden dich mit Marken, die zu deinen Werten, Interessen und Bedürfnissen passen.",
+    "getStarted": "Los geht's"
+  },
+  "warning": {
+    "title": "Zeit für ein Update!",
+    "subtitle": "Entsperre neue Funktionen und eine bessere Nutzererfahrung durch ein App-Update",
+    "button": "App aktualisieren",
+    "currentVersion": "Aktuelle Version",
+    "latestVersion": "Neueste Version"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "logout": "Abmelden",
+    "delete": "Konto löschen",
+    "hello": "Hallo",
+    "notifications": {
+      "title": "Benachrichtigungen",
+      "description": "ledge möchte dich über neue Marken in deinem 'Für Dich'-Bereich und andere ledge-bezogene Neuigkeiten informieren.",
+      "enableTitle": "Benachrichtigungen in den Einstellungen aktivieren",
+      "enableDescription": "Um Benachrichtigungen zu aktivieren, musst du in die Einstellungen deines Geräts gehen und Benachrichtigungen für die ledge-App erlauben."
+    },
+    "changeEmail": {
+      "title": "E-Mail ändern",
+      "menuTitle": "Ändere deine E-Mail",
+      "inputs": {
+        "oldEmail": "Deine alte E-Mail",
+        "newEmail": "Deine neue E-Mail",
+        "placeholder": "Gib hier deine E-Mail ein"
+      },
+      "verificationMessage": "Wir haben dir eine Bestätigungs-E-Mail an deine neue E-Mail-Adresse geschickt. Bitte bestätige deine neue E-Mail-Adresse, damit die Änderung wirksam wird.",
+      "continue": "OK"
+    },
+    "changePassword": {
+      "title": "Passwort ändern",
+      "menuTitle": "Ändere dein Passwort"
+    },
+    "language": {
+      "title": "Sprache",
+      "description": "Für die beste Erfahrung nutze bitte die englische Version. Unsere deutsche Version ist noch in der Beta-Phase.",
+      "menuTitle": "Sprache ändern"
+    },
+    "shoppingFor": {
+      "title": "Für wen kaufst du ein?",
+      "description": "Hier kannst du die Vorfilter für deinen 'Für Dich'-Bereich anpassen.",
+      "menuTitle": "Für wen kaufst du ein?"
+    },
+    "shoppingFrom": {
+      "title": "Wo kaufst du ein?",
+      "description": "Hier kannst du die Vorfilter für deinen 'Für Dich'-Bereich anpassen.",
+      "menuTitle": "Wo kaufst du ein?"
+    },
+    "myDataView": {
+      "title": "Was passiert mit meinen Daten?",
+      "description": "Erfahre hier mehr über unsere besonderen Anstrengungen zum Schutz deiner Daten.",
+      "benefitsList": {
+        "collect": "Genug von Werbung? Wir verstehen dich!",
+        "description": "Wir arbeiten mit vertrauenswürdigen Partnern zusammen, um dir echte Lösungen zu bieten. Minimiere deine Werbe- und Datenexposition im Web und genieße mit jedem neuen Level mehr werbefreie Inhalte in hoher Qualität.",
+        "ready": "Bereit zur Erfassung",
+        "soon": "Bald verfügbar"
+      }
+    },
+    "myDataDeletedBrands": {
+      "header": "Gelöschte Marken",
+      "title": "Wo sind meine gelöschten Marken?",
+      "description": "Hier kannst du über deine vergangenen Entscheidungen nachdenken und deine gelöschten Marken wiederherstellen.",
+      "benefitsList": {
+        "collect": "Genug von Werbung? Wir verstehen dich!",
+        "description": "Wir arbeiten mit vertrauenswürdigen Partnern zusammen, um dir echte Lösungen zu bieten. Minimiere deine Werbe- und Datenexposition im Web und genieße mit jedem neuen Level mehr werbefreie Inhalte in hoher Qualität.",
+        "ready": "Bereit zur Erfassung",
+        "soon": "Bald verfügbar"
+      }
+    },
+    "deleteData": {
+      "title": "Alle meine Daten löschen",
+      "description": "Hier kannst du alle deine Daten löschen.",
+      "menuTitle": "Bist du sicher, dass du deine Daten löschen möchtest?",
+      "menuDescription": "Dieser Schritt kann nicht rückgängig gemacht werden. Alle deine Daten werden dauerhaft von unseren Servern gelöscht, ohne Möglichkeit zur Wiederherstellung.",
+      "confirm": "Ja, ich bin mir sicher!",
+      "cancel": "Nein, zurück!"
+    },
+    "confirm": "Bestätigen",
+    "restore": "Wiederherstellen",
+    "restoreAll": "Alle wiederherstellen",
+    "noBrandsToRestore": "Keine Marken zum Wiederherstellen",
+    "logOut": "Abmelden"
+  },
+  "explore": {
+    "forYou": "Für Dich",
+    "browse": "Entdecken",
+    "browse": "Durchsuchen",
+    "adventCalendar": "Adventskalender",
+    "swipeUp": "Nach oben wischen für mehr"
+  },
+  "myBrands": {
+    "myFavourites": "Meine Favoriten",
+    "myDeals": "Meine Angebote",
+    "interactionLabels": {
+      "feedback": "Teile dein Feedback",
+      "redeem": "Angebot einlösen",
+      "update": "Neue Updates",
+      "daysLeft": "Tage übrig"
+    },
+    "pitch": {
+      "adventCalendar": {
+        "didWin": {
+          "title": "Glückwunsch!",
+          "subtitle": "Du hast ein kostenloses Geschenk aus unserem Adventskalender freigeschaltet. Viel Spaß mit deiner Belohnung!"
+        },
+        "didNotWin": {
+          "title": "Danke dir!",
+          "subtitle": "Du hast das heutige spezielle Weihnachtsangebot knapp verpasst, aber keine Sorge — unser Willkommensangebot wartet immer noch auf dich, und du kannst es morgen wieder versuchen!"
+        }
+      }
+    }
+  },
+  "myData": {
+    "myData": "Meine Daten",
+    "myBenefits": "Meine Vorteile"
+  },
+  "questionnaire": {
+    "title": "Fragebogen"
+  },
+  "screens": {
+    "loading": {
+      "message": "Personalisiere deine Erfahrung"
+    },
+    "welcome": {
+      "title": "Willkommen!",
+      "titleBack": "Willkommen zurück!",
+      "subtitle": "Um deine Erfahrung zu personalisieren, würden wir gerne ein paar Dinge über dich als Konsument erfahren.",
+      "subtitleBack": "Hast du eine Minute für eine kurze Frage?",
+      "info": "Erfahre hier mehr über unsere besonderen Anstrengungen zum Schutz deiner Daten.",
+      "skip": "Überspringen",
+      "next": "Klar"
+    },
+    "thankYou": {
+      "title": "Danke dir!",
+      "subtitle": "So können wir deine Erfahrung personalisieren.",
+      "subtitleFounder": "Das hilft unseren Gründern, mehr über ihre Zielgruppe zu erfahren und ihre Produkte zu verbessern."
+    },
+    "pendingInteraction": {
+      "title": "Hey!",
+      "subtitle": "Du hast eine ausstehende Interaktion mit einer Marke. Möchtest du fortfahren?",
+      "skip": "Zum Markenprofil",
+      "next": "Weiter"
+    }
+  },
+  "levelAnimation": {
+    "title": "Glückwunsch! Du hast einen neuen Rang erreicht!"
+  },
+  "brandProfile": {
+    "thankYou": {
+      "title": "Danke!"
+    },
+    "adventCalendarDealTitle": "Glückwunsch",
+    "adventCalendarDealSubtitle": "Du hast ein kostenloses Geschenk aus unserem Adventskalender freigeschaltet. Lege einfach 'Produktname' in deinen Warenkorb und wende den Code beim Checkout an!",
+    "allProducts": "Alle Produkte ansehen",
+    "divider": {
+      "about": "Über uns",
+      "advocates": "Was sagen unsere Fürsprecher",
+      "products": "Produkte"
+    },
+    "dropus": "Schreib uns",
+    "deals": {
+      "buttons": {
+        "redeem": "Dein Angebot einlösen",
+        "connect": "Verbinden",
+        "copy": "Rabattcode kopieren",
+        "charityRedeem": "Jetzt spenden"
+      },
+      "locked": {
+        "title": "Hey du!",
+        "description": "Schau dir unser Markenprofil an und wenn es dich interessiert, verbinde dich mit mir für ein exklusives Angebot"
+      },
+      "unlocked": {
+        "title": "Danke dir!",
+        "description": "Um dein Angebot einzulösen, kopiere den Code in deine Zwischenablage, gehe zu unserem Webshop und gib den Code beim Checkout ein"
+      }
+    },
+    "popUps": {
+      "added": "Zu deinen Favoriten hinzugefügt!",
+      "removed": "Aus deinen Favoriten entfernt",
+      "copied": "In die Zwischenablage kopiert"
+    },
+    "redeem": "Einlösen",
+    "feedback": "Feedback",
+    "noUsersfeedback": "Es gibt noch kein Feedback von Nutzern :c",
+    "feedbackModal": {
+      "title": "Hast du weiteres Feedback?",
+      "placeholder": "Schreib dein Feedback hier",
+      "email": "Füge deine E-Mail hinzu, wenn du eine Antwort möchtest",
+      "send": "Senden"
+    },
+    "productModal": {
+      "readMore": "Mehr lesen",
+      "readLess": "Weniger anzeigen"
+    }
+  },
+  "extras": {
+    "About": "Über uns",
+    "byCategory": "Nach Kategorie",
+    "byQuestionnaire": "Nach Fragebogen"
+  },
+  "answers": {
+    "newQuestions": "Neue Fragen"
+  },
+  "pitch": {
+    "questions": {
+      "questionnaireError": "Beim Laden des Fragebogens ist ein Fehler aufgetreten :(",
+      "explore": "Zur Entdecken-Seite"
+    },
+    "progressbar": {
+      "feedbackfor": "Feedback für"
+    },
+    "thankYou": {
+      "title": "Danke dir!",
+      "subtitle": "Dein Feedback hilft uns, unsere Marke und Produkte zu verbessern.",
+      "learn": "Erfahre hier mehr über unsere besonderen Anstrengungen zum Schutz deiner Daten."
+    }
+  },
+  "poolRefil": {
+    "noMoreTitle": "Keine weiteren Marken für dich verfügbar",
+    "noMoreSubtitle": "Mach eine Pause. Wir informieren dich, sobald neue Marken verfügbar sind."
+  },
+  "termsAndConditions": {
+    "start": "Bevor wir beginnen, musst du unsere",
+    "terms": "Allgemeinen Geschäftsbedingungen",
+    "agree": "Ich stimme zu"
+  },
+  "tutorials": {
+    "forYou": {
+      "firstTitle": "Wische",
+      "secondTitle": "nach oben",
+      "thirdTitle": "um zur nächsten Marke zu gelangen"
+    }
+  },
+  "letsTalk": {
+    "news": {
+      "uptodate": "Du bist auf dem neuesten Stand",
+      "tabName": "Neuigkeiten"
+    },
+    "connect": {
+      "tabName": "Verbinden",
+      "question": "Hast du weiteres Feedback oder Fragen?",
+      "feedbackPlaceholder": "Schreib deine Antwort",
+      "addEmail": "Füge deine E-Mail hinzu, wenn du eine Antwort möchtest",
+      "emailPlaceholder": "E-Mail hier eingeben",
+      "send": "Senden",
+      "thankYou": "Danke dir!",
+      "otherFeedback": "Was andere Nutzer sagen",
+      "moreFeedback": "Schreib uns"
+    }
+  },
+  "productFeedback": {
+    "title": "Feedback",
+    "welcomeSubtitle": "Es ist zwei Wochen her, seit du eines unserer Produkte gekauft hast",
+    "nextButton": "Feedback geben"
+  },
+  "languageQuestion": {
+    "button": "Starte Marken zu erkunden"
+  },
+  "errorOverlays": {
+    "title": "Ups! Etwas ist schiefgelaufen",
+    "errors": {
+      "default": {
+        "errorMessage": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es erneut",
+        "actionText": "Erneut versuchen"
+      },
+      "unauthorizedError": {
+        "errorMessage": "Du bist nicht berechtigt, auf diese Ressource zuzugreifen",
+        "actionText": "Anmelden"
+      },
+      "forbiddenError": {
+        "errorMessage": "Zugriff verweigert. Du hast keine Berechtigung für diese Ressource"
+      },
+      "notFoundError": {
+        "errorMessage": "Die angeforderte Ressource wurde nicht gefunden"
+      },
+      "serverError": {
+        "errorMessage": "Der Server hat einen Fehler festgestellt. Bitte versuche es später erneut"
+      },
+      "authenticationError": {
+        "errorMessage": "Authentifizierung fehlgeschlagen. Bitte melde dich erneut an",
+        "actionText": "Anmelden"
+      },
+      "networkError": {
+        "errorMessage": "Keine Verbindung zum Server möglich. Bitte überprüfe deine Internetverbindung"
+      }
+    }
+  },
+  "sidebar": {
+    "welcome": "Willkommen",
+    "settings": "Einstellungen"
+  },
+  "questions": {
+    "next": "Weiter",
+    "back": "Zurück",
+    "finish": "Fertig"
+  },
+  "brandList": {
+    "sortBy": "Sortieren nach",
+    "sortLatest": "Neueste",
+    "sortTimeLeft": "Verbleibende Zeit",
+    "categories": "Kategorien",
+    "filterOptions": "Filter",
+    "closeBy": "In der Nähe"
+  },
+  "noDataWarning": {
+    "myBrands": {
+      "title": "Bereit für ein Abenteuer?",
+      "subtitle": "Schau in der \"Entdecken\"-Sektion vorbei und verbinde dich mit unseren Gründern!",
+      "button": "Bring mich hin"
+    },
+    "forYou": {
+      "title": "Du hast alle deine persönlichen Favoriten verbunden!",
+      "subtitle": "Mach stattdessen einen Spaziergang oder wische durch weitere Kategorien.",
+      "button": "Wischen"
+    },
+    "browse": {
+      "title": "Keine weiteren Marken zu entdecken",
+      "subtitle": "Mach eine Pause und geh stattdessen spazieren. Wir informieren dich, sobald neue Marken verfügbar sind."
+    }
+  },
+  "friends": {
+    "invite": {
+      "title": "ledge ist besser mit Freunden",
+      "subtitle": "Wir haben dich mit unseren Gründern, Vali & Zachi, verbunden, damit du direkt loslegen kannst! Du wirst ihre Lieblingsmarken & Erkenntnisse in deinem Feed sehen. Füge weitere Freunde hinzu, um deine Erfahrung noch besser zu machen!",
+      "shareCode": "Teile deinen Freundescode",
+      "startExploring": "Starte mit der Erkundung"
+    }
+  },
+  "profile": {
+    "setup": {
+      "title": "Vervollständige dein Profil!",
+      "subtitle": "Wir haben deinen Namen und Wohnort bereits ausgefüllt und auch zufällig einen Avatar ausgewählt. Du kannst diese Angaben gerne anpassen."
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "Windows": {
+    "pros": ["Compatible with most anti malware softwares"],
+    "automaticUpdatesLink": "https://support.microsoft.com/en-au/topic/how-to-change-your-automatic-updates-settings-by-using-windows-security-center-804009cd-7931-fc07-5ada-6b157a854201"
+  },
+  "MacOS": {
+    "pros": ["Compatible with most anti malware softwares"],
+    "automaticUpdatesLink": "https://support.apple.com/guide/mac-help/keep-your-mac-up-to-date-mchlpx1065/mac"
+  },
+  "ChromeOS": {
+    "pros": [
+      "Compatible with most anti malware softwares",
+      "Automatic updates cannot be turned on"
+    ],
+    "automaticUpdatesLink": "https://support.google.com/chrome/a/answer/3168106?hl=en"
+  }
+}

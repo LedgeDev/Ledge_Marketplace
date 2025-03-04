@@ -1,0 +1,16 @@
+{
+  "authentication": {
+    "secret": "AUTHENTICATION_SECRET",
+    "jwtOptions": {
+      "audience": "AUTH0_AUDIENCE"
+    },
+    "oauth": {
+      "auth0": {
+        "key": "AUTH0_KEY",
+        "secret": "AUTH0_SECRET",
+        "subdomain": "AUTH0_SUBDOMAIN",
+        "domain": "AUTH0_DOMAIN"
+      }
+    }
+  }
+}

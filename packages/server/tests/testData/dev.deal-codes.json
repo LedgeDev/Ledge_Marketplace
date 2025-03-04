@@ -1,0 +1,90 @@
+[{
+  "_id": {
+    "$oid": "66cd29c6860928989490ff52"
+  },
+  "code": "",
+  "userId": null,
+  "isUsed": false,
+  "createdAt": {
+    "$date": "2024-08-27T01:20:06.430Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T01:20:06.430Z"
+  },
+  "groupId": {
+    "$oid": "6711d00b13ebb37c5ae6dcf0"
+  },
+  "description": "Discount coming soon"
+},
+{
+  "_id": {
+    "$oid": "66cd29c6860928989490ff63"
+  },
+  "code": "",
+  "userId": null,
+  "isUsed": false,
+  "createdAt": {
+    "$date": "2024-08-27T01:20:06.430Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T01:20:06.430Z"
+  },
+  "groupId": {
+    "$oid": "6711d00b13ebb37c5ae6dcf0"
+  },
+  "description": "Discount coming soon"
+},
+{
+  "_id": {
+    "$oid": "66cd29c6860928989490ff64"
+  },
+  "code": "",
+  "userId": null,
+  "isUsed": false,
+  "createdAt": {
+    "$date": "2024-08-27T01:20:06.430Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T01:20:06.430Z"
+  },
+  "groupId": {
+    "$oid": "6711d00b13ebb37c5ae6dcf0"
+  },
+  "description": "Discount coming soon"
+},
+{
+  "_id": {
+    "$oid": "66cd29c6860928989490ff76"
+  },
+  "code": "",
+  "userId": null,
+  "isUsed": false,
+  "createdAt": {
+    "$date": "2024-08-27T01:20:06.430Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T01:20:06.430Z"
+  },
+  "groupId": {
+    "$oid": "6711d00b13ebb37c5ae6dcf0"
+  },
+  "description": "Discount coming soon"
+},
+{
+  "_id": {
+    "$oid": "66cd29c6860928989490ff79"
+  },
+  "code": "",
+  "userId": null,
+  "isUsed": false,
+  "createdAt": {
+    "$date": "2024-08-27T01:20:06.430Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-27T01:20:06.430Z"
+  },
+  "groupId": {
+    "$oid": "6711d00b13ebb37c5ae6dcf0"
+  },
+  "description": "Discount coming soon"
+}]

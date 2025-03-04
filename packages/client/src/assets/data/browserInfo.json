@@ -1,0 +1,81 @@
+{
+  "Safari": {
+    "pros": [
+      "Prevents cross-site tracking by default",
+      "Has a built-in ad blocker that partially blocks pop-ups",
+      "Has a built-in relatively secure password manager"
+    ],
+    "cons": [
+      "Not open source",
+      "Has limited extensions and customization options for your privacy"
+    ],
+    "securitySteps": [
+      {
+        "message": "Reclaim your browsing freedom: Block ads and trackers!",
+        "buttonText": "Here is how to do it for Safari",
+        "buttonUrl": "https://support.apple.com/en-am/guide/safari/sfri35610/11.0/mac/10.13"
+      }
+    ]
+  },
+  "Chrome": {
+    "pros": [
+      "Has a large extension library, including privacy-focused add-ons",
+      "Updates frequently for security patches"
+    ],
+    "cons": [
+      "Defaults to tracking and profiling users",
+      "Only allows to opt-out of cross-site tracking",
+      "Is owned by google, raising concerns about data collection"
+    ],
+    "securitySteps": [
+      {
+        "message": "Reclaim your browsing freedom: Block ads and trackers!",
+        "buttonText": "Here is how to do it for Chrome",
+        "buttonUrl": "https://support.google.com/chrome/answer/13355898?sjid=10542478650115445283-EU"
+      }
+    ]
+  },
+  "Brave": {
+    "pros": [
+      "Blocks all ads and trackers by default",
+      "Focuses on privacy and speed",
+      "Is completely open source",
+      "Offers basic attention token for opting into ads and rewarding users"
+    ],
+    "cons": ["Has a smaller user base"],
+    "securitySteps": []
+  },
+  "Firefox": {
+    "pros": [
+      "Prevents cross-site tracking by default",
+      "Has highly customizable privacy settings",
+      "Is completely open source"
+    ],
+    "cons": ["Requires extensions to block ads & trackers"],
+    "securitySteps": [
+      {
+        "message": "Reclaim your browsing freedom: Block ads and trackers!",
+        "buttonText": "Here is how to do it for Firefox",
+        "buttonUrl": "https://support.mozilla.org/en-US/kb/recommended-firefox-privacy-and-security-settings-families#:~:text=In%20the%20Menu%20bar%20at,to%20the%20Privacy%20%26%20Security%20panel"
+      }
+    ]
+  },
+  "Edge": {
+    "pros": [
+      "Has an in-built tracking protection feature",
+      "Offers tracking prevention that blocks known trackers"
+    ],
+    "cons": [
+      "Has default settings that do not enable all privacy features",
+      "Only allows to partially opt-out of cross-site tracking",
+      "Is owned by Microsoft, raising concerns about data collection"
+    ],
+    "securitySteps": [
+      {
+        "message": "Reclaim your browsing freedom: Block ads and trackers!",
+        "buttonText": "Here is how to do it for Edge",
+        "buttonUrl": "https://support.microsoft.com/en-au/topic/adjust-privacy-settings-in-microsoft-edge-600ee799-081c-4ab7-b6c2-d8a9baeda3c4"
+      }
+    ]
+  }
+}

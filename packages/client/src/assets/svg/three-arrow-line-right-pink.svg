@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="15" viewBox="0 0 800 15" fill="none">
+  <!-- Flecha a la izquierda -->
+  <path d="M1 13.3669L7 7.36694L1 1.36694" stroke="#F2C2C3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(390 0)"/>
+
+  <!-- Flecha al medio, se traslada 400 unidades a la derecha -->
+  <path d="M1 13.3669L7 7.36694L1 1.36694" stroke="#F2C2C3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(400 0)"/>
+
+  <!-- Flecha a la derecha, se traslada 800 unidades a la derecha -->
+  <path d="M1 13.3669L7 7.36694L1 1.36694" stroke="#F2C2C3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(410 0)"/>
+</svg>
+

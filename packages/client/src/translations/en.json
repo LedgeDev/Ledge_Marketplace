@@ -1,0 +1,345 @@
+{
+  "welcome": {
+    "logIn": "Login",
+    "createAccount": "Create account",
+    "continueWith": "continue with",
+    "termsText": "By continuing, you agree to our Terms & Conditions and Privacy Policy",
+    "introTitle": "There's so much we want to show you — but where should we start?",
+    "introDescription": "Tell us what you like, and we'll connect you with brands that match your values, interests, and needs.",
+    "getStarted": "Get started"
+  },
+  "warning": {
+    "title": "Time for an update!",
+    "subtitle": "Unlock new features and a smoother experience by updating your app",
+    "button": "Update App",
+    "currentVersion": "Current Version",
+    "latestVersion": "Latest Version"
+  },
+  "settings": {
+    "title": "Settings",
+    "logout": "Log Out",
+    "delete": "Delete Account",
+    "hello": "Hello",
+    "notifications": {
+      "title": "Notifications",
+      "description": "ledge would like to keep you updated about new brands in your 'For You' section and other ledge-related news.",
+      "enableTitle": "Enable notifications from settings",
+      "enableDescription": "To enable notifications, you must go to your device settings and allow notifications for the ledge app."
+    },
+    "changeEmail": {
+      "title": "Change Email",
+      "menuTitle": "Change your email",
+      "inputs": {
+        "oldEmail": "Your old email",
+        "newEmail": "Your new email",
+        "placeholder": "Enter your email here"
+      },
+      "verificationMessage": "We've sent you a verification email to your new email address. Please verify your new email address to make the change effective.",
+      "continue": "OK"
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "menuTitle": "Change your password"
+    },
+    "language": {
+      "title": "Language",
+      "description": "For the best experience, use the English version. Our German version is still in beta.",
+      "menuTitle": "Change the language"
+    },
+    "shoppingFor": {
+      "title": "Who are you shopping for?",
+      "description": "You can adjust the preliminary filters for your 'For You' section here.",
+      "menuTitle": "Who are you shopping for?"
+    },
+    "shoppingFrom": {
+      "title": "Where are you shopping from?",
+      "description": "You can adjust the preliminary filters for your 'For You' section here.",
+      "menuTitle": "Where are you shopping from?"
+    },
+    "myDataView": {
+      "title": "What happens to my data?",
+      "description": "Learn more about our exceptional efforts to safeguard your data here.",
+      "benefitsList" :{
+        "collect": "Tired of ads? We hear you!",
+        "description":"We've teamed up with trusted partners to bring you real solutions. Minimize your ad and data exposure across the web and enjoy with each new level more high-quality, ad-free content.",
+        "ready":"Ready to be collected",
+        "soon": "Soon to be collected"
+      }
+    },
+    "myDataDeletedBrands": {
+      "header": "Deleted Brands",
+      "title": "Where are my deleted brands?",
+      "description": "Here you can reflect on your past decisions and restore your deleted brands.",
+      "benefitsList" :{
+        "collect": "Tired of ads? We hear you!",
+        "description":"We've teamed up with trusted partners to bring you real solutions. Minimize your ad and data exposure across the web and enjoy with each new level more high-quality, ad-free content.",
+        "ready":"Ready to be collected",
+        "soon": "Soon to be collected"
+      }
+    },
+    "deleteData": {
+      "title": "Delete all my data",
+      "description": "You can delete all your data here.",
+      "menuTitle": "Are you sure you want to delete your data?",
+      "menuDescription": "This step can not be undone. All your data will be permanently deleted from our servers with no way to restore it.",
+      "confirm": "Yes, I'm sure!",
+      "cancel": "No, take me back!"
+    },
+    "confirm": "Confirm",
+    "restore": "Restore",
+    "restoreAll": "Restore all",
+    "noBrandsToRestore": "No brands to restore",
+    "logOut": "Log Out"
+  },
+  "explore": {
+    "forYou": "For You",
+    "browse": "Browse",
+    "browse": "Browse",
+    "adventCalendar": "Advent Calendar",
+    "swipeUp": "Swipe up for more"
+  },
+  "myBrands": {
+    "myFavourites": "My Favourites",
+    "myDeals": "My Deals",
+    "interactionLabels": {
+      "feedback": "Share your feedback",
+      "redeem": "Redeem your deal",
+      "update": "New updates",
+      "daysLeft": "days left"
+    },
+    "pitch": {
+      "adventCalendar": {
+        "didWin": {
+          "title": "Congratulations!",
+          "subtitle": "You've unlocked a free gift from our Christmas calendar. Enjoy your reward!"
+        },
+        "didNotWin": {
+          "title": "Thank you!",
+          "subtitle": "You just missed today's special Christmas deal, but don't worry — our welcome offer is still waiting for you, and you can try again tomorrow!"
+        }
+      }
+    }
+  },
+  "myData": {
+    "myData": "My Data",
+    "myBenefits": "My Benefits"
+  },
+  "questionnaire": {
+    "title": "Questionnaire"
+  },
+  "screens": {
+    "loading": {
+      "message": "Personalizing your experience"
+    },
+    "welcome": {
+      "title": "Welcome!",
+      "titleBack": "Welcome back!",
+      "subtitle": "To personalize your experience, we would like to know a few things about you as a consumer.",
+      "subtitleBack": "Do you have a minute for a quick question?",
+      "info": "Learn more about our exceptional efforts to safeguard your data here.",
+      "skip": "Skip",
+      "next": "Sure"
+    },
+    "thankYou": {
+      "title": "Thank you!",
+      "subtitle": "This way we can personalize your experience.",
+      "subtitleFounder": "This will help our founders learn more about their audience and improve their products. "
+    },
+    "pendingInteraction": {
+      "title": "Hey there!",
+      "subtitle": "You have a pending interaction with a brand. Would you like to continue?",
+      "skip": "Take me to the brand profile",
+      "next": "Continue"
+    }
+  },
+  "levelAnimation": {
+    "title": "Congratulations! You've reached a new rank!"
+  },
+  "brandProfile": {
+    "thankYou": {
+      "title": "Thanks!"
+    },
+    "adventCalendarDealTitle": "Congratulations",
+    "adventCalendarDealSubtitle": "You've unlocked a free gift from our Christmas calendar. Just put 'product name' in your cart and apply the code at checkout!",
+    "allProducts": "To view all products",
+    "divider":{
+      "about": "About Us",
+      "advocates": "What advocates have to say",
+      "products": "Products"
+    },
+    "dropus": "Drop us a line",
+    "deals" :{
+      "buttons": {
+        "redeem": "Redeem your deal",
+        "connect": "Connect",
+        "copy": "Copy discount code",
+        "charityRedeem": "Donate now"
+      },
+      "locked":{
+        "title": "Hey there!",
+        "description": "Explore our brand profile, and if it interests you, connect with me for an exclusive deal"
+      },
+      "unlocked":{
+        "title": "Thank you!",
+        "description": "To redeem your deal, copy the code to your clipboard, head to our web shop, and enter the code at checkout"
+      }
+    },
+    "popUps" :{
+      "added": "Added to your favourites!",
+      "removed": "Removed from your favourites",
+      "copied": "Copied to clipboard"
+    },
+    "redeem": "Redeem",
+    "feedback": "Feedback",
+    "noUsersfeedback": "There's not feedback from the users yet :c",
+    "feedbackModal" : {
+      "title": "Do you have any additional feedback?",
+      "placeholder": "Write your feedback here",
+      "email": "Add Email if you want a response",
+      "send": "Send"
+    },
+    "productModal": {
+      "readMore": "Read more",
+      "readLess": "Read less"
+    }
+  },
+  "extras": {
+    "About": "About",
+    "byCategory": "By Category",
+    "byQuestionnaire": "By Questionnaire"
+  },
+  "answers":{
+    "newQuestions": "New Questions"
+  },
+  "pitch":{
+    "questions" :{
+      "questionnaireError": "There was an error getting the questionnaire :(",
+      "explore": "Go to Explore"
+    },
+    "progressbar" : {
+      "feedbackfor": "Feedback for"
+    },
+    "thankYou":{
+      "title": "Thank you!",
+      "subtitle": "Your feedback helps us improve our brand and products.",
+      "learn": "Learn more about our exceptional efforts to safeguard your data here."
+    }
+  },
+  "poolRefil":{
+    "noMoreTitle" : "No more brands available for you",
+    "noMoreSubtitle" : "Take a break. We'll update you as soon as new brands are available."
+  },
+  "termsAndConditions" :{
+    "start":"Before we start you need to accept our",
+    "terms":"Terms and Conditions",
+    "agree":"I agree"
+  },
+  "tutorials": {
+    "forYou": {
+      "firstTitle": "Swipe",
+      "secondTitle": "up",
+      "thirdTitle": "to get to the next brand"
+    }
+  },
+  "letsTalk": {
+    "news": {
+      "uptodate": "You're up to date",
+      "tabName": "News"
+    },
+    "connect": {
+      "tabName": "Connect",
+      "question": "Do you have any additional feedback or questions?",
+      "feedbackPlaceholder": "Type your answer",
+      "addEmail": "Add Email if you want a response",
+      "emailPlaceholder": "Enter email here",
+      "send": "Send",
+      "thankYou": "Thank you!",
+      "otherFeedback": "What other users have to say",
+      "moreFeedback": "Drop us a line"
+    }
+  },
+  "productFeedback": {
+    "title": "Feedback",
+    "welcomeSubtitle": "It's been two weeks since you bought one of our products",
+    "nextButton": "Give feedback"
+  },
+  "languageQuestion": {
+    "button": "Start exploring brands"
+  },
+  "errorOverlays": {
+    "title": "Oops! Something went wrong",
+    "errors": {
+      "default": {
+        "errorMessage": "An unexpected error occurred. Please try again",
+        "actionText": "Try again"
+      },
+      "unauthorizedError": {
+        "errorMessage": "You are not authorized to access this resource",
+        "actionText": "Log in"
+      },
+      "forbiddenError": {
+        "errorMessage": "Access forbidden. You don't have permission to access this resource"
+      },
+      "notFoundError": {
+        "errorMessage": "The requested resource was not found"
+      },
+      "serverError": {
+        "errorMessage": "The server encountered an error. Please try again later"
+      },
+      "authenticationError": {
+        "errorMessage": "Authentication failed. Please log in again",
+        "actionText": "Log in"
+      },
+      "networkError": {
+        "errorMessage": "Unable to connect to the server. Please check your internet connection"
+      }
+    }
+  },
+  "sidebar": {
+    "welcome": "Welcome",
+    "settings": "Settings"
+  },
+  "questions": {
+    "next": "Next",
+    "back": "Back",
+    "finish": "Finish"
+  },
+  "brandList": {
+    "sortBy": "Sort by",
+    "sortLatest": "Latest",
+    "sortTimeLeft": "Time left",
+    "categories": "Categories",
+    "filterOptions": "Filters",
+    "closeBy": "Close by"
+  },
+  "noDataWarning": {
+    "myBrands": {
+      "title": "Ready for an Adventure?",
+      "subtitle": "Head over to the \"Explore\" section and connect with our founders!",
+      "button": "Take me there"
+    },
+    "forYou": {
+      "title": "You've connected with all your personal picks!",
+      "subtitle": "Go for a walk instead, or swipe through more categories.",
+      "button": "Swipe"
+    },
+    "browse": {
+      "title": "No more brands to explore",
+      "subtitle": "Take a break and go for a walk instead. We'll update you as soon as new brands are available."
+    }
+  },
+  "friends": {
+    "invite": {
+      "title": "ledge is better with friends",
+      "subtitle": "We've connected you with our founders, Vali & Zachi, to get you started! You'll see their favorite brands & insights in your feed. Add more friends to make your experience even better!",
+      "shareCode": "Share Your Friend Code",
+      "startExploring": "Start Exploring"
+    }
+  },
+  "profile": {
+    "setup": {
+      "title": "Finish your Profile!",
+      "subtitle": "We've pre-filled your name and home and also randomly picked an Avatar. Feel free to adjust."
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "expo": {
+    "name": "ledge",
+    "slug": "ledge",
+    "version": "3.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/images/app-icon.png",
+    "userInterfaceStyle": "light",
+    "scheme": "ledge",
+    "splash": {
+      "image": "./src/assets/images/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "bundleIdentifier": "eu.ledge.app",
+      "associatedDomains": [
+        "applinks:www.ledge.com"
+      ],
+      "appleTeamId": "CL4D5V3TYC"
+    },
+    "android": {
+      "package": "eu.ledge.app",
+      "softwareKeyboardLayoutMode": "pan",
+      "icon": "./src/assets/images/app-icon.png",
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/images/app-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./src/assets/logos/logo_blue.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "./withCustomConfig.js",
+      [
+        "react-native-auth0",
+        {
+          "domain": "dev-ledge-vzujjdgrqa658b2ba.eu.auth0.com"
+        }
+      ],
+      "expo-font",
+      "expo-secure-store",
+      "expo-localization",
+      "expo-notifications",
+      "expo-video"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e2870b08-c217-4f38-990d-5e01b1951bdc"
+      }
+    },
+    "owner": "ledgeug",
+    "androidNavigationBar": {
+      "backgroundColor": "#F3CCCC",
+      "barStyle": "dark-content"
+    },
+    "newArchEnabled": true
+  }
+}

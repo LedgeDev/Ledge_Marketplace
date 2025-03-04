@@ -1,0 +1,1098 @@
+[{
+  "_id": {
+    "$oid": "67115ae4dbb6c15a9ac75aa9"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6610f4725ad53bea1b991a2b"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:48.112Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:48.112Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae4dbb6c15a9ac75aaa"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "661131ad5ad53bea1b991a62"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:48.320Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:48.320Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae4dbb6c15a9ac75aab"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6613fc925ad53bea1b991aab"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:48.524Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:48.524Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae4dbb6c15a9ac75aac"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "661542f75ad53bea1b991b3f"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:48.706Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:48.706Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae4dbb6c15a9ac75aad"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "661565bd5ad53bea1b991b84"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:48.905Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:48.905Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae5dbb6c15a9ac75aae"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6615782d0895cb7176247622"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:49.121Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:49.121Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae5dbb6c15a9ac75ab0"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6617cf750895cb7176247711"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:49.530Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:49.530Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae5dbb6c15a9ac75ab1"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "661808200895cb7176247764"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:49.747Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:49.747Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae5dbb6c15a9ac75ab2"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6618e6fc0895cb71762477a4"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:49.962Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:49.962Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae6dbb6c15a9ac75ab4"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "66196c9e0895cb717624780b"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:50.399Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:50.399Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae6dbb6c15a9ac75ab5"
+  },
+  "description": {
+    "en": "test description",
+    "de": "dsad"
+  },
+  "brandId": {
+    "$oid": "661fac0ceb3c5c594e3a1d41"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:50.619Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T19:31:27.295Z"
+  },
+  "shortDescription": {
+    "en": "asdasd",
+    "de": "asdas"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae6dbb6c15a9ac75ab6"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6621512c105ecd9cb5d21a9f"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:50.833Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:50.833Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae7dbb6c15a9ac75ab7"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "66215858105ecd9cb5d21aa9"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:51.028Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:51.028Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae7dbb6c15a9ac75ab8"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "662eaa59fe9521f1dabc10e1"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:51.227Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:51.227Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae7dbb6c15a9ac75ab9"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "663ccf15be63082ea1aeb769"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:51.419Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:51.419Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae7dbb6c15a9ac75aba"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6669b5ba831928119f7619ba"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:51.617Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:51.617Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67115ae7dbb6c15a9ac75abb"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "66d1bbec34497918f95eb2ce"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-17T18:43:51.841Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-17T18:43:51.841Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfd6a9c090e49e156436"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "shortDescription": {
+    "en": "test ssssssss",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6610f4725ad53bea1b991a2b"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:46.939Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:46.939Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfd7a9c090e49e156437"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "661131ad5ad53bea1b991a62"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:47.163Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:47.163Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfd7a9c090e49e156438"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6613fc925ad53bea1b991aab"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:47.383Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:47.383Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfd7a9c090e49e156439"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "661542f75ad53bea1b991b3f"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:47.581Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:47.581Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfd7a9c090e49e15643a"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "661565bd5ad53bea1b991b84"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:47.792Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:47.792Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfd8a9c090e49e15643b"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6615782d0895cb7176247622"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:48.013Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:48.013Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfd8a9c090e49e15643d"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6617cf750895cb7176247711"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:48.434Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:48.434Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfd8a9c090e49e15643e"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "661808200895cb7176247764"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:48.645Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:48.645Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfd8a9c090e49e15643f"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6618e6fc0895cb71762477a4"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:48.864Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:48.864Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfd9a9c090e49e156441"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "66196c9e0895cb717624780b"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:49.295Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:49.295Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfd9a9c090e49e156442"
+  },
+  "description": {
+    "en": "test description",
+    "de": "dsad"
+  },
+  "brandId": {
+    "$oid": "661fac0ceb3c5c594e3a1d41"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:49.508Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:49.508Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfd9a9c090e49e156443"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6621512c105ecd9cb5d21a9f"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:49.734Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:49.734Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfd9a9c090e49e156444"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "66215858105ecd9cb5d21aa9"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:49.968Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:49.968Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfdaa9c090e49e156445"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "662eaa59fe9521f1dabc10e1"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:50.162Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:50.162Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfdaa9c090e49e156446"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "663ccf15be63082ea1aeb769"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:50.365Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:50.365Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfdaa9c090e49e156447"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6669b5ba831928119f7619ba"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:50.577Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:50.577Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711cfdaa9c090e49e156448"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "66d1bbec34497918f95eb2ce"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:02:50.795Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:02:50.795Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711d00a13ebb37c5ae6dcea"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "shortDescription": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6610f4725ad53bea1b991a2b"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:38.392Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:38.392Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00a13ebb37c5ae6dceb"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "661131ad5ad53bea1b991a62"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:38.621Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:38.621Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00a13ebb37c5ae6dcec"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6613fc925ad53bea1b991aab"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:38.876Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:38.876Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00b13ebb37c5ae6dced"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "661542f75ad53bea1b991b3f"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:39.074Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:39.074Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00b13ebb37c5ae6dcee"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "661565bd5ad53bea1b991b84"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:39.291Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:39.291Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00b13ebb37c5ae6dcef"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6615782d0895cb7176247622"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:39.506Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:39.506Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00b13ebb37c5ae6dcf0"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6616c4130895cb717624767f"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:39.710Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:39.710Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00b13ebb37c5ae6dcf1"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6617cf750895cb7176247711"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:39.957Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:39.957Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00c13ebb37c5ae6dcf2"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "661808200895cb7176247764"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:40.173Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:40.173Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00c13ebb37c5ae6dcf3"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6618e6fc0895cb71762477a4"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:40.386Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:40.386Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00c13ebb37c5ae6dcf5"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "66196c9e0895cb717624780b"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:40.821Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:40.821Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00d13ebb37c5ae6dcf7"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6621512c105ecd9cb5d21a9f"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:41.331Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:41.331Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00d13ebb37c5ae6dcf8"
+  },
+  "description": {
+    "en": "quis esse ea cupidatat duis ex esse sunt enim ad excepteur amet proident veniam incididunt et tempor occaecat consectetur mollit pariatur proident qui aute consectetur veniam consectetur hola como est",
+    "de": "enim proident quis est anim veniam dolor aute reprehenderit ad commodo deserunt exercitation aliquip ad id sunt voluptate nostrud qui"
+  },
+  "brandId": {
+    "$oid": "66215858105ecd9cb5d21aa9"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:41.559Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T15:43:17.935Z"
+  },
+  "codesState": "shopifyCvsCodes",
+  "shortDescription": {
+    "en": "consigue tu descuento! 20 off sisis",
+    "de": "short descccccc"
+  }
+},
+{
+  "_id": {
+    "$oid": "6711d00d13ebb37c5ae6dcf9"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "662eaa59fe9521f1dabc10e1"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:41.812Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:41.812Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00e13ebb37c5ae6dcfa"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "663ccf15be63082ea1aeb769"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:42.038Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:42.038Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00e13ebb37c5ae6dcfb"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "6669b5ba831928119f7619ba"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:42.257Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:42.257Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "6711d00e13ebb37c5ae6dcfc"
+  },
+  "description": {
+    "en": "test description",
+    "ge": "Testbeschreibung"
+  },
+  "brandId": {
+    "$oid": "66d1bbec34497918f95eb2ce"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-18T03:03:42.479Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-18T03:03:42.479Z"
+  },
+  "codesState": "shopifyCvsCodes"
+},
+{
+  "_id": {
+    "$oid": "671a62516c6bf8c53040a983"
+  },
+  "description": {
+    "en": "asd",
+    "de": "asd"
+  },
+  "shortDescription": {
+    "en": "asd",
+    "de": "asd"
+  },
+  "codesState": "shopifyCvsCodes",
+  "brandId": {
+    "$oid": "661fac0ceb3c5c594e3a1d41"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-24T15:05:53.287Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-24T15:05:53.287Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "671a630165f4c743c2403cf5"
+  },
+  "description": {
+    "en": "sa",
+    "de": "asasas"
+  },
+  "shortDescription": {
+    "en": "as",
+    "de": "asas"
+  },
+  "codesState": "generalCodes",
+  "brandId": {
+    "$oid": "661941550895cb71762477d4"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-24T15:08:49.990Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-24T15:08:49.990Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "671a633e65f4c743c2403cf7"
+  },
+  "description": {
+    "en": "sa",
+    "de": "asasas"
+  },
+  "shortDescription": {
+    "en": "as",
+    "de": "asas"
+  },
+  "codesState": "shopifyCvsCodes",
+  "brandId": {
+    "$oid": "661941550895cb71762477d4"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-10-24T15:09:50.205Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-24T15:09:50.205Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67244fd9b441ed193ff65374"
+  },
+  "description": {
+    "en": "asdasd",
+    "de": "asdasd"
+  },
+  "shortDescription": {
+    "en": "asdasd",
+    "de": "asdasd"
+  },
+  "codesState": "generalCodes",
+  "brandId": {
+    "$oid": "67244f88b441ed193ff65371"
+  },
+  "generalExpireDate": null,
+  "createdAt": {
+    "$date": "2024-11-01T03:49:45.981Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-01T03:49:45.981Z"
+  }
+}]

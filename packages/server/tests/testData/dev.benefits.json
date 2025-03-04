@@ -1,0 +1,200 @@
+[{
+  "_id": {
+    "$oid": "66c47940fd3ca99b8613b661"
+  },
+  "title": "FAZ+",
+  "subtitle": "First month free with no ads",
+  "description": "The Frankfurter Allgemeine Zeitung is one of the most important national daily and business newspapers. It stands for independence, thoroughly researched facts, precise analysis and intelligent commentary. As one of the most important sources of information, it reaches more than 840,000 readers every day (AWA 2023) - the majority of whom are decision-makers in business, politics and culture. The F.A.Z. also sets standards digitally: with FAZ.NET, numerous apps and podcasts, the first-class quality journalism of the F.A.Z. is available anytime and anywhere.",
+  "logo": {
+    "thumbnail": "ba2cab2d92d2076c9a11e9f0c6fda3c1.png",
+    "medium": "ba2cab2d92d2076c9a11e9f0c6fda3c1.png",
+    "original": "f115b6e0712a5f6f0f2ecc1090db2344.png",
+    "high": "f115b6e0712a5f6f0f2ecc1090db2344.png"
+  },
+  "image": {
+    "thumbnail": "c46de33226997b89f524876811dc9594.png",
+    "medium": "c46de33226997b89f524876811dc9594.png",
+    "original": "c46de33226997b89f524876811dc9594.png",
+    "high": "c46de33226997b89f524876811dc9594.png"
+  },
+  "redeemLink": "https://digitale-angebote.faz.net/start?campID=KOOP-EPs2400001495&product=SC_EBMFMI4UP9W8ZXBB6",
+  "levelId": {
+    "$oid": "6685bf156ecfcafb2ce90cce"
+  },
+  "tags": [
+    "Quality content"
+  ],
+  "createdAt": {
+    "$date": "2024-08-20T11:08:48.342Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-20T11:08:48.342Z"
+  },
+  "code": ""
+},
+{
+  "_id": {
+    "$oid": "66c48542fd3ca99b8613b664"
+  },
+  "title": "FAZ+",
+  "subtitle": "30% discount for one year",
+  "description": "The Frankfurter Allgemeine Zeitung is one of the most important national daily and business newspapers. It stands for independence, thoroughly researched facts, precise analysis and intelligent commentary. As one of the most important sources of information, it reaches more than 840,000 readers every day (AWA 2023) - the majority of whom are decision-makers in business, politics and culture. The F.A.Z. also sets standards digitally: with FAZ.NET, numerous apps and podcasts, the first-class quality journalism of the F.A.Z. is available anytime and anywhere.",
+  "logo": {
+    "thumbnail": "abb2967fbdda1407c441630cad1d16dc.png",
+    "medium": "abb2967fbdda1407c441630cad1d16dc.png",
+    "original": "0a940b7550f4d4b85bad04ea0f6afa2e.png",
+    "high": "0a940b7550f4d4b85bad04ea0f6afa2e.png"
+  },
+  "image": {
+    "thumbnail": "ab76bbedf46c5e4eafe10176c2075b13.png",
+    "medium": "ab76bbedf46c5e4eafe10176c2075b13.png",
+    "original": "ab76bbedf46c5e4eafe10176c2075b13.png",
+    "high": "ab76bbedf46c5e4eafe10176c2075b13.png"
+  },
+  "redeemLink": "https://digitale-angebote.faz.net/login?campID=INT-IPe2300000139",
+  "levelId": {
+    "$oid": "6685bf3b6ecfcafb2ce90cd0"
+  },
+  "tags": [
+    "Quality content"
+  ],
+  "createdAt": {
+    "$date": "2024-08-20T12:00:02.772Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-20T12:00:02.772Z"
+  },
+  "code": ""
+},
+{
+  "_id": {
+    "$oid": "66f43fde7e42b31eed92d526"
+  },
+  "title": "ledge",
+  "subtitle": "Your exclusive ledge Cord Cap!",
+  "description": "Join our movement and grab your exclusive ledge Cord Cap now! With only 1,000 available, these caps are designed for pioneers ready to reshape the way we consume and support young founders on their journey to success. But hey... if you're loving our app but running low on cash, don’t worry—keep exploring! You’ll unlock the chance to claim a cap later on at just production cost. Dive in, stay curious, and become part of something bigger!",
+  "logo": {
+    "thumbnail": "90e262e92e6c3eb53fd8a77ac76228b3.png",
+    "medium": "26bbddd4cbd10cfb72e39783c9202948.png",
+    "high": "35ccb234252281f06f6a60505637123d.png",
+    "original": "c3fba9b61706bd4d3564d377314e12bb.png"
+  },
+  "image": {
+    "thumbnail": "90cbda4afa2af633c01171e6d0699c2d.png",
+    "medium": "5d1fde47c57f916385930ec9c30ebdea.png",
+    "high": "693a42a6a5dacdc0b95e9d76bf31d054.png",
+    "original": "8cd50ab17ea35e56bce0e136710f034c.png"
+  },
+  "redeemLink": "https://f2c70f-db.myshopify.com/products/ledge-cap",
+  "levelId": {
+    "$oid": "6685be3a6ecfcafb2ce90ccd"
+  },
+  "tags": [
+    "ledge"
+  ],
+  "createdAt": {
+    "$date": "2024-09-25T16:52:46.602Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T17:27:52.975Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66f440477e42b31eed92d527"
+  },
+  "title": "ledge",
+  "subtitle": "Our cap at production cost",
+  "description": "You’ve made it to the next level, and now you can claim your exclusive ledge Cord Cap at production cost! It’s our way of saying thank you for being a dedicated explorer and supporting the movement to change how we consume. Keep making an impact—this cap is a symbol of your commitment to innovation and the future of young founders.",
+  "logo": {
+    "thumbnail": "ffb09b24e89076bb847c21316960d04d.png",
+    "medium": "32486d640d6c3c466671211d009b7e64.png",
+    "high": "65913027ae1f04b56430670327575ec1.png",
+    "original": "c6ab4d9497003f89721465ba1effd0ee.png"
+  },
+  "image": {
+    "thumbnail": "5d1970f34d33d764350c50fbb3c7a015.jpg",
+    "medium": "ceb6f1048d0bd52cec9f6ea8081a3df6.jpg",
+    "high": "33b2a6c47fd59ba637b40105e6864c8f.jpg",
+    "original": "85a7754bd6026294ea4da085b65e44e4.jpg"
+  },
+  "redeemLink": "https://f2c70f-db.myshopify.com/products/ledge-cap-with-discount",
+  "levelId": {
+    "$oid": "6685bf4b6ecfcafb2ce90cd1"
+  },
+  "tags": [
+    "ledge"
+  ],
+  "createdAt": {
+    "$date": "2024-09-25T16:54:31.622Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T16:12:09.115Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "670e8d5992f63f5a219c28b7"
+  },
+  "title": "NordVPN",
+  "subtitle": "2 years + 3 months for free",
+  "description": "NordVPN is a leading provider of virtual private network (VPN) services, known for its strong focus on privacy, security, and internet freedom, and also includes a built-in feature to block ads and malicious websites. With over 14 million users worldwide, NordVPN offers advanced encryption, a strict no-logs policy, and access to more than 5,500 servers in 60 countries. This ensures secure and unrestricted browsing, even on public Wi-Fi networks. NordVPN is recognized for its ease of use, speed, and reliable protection against cyber threats. Available across multiple platforms, including apps for mobile, desktop, and browsers, it empowers users to maintain privacy and access content from anywhere, anytime. \n\nWATCH OUT: NordVPN has agreed for better conditons for our users. So you can also wait until we update the offer.",
+  "logo": {
+    "thumbnail": "e66cb08353bed8d29e3cd47bbc0614af.png",
+    "medium": "fd01896e30b973331862d2ea494f2c55.png",
+    "high": "1726bbfa9feeefbadc143c5f286a5d3b.png",
+    "original": "8754923ba26b919cc15701a5feb4f270.png"
+  },
+  "image": {
+    "thumbnail": "6e246419bd76974249840e4f23fef0e4.png",
+    "medium": "c8805c4dcb823eaa7cd3484133b96466.png",
+    "high": "63a8da88173fa3f7a2bbe8ff3f7c8bad.png",
+    "original": "0d98293db8f9db1c0810fb4ffd644012.png"
+  },
+  "redeemLink": "https://nordvpn.com/de/special/?utm_medium=affiliate&utm_term=&utm_content&utm_campaign=off15&utm_source=aff110688",
+  "levelId": {
+    "$oid": "6685bf286ecfcafb2ce90ccf"
+  },
+  "tags": [
+    "NordVPN"
+  ],
+  "createdAt": {
+    "$date": "2024-10-15T15:42:17.805Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T16:10:41.283Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "670e8f4892f63f5a219c28b8"
+  },
+  "title": "NordPass",
+  "subtitle": "2 years + 3 months for free",
+  "description": "NordPass is a password manager developed by the cybersecurity experts behind NordVPN, designed to ensure secure and effortless password storage and management. It uses advanced encryption to safeguard passwords, credit card details, and other sensitive information, while also providing a password generator for creating strong and unique passwords. NordPass allows users to access their passwords on any device, automatically fill in login details, and securely share passwords with trusted individuals. Its zero-knowledge architecture ensures that only the user can access their encrypted data, offering privacy and protection across all platforms.\n\nWATCH OUT: NordVPN has agreed for better conditons for our users. So you can also wait until we update the offer.",
+  "logo": {
+    "thumbnail": "5b852b5c64ed896bef51d101a8e44704.png",
+    "medium": "6f166f1340ef441a2af3f4e570fb617d.png",
+    "high": "1522f4e028f4edd3be42a0b3a93f3872.png",
+    "original": "49a137a1aa363ef23238a586eaa9898e.png"
+  },
+  "image": {
+    "thumbnail": "7fd655c9eedce288a428f1d643e6ee5a.png",
+    "medium": "357d5d7e487b2fd4c2a27cdc833ebd61.png",
+    "high": "2974344402a429ab97722db35a8bad53.png",
+    "original": "ea6ade3c533e0858e49d1abf60c345ef.png"
+  },
+  "redeemLink": "https://nordpass.com/de/special/?utm_medium=affiliate&utm_term&utm_content&utm_campaign=off488&utm_source=aff110688&aff_free",
+  "levelId": {
+    "$oid": "6685bf286ecfcafb2ce90ccf"
+  },
+  "tags": [
+    "NordVPN"
+  ],
+  "createdAt": {
+    "$date": "2024-10-15T15:50:32.283Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T17:01:34.671Z"
+  }
+}]

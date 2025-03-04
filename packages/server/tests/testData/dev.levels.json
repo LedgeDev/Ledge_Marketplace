@@ -1,0 +1,110 @@
+[{
+  "_id": {
+    "$oid": "6685bf3b6ecfcafb2ce90cd0"
+  },
+  "name": "Trailblazer",
+  "order": 3,
+  "requiredBrandsExplored": {
+    "$numberLong": "7"
+  },
+  "requiredAnswers": {
+    "$numberLong": "9"
+  },
+  "createdAt": {
+    "$date": "2024-07-02T21:16:10.320Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T17:12:01.920Z"
+  },
+  "questionnaireId": {
+    "$oid": "6685ddea6ecfcafb2ce90ce2"
+  }
+},
+{
+  "_id": {
+    "$oid": "6685bf286ecfcafb2ce90ccf"
+  },
+  "name": "Explorer",
+  "order": 2,
+  "requiredBrandsExplored": {
+    "$numberLong": "7"
+  },
+  "requiredAnswers": {
+    "$numberLong": "8"
+  },
+  "createdAt": {
+    "$date": "2024-07-02T21:16:10.320Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T16:46:19.932Z"
+  },
+  "questionnaireId": {
+    "$oid": "6685ddd86ecfcafb2ce90ce1"
+  }
+},
+{
+  "_id": {
+    "$oid": "6685bf156ecfcafb2ce90cce"
+  },
+  "name": "Pathfinder",
+  "order": 1,
+  "requiredBrandsExplored": {
+    "$numberLong": "4"
+  },
+  "requiredAnswers": {
+    "$numberLong": "7"
+  },
+  "createdAt": {
+    "$date": "2024-07-02T21:16:10.320Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T16:46:18.962Z"
+  },
+  "questionnaireId": {
+    "$oid": "6685ddcf6ecfcafb2ce90ce0"
+  }
+},
+{
+  "_id": {
+    "$oid": "6685be3a6ecfcafb2ce90ccd"
+  },
+  "name": "Scout",
+  "order": 0,
+  "requiredBrandsExplored": {
+    "$numberLong": "3"
+  },
+  "requiredAnswers": {
+    "$numberLong": "5"
+  },
+  "createdAt": {
+    "$date": "2024-07-02T21:16:10.320Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T16:46:18.099Z"
+  },
+  "questionnaireId": {
+    "$oid": "6685dcb16ecfcafb2ce90cd8"
+  }
+},
+{
+  "_id": {
+    "$oid": "6685bf4b6ecfcafb2ce90cd1"
+  },
+  "name": "Chief Explorer",
+  "order": 4,
+  "requiredBrandsExplored": {
+    "$numberLong": "7"
+  },
+  "requiredAnswers": {
+    "$numberLong": "10"
+  },
+  "createdAt": {
+    "$date": "2024-07-02T21:16:10.320Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T16:46:17.079Z"
+  },
+  "questionnaireId": {
+    "$oid": "6685ddfb6ecfcafb2ce90ce6"
+  }
+}]

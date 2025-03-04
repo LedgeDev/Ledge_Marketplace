@@ -1,0 +1,45 @@
+{
+  "Safari": {
+    "pros": [
+      "Provides a ‘Reader-Mode’ that strips away clutter from web articles",
+      "Offers seamless continuity with features like handoff and iCloud syncing"
+    ],
+    "cons": [
+      "Has even less extensions and customisation options for privacy setting"
+    ],
+    "securitySteps": [
+      {
+        "message": "Protect your digital privacy: Manage your mobile settings!",
+        "buttonText": "Here is how to do it for Safari",
+        "buttonUrl": "https://support.apple.com/en-am/guide/iphone/iphb01fc3c85/ios#:~:text=Go%20to%20Settings%20%3E%20Safari%2C%20then%20turn%20any%20of%20the%20following,IP%20address%20from%20known%20trackers"
+      }
+    ]
+  },
+  "Chrome": {
+    "pros": [
+      "Implements site isolation so it can prevent certain attacks to your phone",
+      "Includes data saver mode to minimize data usage"
+    ],
+    "cons": [
+      "Has even less customisable privacy settings than in the desktop version",
+      "Is closely integrated with google services on android leading to more data sharing"
+    ],
+    "securitySteps": [
+      {
+        "message": "Protect your digital privacy: Manage your mobile settings!",
+        "buttonText": "Here is how to do it for Chrome",
+        "buttonUrl": "https://www.androidpolice.com/enhance-privacy-on-android/"
+      }
+    ]
+  },
+  "Brave": {
+    "pros": [
+      "Offers on-the-go privacy useful when accessing unknown networks",
+      "Provides better battery life and reduced data usage"
+    ],
+    "cons": [
+      "Has an even smaller mobile user base, which can affect functionality of certain features"
+    ],
+    "securitySteps": []
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "host": "localhost",
+  "port": 8000,
+  "public": "./public/",
+  "origins": [
+    "http://localhost:8000"
+  ],
+  "paginate": {
+    "default": 10,
+    "max": 50
+  },
+  "mongodb": "mongodb://0.0.0.0:27017/dev",
+  "authentication": {
+    "entity": "user",
+    "service": "users",
+    "secret": "",
+    "authStrategies": [
+      "auth0",
+      "jwt",
+      "local"
+    ],
+    "jwtOptions": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "",
+      "algorithm": "RS256",
+      "expiresIn": "1d"
+    },
+    "local": {
+      "usernameField": "email",
+      "passwordField": "password"
+    },
+    "oauth": {
+      "auth0": {
+        "entityId": "_id",
+        "key": "",
+        "secret": "",
+        "subdomain": "",
+        "domain": "",
+        "scope": [
+          "openid",
+          "profile",
+          "email"
+        ]
+      }
+    }
+  }
+}

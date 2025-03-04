@@ -1,0 +1,121 @@
+[{
+  "_id": {
+    "$oid": "64a8953307235edccf8e488f"
+  },
+  "name": "BrandFeedback",
+  "editable": true,
+  "description": {
+    "de": "Hier siehst du all die Weekly Quiz Fragen die du beantwortet hast und in die Richtung Gewohnheiten gehen. Bearbeite und lösche sie hier, wenn dir doch was zu persönlich ist",
+    "en": "Here you can see all the Brands feedback that you have give"
+  },
+  "createdAt": {
+    "$date": "2024-02-21T14:22:59.555Z"
+  },
+  "updatedAt": {
+    "$date": "2024-02-21T14:22:59.555Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66c3549b0a7b3e2061d61bc6"
+  },
+  "name": "My connections",
+  "editable": false,
+  "createdAt": {
+    "$date": "2024-08-19T14:20:11.285Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-19T14:20:11.285Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66c35d390a7b3e2061d61bd0"
+  },
+  "name": "My influence",
+  "editable": false,
+  "createdAt": {
+    "$date": "2024-08-19T14:56:57.594Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-19T14:56:57.594Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "670e60e992f63f5a219c150a"
+  },
+  "name": "My Connections",
+  "editable": true,
+  "createdAt": {
+    "$date": "2024-10-15T12:32:41.637Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T12:32:41.637Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "670e632f92f63f5a219c18f4"
+  },
+  "name": "My Preferences",
+  "editable": true,
+  "createdAt": {
+    "$date": "2024-10-15T12:42:23.669Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T12:42:23.669Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "670e646892f63f5a219c18f6"
+  },
+  "name": "My Identity",
+  "editable": false,
+  "createdAt": {
+    "$date": "2024-10-15T12:47:36.193Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T12:47:36.193Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "670e67d392f63f5a219c18f8"
+  },
+  "name": "My Habits",
+  "editable": false,
+  "createdAt": {
+    "$date": "2024-10-15T13:02:11.972Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T13:02:11.972Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "670e6ba992f63f5a219c18fb"
+  },
+  "name": "My Values",
+  "editable": true,
+  "createdAt": {
+    "$date": "2024-10-15T13:18:33.041Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T13:18:33.041Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "670e735392f63f5a219c1903"
+  },
+  "name": "My Habits",
+  "editable": true,
+  "createdAt": {
+    "$date": "2024-10-15T13:51:15.668Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T13:51:15.668Z"
+  }
+}]

@@ -1,0 +1,177 @@
+[{
+  "_id": {
+    "$oid": "670d05abd965769bcd9306cf"
+  },
+  "name": "Fashion",
+  "createdAt": {
+    "$date": "2024-10-14T11:51:07.763Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-14T11:51:07.763Z"
+  },
+  "brandIds": [
+    {
+      "$oid": "66215858105ecd9cb5d21aa9"
+    },
+    {
+      "$oid": "66ffc846207db116e0724308"
+    },
+    {
+      "$oid": "670a7cd317a79fce62c520ad"
+    },
+    {
+      "$oid": "6613fc925ad53bea1b991aab"
+    },
+    {
+      "$oid": "67096af5d96aecf90b81c510"
+    },
+    {
+      "$oid": "661fac0ceb3c5c594e3a1d41"
+    },
+    {
+      "$oid": "661565bd5ad53bea1b991b84"
+    },
+    {
+      "$oid": "6703edc76b7863ffd7439621"
+    },
+    {
+      "$oid": "6615782d0895cb7176247622"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "670d05bad965769bcd9306d0"
+  },
+  "name": "On a budget",
+  "createdAt": {
+    "$date": "2024-10-14T11:51:22.228Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-14T11:51:22.228Z"
+  },
+  "brandIds": [
+    {
+      "$oid": "661542f75ad53bea1b991b3f"
+    },
+    {
+      "$oid": "6621512c105ecd9cb5d21a9f"
+    },
+    {
+      "$oid": "661808200895cb7176247764"
+    },
+    {
+      "$oid": "661131ad5ad53bea1b991a62"
+    },
+    {
+      "$oid": "661941550895cb71762477d4"
+    },
+    {
+      "$oid": "66196c9e0895cb717624780b"
+    },
+    {
+      "$oid": "663ccf15be63082ea1aeb769"
+    },
+    {
+      "$oid": "6703ba496b7863ffd743960e"
+    },
+    {
+      "$oid": "6610f4725ad53bea1b991a2b"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "670d05e5d965769bcd9306d1"
+  },
+  "name": "Love to gift",
+  "createdAt": {
+    "$date": "2024-10-14T11:52:05.758Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-14T11:52:05.758Z"
+  },
+  "brandIds": [
+    {
+      "$oid": "66feb779df5b29252d3cdcb4"
+    },
+    {
+      "$oid": "662eaa59fe9521f1dabc10e1"
+    },
+    {
+      "$oid": "6616c4130895cb717624767f"
+    },
+    {
+      "$oid": "6617cf750895cb7176247711"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "670d0e75d965769bcd9306df"
+  },
+  "name": "",
+  "createdAt": {
+    "$date": "2024-10-14T12:28:37.520Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-14T12:28:37.520Z"
+  },
+  "brandIds": []
+},
+{
+  "_id": {
+    "$oid": "670ead7c92f63f5a219c2940"
+  },
+  "name": "Interior",
+  "createdAt": {
+    "$date": "2024-10-15T17:59:24.590Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T17:59:24.590Z"
+  },
+  "brandIds": [
+    {
+      "$oid": "66fee5c3df5b29252d3cdcbe"
+    },
+    {
+      "$oid": "6706a97e6b7863ffd74396d4"
+    },
+    {
+      "$oid": "670c2ff3d965769bcd930682"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "670eae0792f63f5a219c2943"
+  },
+  "name": "Cosmetics",
+  "createdAt": {
+    "$date": "2024-10-15T18:01:43.215Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T18:01:43.215Z"
+  },
+  "brandIds": [
+    {
+      "$oid": "6618e6fc0895cb71762477a4"
+    },
+    {
+      "$oid": "6706ba826b7863ffd74396dc"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "670eaeca92f63f5a219c294f"
+  },
+  "name": "Rugtales",
+  "createdAt": {
+    "$date": "2024-10-15T18:04:58.188Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-15T18:04:58.188Z"
+  },
+  "brandIds": []
+}]
