@@ -203,12 +203,6 @@ function Navbar({
               badgeCount={forYouBadgeCount}
             />
             <NavbarItem
-              name="My Brands"
-              screenName="My Brands"
-              icon={<MyBrandsIcon width={20} height={20} style={styles.icon} />}
-              isSelected={selectedItem === 'My Brands'}
-            />
-            <NavbarItem
               name="My Data"
               screenName="My Data"
               icon={<MyDataIcon width={20} height={20} style={styles.icon} />}
@@ -217,15 +211,6 @@ function Navbar({
             />
           </View>
           <View>
-            <View className="justify-self-end items-start relative">
-              <NavbarItem
-                name="Let's Talk"
-                screenName="LetsTalk"
-                icon={<NewsIcon width={20} height={20} style={[styles.icon, { transform: [{ scale: 1.2 }] }]} />}
-                isSelected={selectedItem === 'LetsTalk'}
-                badgeCount={postsBadgeCount}
-              />
-            </View>
             <View className="justify-self-end relative">
               <NavbarItem
                 name={t('sidebar.settings')}

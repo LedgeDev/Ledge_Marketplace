@@ -26,11 +26,17 @@ function AppNavigator({ onRouteChange }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('[DEBUG] AppNavigator mounted');
+    
     if (navigationRef.isReady()) {
+      console.log('[DEBUG] Navigation ref is ready');
+      
       const updateState = () => {
         const currentRouteName = navigationRef.getCurrentRoute()?.name;
         const currentParams = navigationRef.getCurrentRoute()?.params;
 
+        console.log('[DEBUG] Navigation state updated:', { currentRouteName, currentParams });
+        
         onRouteChange(currentRouteName);
 
         if (currentRouteName) {
@@ -48,8 +54,11 @@ function AppNavigator({ onRouteChange }) {
 
       const unsubscribe = navigationRef.addListener('state', updateState);
       return () => {
+        console.log('[DEBUG] Cleaning up navigation listener');
         unsubscribe();
       };
+    } else {
+      console.log('[DEBUG] Navigation ref is NOT ready');
     }
   }, [dispatch, onRouteChange]);
 
