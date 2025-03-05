@@ -8,13 +8,15 @@ const config = {
     // If the variable NODE_ENV is set to development, the database name will be set to 'dev', if it's set to production,
     // then if the variable INTEGRATION_TEST_MODE is set to true, the database name will be set to 'test', otherwise it will be set to 'production'
     databaseName:
-      process.env.NODE_ENV === 'development'
-        ? 'dev'
-        : process.env.INTEGRATION_TEST_MODE === 'true'
-          ? 'test'
-          : (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL?.includes('production'))
-            ? 'production'
-            : 'dev',
+      process.env.DATABASE_NAME?.length > 0
+        ? process.env.DATABASE_NAME
+        :process.env.NODE_ENV === 'development'
+          ? 'dev'
+          : process.env.INTEGRATION_TEST_MODE === 'true'
+            ? 'test'
+            : (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL?.includes('production'))
+              ? 'production'
+              : 'dev',
   },
 
   // The migrations dir, can be an relative or absolute path. Only edit this when really necessary.

@@ -15,6 +15,7 @@ import feedbackReducer from './models/feedback';
 import benefitsReducer from './models/benefits';
 import eventsReducer from './models/events';
 import loginBackgroundImagesReducer from './models/loginBackgroundImages';
+import productsReducer from './models/products';
 
 const appReducer = combineReducers({
   users: userReducer,
@@ -30,6 +31,7 @@ const appReducer = combineReducers({
   benefits: benefitsReducer,
   events: eventsReducer,
   loginBackgroundImages: loginBackgroundImagesReducer,
+  products: productsReducer,
 });
 
 const rootReducer = (state, action) => {

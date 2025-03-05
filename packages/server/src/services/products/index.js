@@ -7,10 +7,13 @@ router.use(authenticate);
 
 router.get('/', [], async (req, res) => {
   try {
+    // get all products with brand that exists
     const products = await prisma.products.findMany({
-      where: req.query,
+      include: {
+        brand: true,
+      },
     });
-    res.status(201).json(products);
+    res.status(200).json(products);
   } catch (error) {
     console.error(error);
     res.status(500).send(error.message);

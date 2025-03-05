@@ -7,6 +7,36 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model order_history {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  brandId   String   @db.ObjectId
+  brandName String
+  dealCodes String[] // Array of used discount codes
+  orderJson Json // Store the complete order JSON
+  createdAt DateTime @default(now())
+
+  @@map("order-history")
+}
+
+model answers {
+  id                     String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId                 String
+  user                   users      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  questionId             String?    @db.ObjectId
+  question               questions? @relation(fields: [questionId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  questionText           Json
+  answer                 Json
+  productFeedbackBrandId String?    @db.ObjectId
+  productFeedbackBrand   brands?    @relation(name: "ProductFeedbackBrand", fields: [productFeedbackBrandId], references: [id], onDelete: Cascade, onUpdate: Cascade) // Explicit relation name
+  createdAt              DateTime   @default(now())
+  updatedAt              DateTime   @updatedAt
+  pitchExitBrandId       String?    @db.ObjectId
+  pitchExitBrand         brands?    @relation(name: "PitchExitBrand", fields: [pitchExitBrandId], references: [id], onDelete: Cascade, onUpdate: Cascade) // Another unique relation name
+
+  @@unique([userId, questionId])
+  @@map("answers")
+}
+
 model app_versions {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   version   String
@@ -15,6 +45,264 @@ model app_versions {
   updatedAt DateTime @updatedAt
 
   @@map("app-versions")
+}
+
+model benefits {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  subtitle    Json
+  description Json
+  logo        Json?
+  image       Json?
+  redeemLink  String
+  levelId     String?       @db.ObjectId
+  level       levels?       @relation(fields: [levelId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  tags        Json[]
+  linkVisits  link_visits[]
+  code        String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  events      events[]
+
+  @@map("benefits")
+}
+
+model brands {
+  id                       String                    @id @default(auto()) @map("_id") @db.ObjectId
+  isVisible                Boolean                   @default(true)
+  description              Json
+  shortDescription         Json?
+  name                     String
+  pitchQuestions           questions[]
+  products                 products[]
+  pitchVideo               String?
+  pitchCaptions            Json?
+  pitchSections            Json?
+  updatedAt                DateTime                  @default(now()) @updatedAt
+  brandLogo                Json?
+  email                    String? // Contact email to send user feedback emails to
+  managerEmail             String?
+  managerName              String?
+  managerPhone             String?
+  labels                   Json[]
+  teamPicture              Json?
+  website                  String?
+  categoryId               String?                   @db.ObjectId
+  category                 categories?               @relation(fields: [categoryId], references: [id], onDelete: SetNull, onUpdate: SetNull)
+  teaser                   String?
+  ratings                  ratings[]
+  mainPhrase               String?
+  founders                 Json[]
+  image                    Json?
+  usersForYouIds           String[]
+  usersForYou              users[]                   @relation("BrandsForYou", fields: [usersForYouIds], references: [id])
+  usersForYouPoolIds       String[]
+  usersForYouPool          users[]                   @relation("BrandsForYouPool", fields: [usersForYouPoolIds], references: [id])
+  linkVisits               link_visits[]
+  brandScreenTimes         brand_screen_times[]
+  images                   Json[]
+  usersFeedback            Json[]
+  targetGender             GenderPreference?
+  budgetInterval           Int?
+  productionSubmissions    production_submissions[]
+  owner                    users?                    @relation("ownedBrand")
+  posts                    posts[]
+  dealCodeGroups           deal_code_groups[]
+  unlockHistory            unlocked_brands_history[]
+  shopifyDomain            String?
+  shopifyKeyName           String?
+  ledgeRating              Int                       @default(0)
+  showTeamPictureInRating  Boolean?
+  pitchExitBrandAnswers    answers[]                 @relation(name: "PitchExitBrand")
+  productFeedbackAnswers   answers[]                 @relation(name: "ProductFeedbackBrand")
+  recentlyRotatedByIds     String[]
+  recentlyRotatedBy        users[]                   @relation("BrandsRecentlyRotated", fields: [recentlyRotatedByIds], references: [id])
+  isCharity                Boolean?
+  showFirst                Boolean?
+  likes                    brands_likes[]
+  events                   events[]
+  usersNotInterestedBrands not_interested_brands[]
+
+  @@map("brands")
+}
+
+model brands_likes {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  user      users    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  brandId   String?  @db.ObjectId
+  brand     brands?  @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, brandId])
+  @@map("brands-likes")
+}
+
+model not_interested_brands {
+  id        String               @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  user      users                @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  brandId   String?              @db.ObjectId
+  brand     brands?              @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  reason    NotInterestedReason?
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+
+  @@unique([userId, brandId])
+  @@map("not-interested-brands")
+}
+
+enum NotInterestedReason {
+  dontLike
+  tooExpensive
+  alreadyOwned
+  notMyStyle
+}
+
+model unlocked_brands_history {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  user      users    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  brandId   String?  @db.ObjectId
+  brand     brands?  @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, brandId])
+  @@map("unlocked-brands-history")
+}
+
+model brand_screen_times {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  time      Int
+  userId    String
+  user      users    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  brandId   String?  @db.ObjectId
+  brand     brands?  @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, brandId])
+  @@map("brand-screen-times")
+}
+
+model categories {
+  id          String             @id @default(auto()) @map("_id") @db.ObjectId
+  name        Json
+  image       Json?
+  brands      brands[]
+  userChoices category_choices[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@map("categories")
+}
+
+model category_choices {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  like       Boolean
+  categoryId String     @db.ObjectId
+  category   categories @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId     String
+  user       users      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  @@map("category-choices")
+}
+
+model events {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  type      EventType
+  details   Json?
+  userId    String?
+  user      users?    @relation(fields: [userId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  brandId   String?   @db.ObjectId
+  brand     brands?   @relation(fields: [brandId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  productId String?   @db.ObjectId
+  product   products? @relation(fields: [productId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  benefitId String?   @db.ObjectId
+  benefit   benefits? @relation(fields: [benefitId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("events")
+}
+
+enum EventType {
+  pitchInteractionInitiated
+  pitchInteractionVideoFinished
+  pitchInteractionCompleted
+  pitchInteractionQuitted
+  exitQuestionAnswered
+  errorScreenShowed
+  brandListItemPressed
+  levelUpgraded
+  onboardingInteraction
+  timeInBrandProfile
+  brandRemovedFromFavourites
+  brandAddedToFavourites
+  readMoreButtonPressed
+  brandRedeemLinkPressed
+  brandProfileImagesSwiped
+  brandProductLinkPressed
+  brandSeeAllProductsLinkPressed
+  brandProfileProductsSwiped
+  benefitRedeemLinkPressed
+  devPitchVideoSkipped
+  logout
+}
+
+model foundersReachedLeaderboard {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  amount Int     @unique
+  users  users[]
+}
+
+model link_visits {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  url       String
+  userId    String
+  user      users     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  brandId   String?   @db.ObjectId
+  brand     brands?   @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  productId String?   @db.ObjectId
+  product   products? @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  benefitId String?   @db.ObjectId
+  benefit   benefits? @relation(fields: [benefitId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt DateTime  @default(now())
+
+  @@map("link-visits")
+}
+
+model posts {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  author       String?
+  content      String?
+  video        String?
+  image        Json?
+  brandId      String?  @db.ObjectId
+  brand        brands?  @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userLikesIds String[]
+  userLikes    users[]  @relation(fields: [userLikesIds], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("posts")
+}
+
+model production_submissions {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  overlays  Json[]
+  videos    Json[]
+  status    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  brandId   String   @db.ObjectId
+  brand     brands   @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId    String
+  user      users    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("production-submissions")
 }
 
 model products {
@@ -36,6 +324,17 @@ model products {
   events       events[]
 
   @@map("products")
+}
+
+enum NotificationType {
+  QUESTIONS_AWAY
+  BRANDS_AWAY
+  PRODUCT_FEEDBACK
+  COMEBACK_REMINDER
+  EXPIRING_DEALS
+  NEW_BRANDS
+  NEW_BENEFITS
+  GLOABL
 }
 
 model push_notifications {
@@ -66,40 +365,35 @@ model push_notification_history {
   @@map("push-notification-history")
 }
 
-enum NotificationType {
-  GENERAL
-  PRODUCT
-  EVENT
-}
-
-model brands {
-  id        String      @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  products  products[]
-  questions questions[]
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-
-  @@map("brands")
-}
-
-model link_visits {
+model search_history {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  productId String   @db.ObjectId
-  product   products @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  createdAt DateTime @default(now())
-
-  @@map("link-visits")
-}
-
-model events {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  productId String   @db.ObjectId
-  product   products @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId    String
+  user      users    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  query     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("events")
+  @@map("search-history")
+}
+
+model search_suggestions {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  query     Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("search-suggestions")
+}
+
+model questionnaires {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  questions questions[]
+  level     levels?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@map("questionnaires")
 }
 
 model question_classes {
@@ -110,37 +404,6 @@ model question_classes {
   updatedAt DateTime    @updatedAt
 
   @@map("question-classes")
-}
-
-model answers {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  questionId String    @db.ObjectId
-  question   questions @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  answer     Json
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-
-  @@map("answers")
-}
-
-model questionnaires {
-  id        String      @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  questions questions[]
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-
-  @@map("questionnaires")
-}
-
-model production_submissions {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String
-  user      users    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("production-submissions")
 }
 
 model questions {
@@ -182,31 +445,164 @@ model ratings {
   user      users     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   productId String?   @db.ObjectId
   product   products? @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  brandId   String    @db.ObjectId
+  brand     brands    @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   rating    Float
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
-  @@unique([userId, productId])
+  @@unique([userId, brandId])
   @@map("ratings")
 }
 
+model content_views {
+  id          String                @id @default(auto()) @map("_id") @db.ObjectId
+  section     content_view_sections
+  userId      String                @unique
+  user        users                 @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  contentId   String                @db.ObjectId
+  contentType content_view_types
+  views       Int                   @default(0)
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+
+  @@unique([userId, contentId, section])
+  @@map("content-views")
+}
+
+enum content_view_types {
+  brand
+}
+
+enum content_view_sections {
+  forYou
+  brandProfile
+}
+
+model feedback {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  user      users    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  text      String
+  email     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("feedback")
+}
+
+model levels {
+  id                     String          @id @default(auto()) @map("_id") @db.ObjectId
+  name                   String          @unique
+  order                  Int             @unique
+  requiredBrandsExplored Int
+  requiredAnswers        Int
+  questionnaireId        String?         @unique @db.ObjectId
+  questionnaire          questionnaires? @relation(fields: [questionnaireId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  benefits               benefits[]
+  createdAt              DateTime        @default(now())
+  updatedAt              DateTime        @updatedAt
+  users                  users[]
+
+  @@map("levels")
+}
+
+model login_background_images {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  imageUrl  String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("login-background-images")
+}
+
 model users {
-  id                      String                      @id @map("_id")
-  email                   String
-  myFavourites            Json[]
-  createdAt               DateTime                    @default(now())
-  updatedAt               DateTime                    @updatedAt
-  name                    String?
-  notificationsToken      String?
-  productionSubmissions   production_submissions[]
-  superUser               Boolean?
-  pushNotificationHistory push_notification_history[]
-  hasCompletedOnboarding  Boolean?                    @default(false)
-  location                String?
-  profilePicture          Json?
-  friendCode              String?
-  ratings                 ratings[]
-  lastOpened              DateTime?
+  id                            String                      @id @map("_id")
+  answers                       answers[]
+  email                         String
+  myFavourites                  Json[]
+  createdAt                     DateTime                    @default(now())
+  updatedAt                     DateTime                    @updatedAt
+  name                          String?
+  ratings                       ratings[]
+  notificationsToken            String?
+  forYouBrandsIds               String[]                    @db.ObjectId
+  forYouBrands                  brands[]                    @relation("BrandsForYou", fields: [forYouBrandsIds], references: [id])
+  forYouBrandsPoolIds           String[]                    @db.ObjectId
+  forYouBrandsPool              brands[]                    @relation("BrandsForYouPool", fields: [forYouBrandsPoolIds], references: [id])
+  linkVisits                    link_visits[]
+  brandScreenTimes              brand_screen_times[]
+  feedbacks                     feedback[]
+  levelId                       String?                     @db.ObjectId
+  level                         levels?                     @relation(fields: [levelId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  brandsExplored                Int
+  ownedBrandId                  String?                     @unique @db.ObjectId
+  ownedBrand                    brands?                     @relation(name: "ownedBrand", fields: [ownedBrandId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  productionSubmissions         production_submissions[]
+  foundersReachedLeaderboardId  String?                     @db.ObjectId
+  foundersReachedLeaderboard    foundersReachedLeaderboard? @relation(fields: [foundersReachedLeaderboardId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  dealCodes                     deal_codes[]
+  viewedPitches                 String[]
+  brandUnlockHistory            unlocked_brands_history[]
+  categoryChoices               category_choices[]
+  deletedBrands                 String[]
+  superUser                     Boolean?
+  likedPostsIds                 String[]                    @db.ObjectId
+  likedPosts                    posts[]                     @relation(fields: [likedPostsIds], references: [id])
+  lastOpened                    DateTime?                   @default(now())
+  pushNotificationHistory       push_notification_history[]
+  contentViews                  content_views[]
+  recentlyRotatedBrandsIds      String[]                    @db.ObjectId
+  recentlyRotatedBrands         brands[]                    @relation("BrandsRecentlyRotated", fields: [recentlyRotatedBrandsIds], references: [id])
+  likes                         brands_likes[]
+  events                        events[]
+  hasCompletedOnboarding        Boolean?                    @default(false)
+  location                      String?
+  profilePicture                Json?
+  friendCode                    String?
+  notInterestedBrands           not_interested_brands[]
+  searchHistory                 search_history[]
 
   @@map("users")
+}
+
+enum GenderPreference {
+  men
+  women
+  both
+  other
+}
+
+model deal_codes {
+  id                    String            @id @default(auto()) @map("_id") @db.ObjectId
+  code                  String
+  isUsed                Boolean           @default(false)
+  userId                String?
+  user                  users?            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  groupId               String?           @db.ObjectId
+  group                 deal_code_groups? @relation(fields: [groupId], references: [id], onDelete: Cascade) // Added ? here
+  userExpireDate        DateTime?
+  expirationWasNotified Boolean           @default(false)
+  unlockedAt            DateTime?
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+
+  @@map("deal-codes")
+}
+
+model deal_code_groups {
+  id                  String       @id @default(auto()) @map("_id") @db.ObjectId
+  description         Json
+  shortDescription    Json?
+  codesState          String?
+  brandId             String       @db.ObjectId
+  brand               brands       @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  generalExpireDate   DateTime?
+  dealCodes           deal_codes[]
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+  adventCalendarEvent Json?
+
+  @@map("deal-code-groups")
 }
