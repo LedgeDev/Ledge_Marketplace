@@ -19,6 +19,7 @@ import PitchScreen from '../screens/Pitch';
 import LetsTalkScreen from '../screens/LetsTalk';
 import PoolRefillScreen from '../screens/PoolRefill';
 import ProductFeedbackScreen from '../screens/ProductFeedback';
+import ProductProfile from '../screens/ProductProfile';
 
 const Stack = createStackNavigator();
 
@@ -109,6 +110,7 @@ function AppNavigator({ onRouteChange }) {
       <Stack.Screen name="Questionnaire" component={QuestionnaireScreen} />
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="Product Feedback" component={ProductFeedbackScreen} />
+      <Stack.Screen name="Product Profile" component={ProductProfile} />
     </Stack.Navigator>
   );
 }
