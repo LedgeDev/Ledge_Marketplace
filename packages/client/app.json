@@ -44,7 +44,15 @@
       "expo-secure-store",
       "expo-localization",
       "expo-notifications",
-      "expo-video"
+      "expo-video",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow ledge to access your camera",
+          "microphonePermission": "Allow ledge to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ]
     ],
     "extra": {
       "eas": {
