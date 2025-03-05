@@ -9,7 +9,6 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { createAnswer } from '../../store/models/answers';
 import { getUser } from '../../store/models/users';
-import { findMyQuestionnaire } from '../../store/models/questionnaires';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import MenuHeader from '../../components/MenuHeader';
 import QuestionsIndex from '../../components/questions/QuestionsIndex';
@@ -54,7 +53,6 @@ function QuestionnaireScreen({ route }) {
     // fetch questionnaire if not already fetched
     if (!questionnaire && questionnaireStatus === 'idle') {
       setQuestionnaireLoading(true);
-      dispatch(findMyQuestionnaire({}));
     } else if (questionnaireStatus === 'succeeded' || questionnaireStatus === 'failed') {
       setQuestionnaireLoading(false);
       setTimeout(() => setRefreshing(false), 1000);
@@ -130,7 +128,6 @@ function QuestionnaireScreen({ route }) {
       await dispatch(createAnswer(answersArray)).unwrap();
       const oldUser = { ...user };
       const newUser = await dispatch(getUser({})).unwrap();
-      await dispatch(findMyQuestionnaire({})).unwrap();
       if (oldUser.level.order !== newUser.level.order) {
         setLevelAnimationOptions({ show: true, oldUser, newUser });
       }

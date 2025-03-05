@@ -206,6 +206,7 @@ model users {
   profilePicture          Json?
   friendCode              String?
   ratings                 ratings[]
+  lastOpened              DateTime?
 
   @@map("users")
 }

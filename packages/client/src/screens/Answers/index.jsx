@@ -3,7 +3,6 @@ import { View, Text, ScrollView, LayoutAnimation, ActivityIndicator } from 'reac
 import { useSelector, useDispatch } from 'react-redux';
 import { patchAnswer, findSortedAnswers, createAnswer } from '../../store/models/answers';
 import { getUser } from '../../store/models/users';
-import { findMyQuestionnaire } from '../../store/models/questionnaires';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import QuestionsIndex from '../../components/questions/QuestionsIndex';
 import MenuList from '../../components/MenuList';
@@ -99,7 +98,6 @@ function Answers({ navigation, route }) {
     // update user and questionnaire and check if level changed
     const oldUser = { ...user };
     const newUser = await dispatch(getUser({})).unwrap();
-    await dispatch(findMyQuestionnaire({})).unwrap();
     if (oldUser.level.order !== newUser.level.order) {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
       setLevelAnimationOptions({ show: true, oldUser, newUser });

@@ -14,15 +14,6 @@ const initialState = {
   error: null,
 };
 
-export const findMyQuestionnaire = createThunkWithErrorHandling(
-  'questionnaires/myQuestionnaire',
-  async () => {
-    const response = await fetchWithToken(`${BACKEND_URL}/questionnaires/myQuestionnaire`);
-    const data = await response.json();
-    return data
-  }
-);
-
 export const saveSeenIdsToAsyncStorage = createThunkWithErrorHandling(
   'questionnaires/saveSeenIds',
   async (_, { getState }) => {
@@ -56,28 +47,6 @@ const questionnairesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(findMyQuestionnaire.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(findMyQuestionnaire.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        const questionnaire = action.payload;
-        state.questionnaire = questionnaire;
-        // calculate badge count
-        const currentQuestionnaire = state.questionnaire ? state.questionnaire: {};
-        state.questionnaireBadgeCount = state.questionnaireSeenIds.includes(currentQuestionnaire.id) ? 0 : 1;
-        if (action.payload) {
-          // questions are available if one of them has no answers
-          const availableQuestionnaire = action.payload.questions.some((question) => !question.answers?.length > 0);
-          setQuestionnaireAvailable(availableQuestionnaire);
-          // this is managed this way because the questionnaire is not always available in the store
-        }
-      })
-      .addCase(findMyQuestionnaire.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-        console.error('Error fetching myQuestionnaire:', action.error.message);
-      })
       .addCase(restoreSeenIdsFromAsyncStorage.fulfilled, (state, action) => {
         state.questionnaireSeenIds = action.payload;
         // calculate badge count

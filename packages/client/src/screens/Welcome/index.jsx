@@ -6,7 +6,6 @@ import LoginView from './LoginView';
 import OnboardingView from './OnboardingView';
 import { useNavigation } from '@react-navigation/native';
 import { getUser, resetUser, updateUserWelcomeSeen } from '../../store/models/users';
-import { findMyQuestionnaire } from '../../store/models/questionnaires';
 import { ActivityIndicator, View } from 'react-native';
 import EventBus from 'react-native-event-bus';
 import { useLedgeTransitions } from '../../hooks/useLedgeTransitions';
@@ -82,9 +81,6 @@ const WelcomeScreen = () => {
       if (isAuthenticated === true && !userStatus === 'loading' && !user) {
         dispatch(getUser());
         return;
-      }
-      if (isAuthenticated === true && user && !storedQuestionnaire) {
-        dispatch(findMyQuestionnaire());
       }
       const newStage = determineStage();
       setStage(newStage);

@@ -12,7 +12,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { findSortedAnswers } from '../../store/models/answers';
 import { getUser } from '../../store/models/users';
-import { findMyQuestionnaire, markIdAsSeen } from '../../store/models/questionnaires';
+import { markIdAsSeen } from '../../store/models/questionnaires';
 import QuestionnaireButton from '../../components/QuestionnaireButton';
 import SortedAnswersMenu from './SortedAnswersMenu';
 import LedgeProgress from '../../components/LedgeProgress';
@@ -61,7 +61,6 @@ function MyData({ setBadge = () => {} }) {
     // fetch questionnaire if not already fetched
     if (!questionnaire && questionnaireStatus !== 'loading') {
       setQuestionnaireLoading(true);
-      dispatch(findMyQuestionnaire({}));
     } else if (questionnaireStatus === 'succeeded') {
       setQuestionnaireLoading(false);
       setTimeout(() => setRefreshing(false), 1000);
@@ -74,7 +73,6 @@ function MyData({ setBadge = () => {} }) {
     // dispatch get actions
     dispatch(findSortedAnswers());
     dispatch(getUser({}));
-    dispatch(findMyQuestionnaire({}));
   }, []);
 
   return (

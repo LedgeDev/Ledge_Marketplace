@@ -5,7 +5,6 @@ const router = express.Router();
 const { sendGlobalNotification } = require('../../utils/sendNotification');
 const {
   getQuestionnaireAnswerCount,
-  updateUserLevel,
   getNextLevelName,
   getFoundersReached,
   createUser,
@@ -30,31 +29,9 @@ const {
 const versionGate = require('../../middleware/versionGate');
 
 const userIncludes = {
-  brandScreenTimes: true,
-  level: true,
-  dealCodes: true,
-  likes: true
 }
 
 const adminUserIncludes = {
-  brandScreenTimes: {
-    include: {
-      brand: true,
-    },
-  },
-  linkVisits: {
-    include: {
-      brand: true,
-      product: true,
-      benefit: true,
-    },
-  },
-  categoryChoices: {
-    include: {
-      category: true,
-    },
-  },
-  level: true,
 };
 
 const additionalUserAttributes = async (user) => {

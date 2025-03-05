@@ -37,91 +37,6 @@ async function getNextLevelName(userId) {
 }
 
 /**
- * Check the user level and update if possible
- * @param {Object} user - The user object
- * @returns {Object} The user object with updated level
- */
-async function updateUserLevel(userId) {
-
-  const questionnaireAnswerCount = await getQuestionnaireAnswerCount(userId);
-  let user = await prisma.users.findUnique({
-    where: {
-      id: userId,
-    },
-    include: {
-      level: true,
-    },
-  });
-
-  if (!user) {
-    return null;
-  }
-
-  if (!user.level) {
-    let level = await prisma.levels.findFirst({
-      where: {
-        order: 0,
-      },
-    });
-    user = await prisma.users.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        level: {
-          connect: {
-            id: level.id,
-          },
-        },
-      },
-      include: {
-        level: true,
-      },
-    });
-  }
-
-  if (
-    questionnaireAnswerCount >= user.level?.requiredAnswers &&
-    user.brandsExplored >= user.level?.requiredBrandsExplored
-  ) {
-    const nextLevel = await prisma.levels.findFirst({
-      where: {
-        order: {
-          gt: user.level.order,
-        },
-      },
-      orderBy: {
-        order: 'asc',
-      },
-    });
-    // restart brandsExplored and add additional brands explored
-    const additionalBrandsExplored = Math.max(user.brandsExplored - user.level.requiredBrandsExplored, 0);
-
-    if (nextLevel) {
-      const updatedUser = await prisma.users.update({
-        where: {
-          id: userId,
-        },
-        data: {
-          level: {
-            connect: {
-              id: nextLevel.id,
-            },
-          },
-          brandsExplored: additionalBrandsExplored,
-        },
-        include: {
-          level: true,
-        },
-      });
-      return updatedUser;
-    }
-  }
-
-  return user;
-}
-
-/**
  * Calculate how many founders the user has reached through interactions, and
  * the percentage of users that have that amount or less
  * @param {Object} userId - The id of the user
@@ -439,8 +354,6 @@ const updateUserAttributes = async (user, attributes) => {
 };
 
 module.exports = {
-  getQuestionnaireAnswerCount,
-  updateUserLevel,
   getNextLevelName,
   getFoundersReached,
   createUser,

@@ -5,7 +5,6 @@ import { getUser, setViewedPitch } from '../../../store/models/users';
 import { postPitchAnswers } from '../../../store/models/answers';
 import { getForYouBrands, getDiscoveryBrands } from '../../../store/models/brands';
 import { fetchBenefits } from '../../../store/models/benefits';
-import { findMyQuestionnaire } from '../../../store/models/questionnaires';
 import PitchQuestionsProgressBar from './PitchQuestionsProgressBar';
 import ScreenWrapper from '../../../components/ScreenWrapper';
 import QuestionsIndex from '../../../components/questions/QuestionsIndex';
@@ -83,7 +82,6 @@ const PitchQuestions = ({ brand, toPitch, endQuestions = () => {}, questions, is
           // check if the user level changed
           // dispatch benefits to update the user's benefits
           dispatch(fetchBenefits());
-          dispatch(findMyQuestionnaire());
           setState('levelAnimation');
           // endQuestions will be called by the LevelAnimationScreen
         } else {

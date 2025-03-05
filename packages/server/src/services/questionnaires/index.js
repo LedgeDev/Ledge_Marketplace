@@ -1,7 +1,6 @@
 const prisma = require("../../prisma");
 const express = require("express");
 const { authenticate } = require("../../authentication");
-const { updateUserLevel } = require("../users/utils");
 const { addQuestionsStatistics } = require("../questions/utils");
 const router = express.Router();
 
@@ -30,7 +29,6 @@ router.get("/myQuestionnaire", [], async (req, res) => {
   try {
 
     const userId = req.headers.currentUserId;
-    await updateUserLevel(userId);
 
     // find questionnaire whose level has user with id, including questions
     let questionnaire = await prisma.questionnaires.findFirst({
@@ -57,8 +55,6 @@ router.get("/myQuestionnaire", [], async (req, res) => {
         level: true,
       }
     });
-
-    await addQuestionsStatistics(questionnaire.questions);
 
     res.status(200).json(questionnaire);
   } catch (error) {
