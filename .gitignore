@@ -1,0 +1,4 @@
+node_modules
+clean_branches.sh
+.vscode
+.scannerwork

@@ -1,0 +1,4 @@
+exclude_paths:
+  - "packages/tests/**"
+  - "packages/client/test/**"
+  - "packages/server/tests/**"
