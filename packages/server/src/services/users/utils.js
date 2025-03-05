@@ -3,60 +3,6 @@ const { uploadFile } = require('../../utils/uploadFile')
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 /**
- * Get the amount of new brands in the period that are not unlocked
- * @param {Object} user - The user object
- * @returns {Number} The amount of new brands
- */
-
-/**
- * Calculate how many questions of the corresponding level questionnaire the user has answered
- * @param {Object} user - The user object
- * @returns {Number} The amount of questions answered
- */
-async function getQuestionnaireAnswerCount(userId) {
-  // Get the user object with level and its questionnaire with questions
-  const user = await prisma.users.findUnique({
-    where: {
-      id: userId,
-    },
-    include: {
-      level: {
-        include: {
-          questionnaire: {
-            include: {
-              questions: true,
-            },
-          },
-        },
-      },
-    },
-  });
-  if (!user) {
-    return null;
-  }
-
-  const questionnaireQuestions = user.level?.questionnaire?.questions;
-
-  if (!questionnaireQuestions) {
-    return null;
-  }
-
-  // check how many questions of the questionnaire the user has answered
-  const questionnaireAnswers = await prisma.answers.findMany({
-    where: {
-      userId: userId,
-      questionId: {
-        in: questionnaireQuestions.map((question) => question.id),
-      },
-    },
-    select: {
-      questionId: true,
-    },
-  });
-  return questionnaireAnswers.length;
-}
-
-/**
  * Calculate how many questions of the corresponding level questionnaire the user has answered
  * @param {Object} user - The user object
  * @returns {Number} The amount of questions answered

@@ -232,7 +232,6 @@ router.get('/navbarMessage', [], async (req, res) => {
 router.get('/', [], async (req, res) => {
   try {
     const userId = req.headers.currentUserId;
-    await updateUserLevel(userId);
     const userInfo = await prisma.users.update({
       where: {
         id: userId,
@@ -245,8 +244,6 @@ router.get('/', [], async (req, res) => {
     if (!userInfo) {
       return res.status(404).json({ error: 'User not found' });
     }
-
-    await additionalUserAttributes(userInfo);
 
     res.json(userInfo);
   } catch (error) {
@@ -422,7 +419,6 @@ router.post('/', [], async (req, res) => {
     const userId = req.headers.currentUserId;
     const userEmail = req.body.email;
     const userName = req.body.name;
-    await updateUserLevel(userId);
 
     let user = await prisma.users.findUnique({
       where: { id: userId },
@@ -441,7 +437,6 @@ router.post('/', [], async (req, res) => {
       });
     }
 
-    await additionalUserAttributes(user);
     res.json(user);
   } catch (error) {
     console.error(error);
@@ -460,7 +455,6 @@ router.patch('/', [], async (req, res) => {
       data: req.body,
       include: userIncludes,
     });
-    await additionalUserAttributes(user);
     res.json(user);
   } catch (error) {
     console.error(error);
@@ -519,8 +513,6 @@ router.post('/registerNotificationsToken', async (req, res) => {
       include: userIncludes,
     });
 
-    await additionalUserAttributes(updatedUser);
-
     res.status(200).json(updatedUser);
   } catch (error) {
     console.error(error);
@@ -541,8 +533,6 @@ router.post('/unregisterNotificationsToken', async (req, res) => {
       },
       include: userIncludes,
     });
-
-    await additionalUserAttributes(updatedUser);
 
     res.status(200).json(updatedUser);
   } catch (error) {
@@ -691,7 +681,6 @@ router.patch('/changeEmail', async (req, res) => {
       },
       include: userIncludes,
     });
-    await additionalUserAttributes(updatedUser);
     res.json(updatedUser);
   } catch (error) {
     console.error('Error updating user email:', error);
@@ -711,7 +700,6 @@ router.delete('/forYou/:id', async (req, res) => {
       },
       include: userIncludes,
     });
-    await additionalUserAttributes(user);
     // manage when could not fill the user's forYouBrandsIds
     res.status(200).json(user);
 
@@ -859,7 +847,6 @@ router.post('/likes', async (req, res) => {
       where: { id: userId },
       include: userIncludes,
     });
-    await additionalUserAttributes(user);
     res.json(user);
   } catch (error) {
     console.error('Error adding brand to likes:', error);
@@ -878,7 +865,6 @@ router.delete('/likes', async (req, res) => {
       where: { id: userId },
       include: userIncludes,
     });
-    await additionalUserAttributes(user);
     res.json(user);
   } catch (error) {
     console.error('Error removing brand from likes:', error);
