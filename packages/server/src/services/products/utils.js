@@ -14,7 +14,7 @@ async function analyzeImage(imageBase64) {
       messages: [
         {
           role: "system",
-          content: "You are an expert at identifying objects in images and estimating their market value in USD. You will provide three distinct elements in your response:\n\n1. TITLE: A concise product title (max 24 characters)\n2. DESCRIPTION: A detailed description (max 200 characters) mentioning brand, condition, color, model if visible\n3. VALUE: A reasonable price estimate in USD\n\nReject items that are larger than a car or clearly not sellable (like landscapes, buildings, or abstract concepts) by marking them as 'INVALID'."
+          content: "You are an expert at identifying objects in images and estimating their market value in Euros. You will provide three distinct elements in your response:\n\n1. TITLE: A concise product title (max 24 characters)\n2. DESCRIPTION: A detailed description (max 200 characters) mentioning brand, condition, color, model if visible\n3. VALUE: A reasonable price estimate in USD\n\nReject items that are larger than a car or clearly not sellable (like landscapes, buildings, or abstract concepts) by marking them as 'INVALID'."
         },
         {
           role: "user",

@@ -342,7 +342,7 @@ const ForYou = () => {
                   <Text>USD</Text>
                 </View>
               ) : (
-                <Text>Value: ${analyzedResults[index].price} USD</Text>
+                <Text>Value: € {analyzedResults[index].price}</Text>
               )}
             </>
           )}

@@ -4,7 +4,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as Haptics from 'expo-haptics';
 import Animated, { LinearTransition, FadeIn, FadeOut } from 'react-native-reanimated';
 import { useTranslation } from '../../hooks/useTranslation';
-import ExtImage from '../ExtImage';
 import HeartOutlineIcon from '../../assets/svg/heart-outline-white';
 import HeartFilledIcon from '../../assets/svg/heart-white';
 
@@ -15,7 +14,8 @@ const ProductItem = ({
   onLikePress = () => {},
   liked = false,
 }) => {
-  const { locale } = useTranslation();
+  
+  console.log(product);
 
   // Get the image source from the product images array
   const imageSource = product.images && product.images.length > 0 
@@ -32,10 +32,11 @@ const ProductItem = ({
       >
         {/* image */}
         <View className="absolute top-0 left-0 w-full h-full">
-          <ExtImage
+          <Image
             className="w-full h-full"
+            style={{ width: '100%', height: '100%' }}
             resizeMode="cover"
-            mediaSource={imageSource}
+            source={{ uri: imageSource }}
           />
         </View>
         <View className="absolute top-0 left-0 w-full h-full">
@@ -62,7 +63,7 @@ const ProductItem = ({
         )}
         {/* name and message */}
         <View className="absolute bottom-0 left-0 w-full h-full p-2 flex flex-col justify-end items-stretch">
-          <Text className="font-montserrat-alt-bold text-white text-lg ">€{product.dealPrice}</Text>
+          <Text className="font-montserrat-alt-bold text-white text-lg ">€ {product.regularPrice}</Text>
           <Text className="font-inter-regular text-white text-lg">{product.name}</Text>
         </View>
       </TouchableOpacity>
