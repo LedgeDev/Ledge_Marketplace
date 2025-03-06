@@ -24,6 +24,7 @@ router.get('/', [], async (req, res) => {
             location: true
           }
         },
+        brand: true,
         offers: true,
       },
     });
