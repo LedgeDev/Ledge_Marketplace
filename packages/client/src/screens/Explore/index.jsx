@@ -44,7 +44,7 @@ function ExploreScreen({ route }) {
       <TabScreenWrapper
         tabs={[{
           component: ForYou,
-          name: t("explore.forYou"),
+          name: "Upload",
           fullscreen: true
         }, {
           component: Browse,

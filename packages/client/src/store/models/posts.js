@@ -9,6 +9,7 @@ const initialState = {
   posts: null,
   postsSeenIds: [],
   postsBadgeCount: 0,
+  analyzedImages: [],
   status: 'idle',
   error: null,
 };
@@ -53,6 +54,36 @@ export const restoreSeenIdsFromAsyncStorage = createThunkWithErrorHandling(
     const seenIds = JSON.parse(seenIdsString) || [];
     return seenIds;
   }
+);
+
+export const uploadImages = createThunkWithErrorHandling(
+  'posts/uploadImages',
+  async (images) => {
+    const response = await fetchWithToken(`${BACKEND_URL}/posts/analyze-images`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ images }),
+    });
+    const data = await response.json();
+    return data;
+  },
+);
+
+export const uploadSingleImage = createThunkWithErrorHandling(
+  'posts/uploadSingleImage',
+  async (image) => {
+    const response = await fetchWithToken(`${BACKEND_URL}/posts/analyze-single-image`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ image }),
+    });
+    const data = await response.json();
+    return data;
+  },
 );
 
 // Slice
@@ -104,6 +135,28 @@ const postsSlice = createSlice({
         // calculate badge count
         const currentPosts = state.posts ? state.posts.map((post) => post.id) : [];
         state.postsBadgeCount = currentPosts.filter((id) => !state.postsSeenIds.includes(id)).length;
+      })
+      .addCase(uploadImages.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(uploadImages.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.analyzedImages = action.payload;
+      })
+      .addCase(uploadImages.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(uploadSingleImage.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(uploadSingleImage.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        // We don't need to update state here as we're handling the results in the component
+      })
+      .addCase(uploadSingleImage.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
       });
   },
 });

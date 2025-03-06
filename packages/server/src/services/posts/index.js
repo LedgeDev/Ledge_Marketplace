@@ -2,6 +2,13 @@ const prisma = require("../../prisma");
 const express = require("express");
 const { authenticate } = require("../../authentication");
 const router = express.Router();
+const OpenAIApi = require('openai');
+const openai = new OpenAIApi({ key: process.env.OPENAI_API_KEY });
+const { analyzeImage, extractTags, extractPrice } = require('./utils');
+
+// Set higher limit for this router specifically
+router.use(express.json({ limit: '50mb' }));
+router.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 router.use(authenticate);
 
@@ -188,6 +195,64 @@ router.delete("/:id", [], async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send(error.message);
+  }
+});
+
+router.post("/analyze-single-image", [], async (req, res) => {
+  try {
+    const { image } = req.body;
+    
+    if (!image || !image.base64) {
+      return res.status(400).json({ error: "No image provided" });
+    }
+    
+    // Process the single image with OpenAI
+    try {
+      const result = await analyzeImage(image.base64);
+      res.json(result);
+    } catch (error) {
+      console.error("Error analyzing image:", error);
+      res.json({
+        tags: ["Error analyzing image"],
+        price: "Unknown"
+      });
+    }
+    
+  } catch (error) {
+    console.error('Error analyzing image:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.post("/analyze-images", [], async (req, res) => {
+  try {
+    const { images } = req.body;
+    
+    if (!images || !Array.isArray(images) || images.length === 0) {
+      return res.status(400).json({ error: "No images provided" });
+    }
+    
+    // Process each image with OpenAI
+    const analysisPromises = images.map(async (image) => {
+      try {
+        return await analyzeImage(image.base64);
+      } catch (error) {
+        console.error("Error analyzing image:", error);
+        return {
+          tags: ["Error analyzing image"],
+          price: "Unknown"
+        };
+      }
+    });
+    
+    const results = await Promise.all(analysisPromises);
+
+    console.log(results);
+    res.json(results);
+    
+  } catch (error) {
+    console.error('Error analyzing images:', error);
+    res.status(500).json({ error: error.message });
   }
 });
 

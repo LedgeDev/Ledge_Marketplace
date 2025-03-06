@@ -69,24 +69,7 @@ router.get('/', [], async (req, res) => {
       }
     });
 
-    const deletedBrandsIds = user.deletedBrands.map((deleted) => deleted);
-
-    const brands = await prisma.brands.findMany({
-      orderBy: {
-        showFirst: 'desc',
-      },
-      where: {
-        isVisible: true,
-        id: {
-          notIn: deletedBrandsIds,
-        }
-      },
-      select: brandSelects(userId),
-    });
-
-    await addRatings(brands);
-
-    res.json(brands);
+    res.json([]);
   } catch (error) {
     console.error('Error getting brands:', error);
     res.status(500).json({ error: 'Internal server error' });
