@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from '../../store/models/users';
 import ScreenWrapper from '../../newComponents/layout/ScreenWrapper';
+import Offer from './Offer';
 
 function MyProfileScreen({}) {
   const user = useSelector((state) => state.users.data);
@@ -33,7 +34,11 @@ function MyProfileScreen({}) {
 
           <View className="bg-white rounded-lg p-4 border border-1 border-gray flex flex-col items-center">
             <Text className="font-montserrat-bold text-2xl">Offers</Text>
-            
+            <View className="flex flex-col gap-4 w-full">
+              {user.offers.map((offer) => (
+                <Offer key={offer.id} offer={offer} />
+              ))}
+            </View>
           </View>
         </View>
       </ScrollView>
