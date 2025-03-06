@@ -68,7 +68,7 @@ const ProductList = ({
   };
 
   return (
-    <View className="relative flex self-stretch overflow-hidden pt-2 border">
+    <View className="relative flex self-stretch overflow-hidden pt-2">
       <FlatList
         className="background-cream h-full overflow-visible px-6 z-10"
         maxToRenderPerBatch={6}
