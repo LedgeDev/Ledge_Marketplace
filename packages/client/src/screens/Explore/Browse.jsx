@@ -11,7 +11,6 @@ import { usePreloadMedia } from '../../hooks/usePreloadMedia';
 
 const Browse = ({ isActiveTab }) => {
   const products = useSelector((state) => state.products.products);
-  const user = useSelector((state) => state.users.data);
   const productsStatus = useSelector((state) => state.products.status);
   const [refreshing, setRefreshing] = useState(false);
   const dispatch = useDispatch();

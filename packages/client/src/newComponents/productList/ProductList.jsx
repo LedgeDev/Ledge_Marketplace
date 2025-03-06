@@ -68,18 +68,10 @@ const ProductList = ({
   };
 
   return (
-    <View className="relative flex self-stretch overflow-hidden pt-2">
+    <View className="relative flex self-stretch overflow-hidden pt-2 border">
       <FlatList
         className="background-cream h-full overflow-visible px-6 z-10"
         maxToRenderPerBatch={6}
-        // ListHeaderComponent={
-        //   showFilters ?
-        //     <Filters
-        //       brands={brands}
-        //       setFilteredBrands={setFilteredBrands}
-        //     />
-        //     : null
-        // }
         ListHeaderComponentStyle={{ paddingBottom: 24 }}
         data={products}
         renderItem={renderItem}

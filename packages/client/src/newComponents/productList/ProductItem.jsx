@@ -18,10 +18,8 @@ const ProductItem = ({
   const { locale } = useTranslation();
 
   return (
-    <Animated.View
+    <View
       className="w-full h-full"
-      entering={FadeIn}
-      exiting={FadeOut}
     >
       <TouchableOpacity
         onPress={() => onPress(product)}
@@ -64,7 +62,7 @@ const ProductItem = ({
           <Text className="font-inter-regular text-white text-sm">{product.brand?.name}</Text>
         </View>
       </TouchableOpacity>
-    </Animated.View>
+    </View>
   );
 }
 
