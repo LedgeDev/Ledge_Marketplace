@@ -226,7 +226,7 @@
     }
   },
   "poolRefil":{
-    "noMoreTitle" : "No more brands available for you",
+    "noMoreTitle" : "No products available for you",
     "noMoreSubtitle" : "Take a break. We'll update you as soon as new brands are available."
   },
   "termsAndConditions" :{
@@ -324,7 +324,7 @@
       "button": "Swipe"
     },
     "browse": {
-      "title": "No more brands to explore",
+      "title": "No products to explore",
       "subtitle": "Take a break and go for a walk instead. We'll update you as soon as new brands are available."
     }
   },

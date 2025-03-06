@@ -17,6 +17,11 @@ const ProductItem = ({
 }) => {
   const { locale } = useTranslation();
 
+  // Get the image source from the product images array
+  const imageSource = product.images && product.images.length > 0 
+    ? product.images[0].original 
+    : null;
+
   return (
     <View
       className="w-full h-full"
@@ -30,7 +35,7 @@ const ProductItem = ({
           <ExtImage
             className="w-full h-full"
             resizeMode="cover"
-            mediaSource={product.images[0]}
+            mediaSource={imageSource}
           />
         </View>
         <View className="absolute top-0 left-0 w-full h-full">
@@ -59,7 +64,6 @@ const ProductItem = ({
         <View className="absolute bottom-0 left-0 w-full h-full p-2 flex flex-col justify-end items-stretch">
           <Text className="font-montserrat-alt-bold text-white text-lg ">€{product.dealPrice}</Text>
           <Text className="font-inter-regular text-white text-lg">{product.name}</Text>
-          <Text className="font-inter-regular text-white text-sm">{product.brand?.name}</Text>
         </View>
       </TouchableOpacity>
     </View>

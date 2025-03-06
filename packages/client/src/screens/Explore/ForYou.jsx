@@ -15,14 +15,14 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadImages, uploadSingleImage, createProducts } from '../../store/models/posts';
+import { uploadImages, uploadSingleImage, createProducts } from '../../store/models/products';
 import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 
 const ForYou = () => {
   const dispatch = useDispatch();
   const [images, setImages] = useState([]);
   const [analyzedResults, setAnalyzedResults] = useState([]);
-  const { status } = useSelector(state => state.posts);
+  const { status } = useSelector(state => state.products);
   const isLoading = status === 'loading';
   const [progress, setProgress] = useState({ current: 0, total: 0 });
   const [editMode, setEditMode] = useState(false);

@@ -326,8 +326,10 @@ model products {
   deal         String?
   dealPrice    String?
   purchaseUrl  String?
-  brandId      String        @db.ObjectId
-  brand        brands        @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  brandId      String?       @db.ObjectId
+  brand        brands?       @relation(fields: [brandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId       String?
+  user         users?        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   name         String
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -578,6 +580,7 @@ model users {
   notInterestedBrands           not_interested_brands[]
   searchHistory                 search_history[]
   offers                        offers[]
+  products                      products[]
 
   @@map("users")
 }

@@ -1,13 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import ProductList from '../../newComponents/productList/ProductList';
 import { fetchProducts } from '../../store/models/products';
 import NoDataWarning from '../../components/NoDataWarning';
-import TopBlur from '../../newComponents/TopBlur';
 import Search from '../../newComponents/search/Search';
-import { browseInitialOrder } from '../../utils/brand-utils';
-import { usePreloadMedia } from '../../hooks/usePreloadMedia';
 
 const Browse = ({ isActiveTab }) => {
   const products = useSelector((state) => state.products.products);
@@ -42,6 +39,9 @@ const Browse = ({ isActiveTab }) => {
 
   return (
     <View className="flex-1 overflow-visible">
+      <Text className="text-lg font-bold px-4 pt-2 pb-1">
+        User Uploaded Products
+      </Text>
       <Search />
       <ProductList
         products={products}
@@ -51,6 +51,7 @@ const Browse = ({ isActiveTab }) => {
         parentTabName="Browse"
         showLikeButton={true}
         showFilters={false}
+        showUserInfo={true}
       />
     </View>
   );
