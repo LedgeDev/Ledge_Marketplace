@@ -11,6 +11,7 @@ const questionClasses = require('./question-classes');
 const questions = require('./questions');
 const ratings = require('./ratings');
 const users = require('./users');
+const offers = require('./offers');
 const posts = require('./posts');
 const products = require('./products');
 const productionSubmissions = require('./production-submissions');
@@ -46,7 +47,8 @@ const services = [
   brandsAiChat,
   autoDeploy,
   insights,
-  randomLoginImages
+  randomLoginImages,
+  offers,
 ];
 
 module.exports = services;

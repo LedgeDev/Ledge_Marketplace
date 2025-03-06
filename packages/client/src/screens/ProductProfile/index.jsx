@@ -1,9 +1,12 @@
-import { useState, useCallback } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import { useState, useCallback, useRef } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 import HTMLView from 'react-native-htmlview';
+import { createOffer } from '../../store/models/offers';
 import ExtImage from '../../newComponents/ExtImage';
+import BottomSheet from '../../newComponents/BottomSheet';
 import Button from '../../newComponents/Button';
 import GoBack from '../../assets/svg/goBack.svg';
 import Star from '../../assets/svg/star-blue.svg';
@@ -58,7 +61,7 @@ const MenuButtons = () => {
 
   return (
     <View
-      className="absolute top-0 left-0 right-0 bg-transparent z-30 flex flex-row items-center px-6"
+      className="absolute top-0 left-0 right-0 bg-transparent flex flex-row items-center px-6"
       style={{ paddingTop: insets.top }}
     >
       <TouchableOpacity onPress={navigation.goBack}>
@@ -73,7 +76,12 @@ const ProductProfile = ({ route }) => {
   const insets = useSafeAreaInsets();
   const [reviewsWidth, setReviewsWidth] = useState(0);
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
-
+  const bottomSheetRef = useRef(null);
+  const [offerAmount, setOfferAmount] = useState(parseFloat(product.regularPrice));
+  const [postedOffer, setPostedOffer] = useState(null);
+  const offersStatus = useSelector(state => state.offers.status);
+  const user = useSelector(state => state.users.data);
+  const dispatch = useDispatch();
   const viewabilityConfig = {
     itemVisiblePercentThreshold: 50,
   };
@@ -83,6 +91,15 @@ const ProductProfile = ({ route }) => {
       setCurrentReviewIndex(viewableItems[0].index);
     }
   }, []);
+
+  const handlePostOffer = async () => {
+    const offer = await dispatch(createOffer({
+      amount: parseFloat(offerAmount),
+      productId: product.id,
+      userId: user.id,
+    })).unwrap();
+    setPostedOffer(offer);
+  }
 
   if (!product) {
     return null;
@@ -118,7 +135,7 @@ const ProductProfile = ({ route }) => {
             <Text className="font-montserrat-bold text-md text-pink-dark">Lowest offer</Text>
             <Button
               color="blue"
-              onPress={() => {}}
+              onPress={() => bottomSheetRef.current.show()}
               className="w-full mt-4"
             >
               <Text className="font-montserrat-bold text-white text-lg">Make offer</Text>
@@ -171,6 +188,58 @@ const ProductProfile = ({ route }) => {
         </View>
       </ScrollView>
       <MenuButtons />
+      <BottomSheet
+        ref={bottomSheetRef}
+        snapPoints={['35%']}
+        noScroll
+        manageNavButton
+      >
+        {offersStatus === 'loading' && (
+          <View className="flex-1 justify-center items-center">
+            <ActivityIndicator size="large" color="#000000" />
+          </View>
+        )}
+        {offersStatus === 'idle' && (
+            <View className="flex-1">
+              <View className="flex flex-col items-center">
+                <View className="flex flex-row items-center gap-2">
+                <TouchableOpacity
+                  className="w-10 h-10 bg-gray rounded-full flex justify-center items-center"
+                  onPress={() => setOfferAmount(offerAmount - 1)}
+                >
+                  <Text className="font-montserrat-bold text-2xl">-</Text>
+                </TouchableOpacity>
+                <Text className="font-montserrat-bold text-3xl">€{offerAmount}</Text>
+                <TouchableOpacity
+                  className="w-10 h-10 bg-gray rounded-full flex justify-center items-center"
+                  onPress={() => setOfferAmount(offerAmount + 1)}
+                >
+                  <Text className="font-montserrat-bold text-2xl">+</Text>
+                </TouchableOpacity>
+              </View>
+              <Text className="font-montserrat-bold text-xl text-pink-dark">€{product.dealPrice}</Text>
+              <Text className="font-montserrat-bold text-md text-pink-dark">Lowest offer</Text>
+              <Button
+                onPress={handlePostOffer}
+                className="w-full mt-4"
+                big
+              >
+                <Text className="font-montserrat-bold text-pink-dark text-lg">Post offer</Text>
+              </Button>
+            </View>
+          </View>
+        )}
+        {offersStatus === 'succeeded' && (
+          <View className="flex-1 justify-center items-center pb-10">
+            <View className="flex flex-col items-center">
+              <View className="flex flex-row items-center gap-2">
+              <Text className="font-montserrat-bold text-3xl">€{postedOffer?.amount}</Text>
+            </View>
+            <Text className="font-montserrat-bold text-xl text-pink-dark">Offer posted successfully</Text>
+          </View>
+        </View>
+        )}
+      </BottomSheet>
     </>
   )
 }

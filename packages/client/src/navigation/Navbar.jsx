@@ -203,11 +203,10 @@ function Navbar({
               badgeCount={forYouBadgeCount}
             />
             <NavbarItem
-              name="My Data"
-              screenName="My Data"
+              name="My Profile"
+              screenName="My Profile"
               icon={<MyDataIcon width={20} height={20} style={styles.icon} />}
-              isSelected={selectedItem === 'My Data'}
-              badgeCount={questionnaireBadgeCount + benefitsBadgeCount}
+              isSelected={selectedItem === 'My Profile'}
             />
           </View>
           <View>

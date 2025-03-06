@@ -20,6 +20,7 @@ import LetsTalkScreen from '../screens/LetsTalk';
 import PoolRefillScreen from '../screens/PoolRefill';
 import ProductFeedbackScreen from '../screens/ProductFeedback';
 import ProductProfile from '../screens/ProductProfile';
+import MyProfileScreen from '../screens/MyProfile';
 
 const Stack = createStackNavigator();
 
@@ -111,6 +112,7 @@ function AppNavigator({ onRouteChange }) {
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="Product Feedback" component={ProductFeedbackScreen} />
       <Stack.Screen name="Product Profile" component={ProductProfile} />
+      <Stack.Screen name="My Profile" component={MyProfileScreen} />
     </Stack.Navigator>
   );
 }
