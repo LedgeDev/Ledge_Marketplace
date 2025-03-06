@@ -29,6 +29,15 @@ const {
 const versionGate = require('../../middleware/versionGate');
 
 const userIncludes = {
+  offers: {
+    include: {
+      product: {
+        include: {
+          brand: true,
+        },
+      },
+    },
+  },
 }
 
 const adminUserIncludes = {

@@ -109,6 +109,7 @@ const ExtImage = ({
             alt={alt}
           />
         )}
+        
       </View>
     );
   } else if (mediaSource) {
