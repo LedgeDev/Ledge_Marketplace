@@ -256,6 +256,69 @@ router.post("/analyze-images", [], async (req, res) => {
   }
 });
 
+router.post("/create-products", [], async (req, res) => {
+  try {
+    const { products } = req.body;
+    
+    if (!products || !Array.isArray(products) || products.length === 0) {
+      return res.status(400).json({ error: "No products provided" });
+    }
+    
+    const userId = req.headers.currentUserId;
+    
+    // Get the default brand or create one if it doesn't exist
+    let defaultBrand = await prisma.brands.findFirst({
+      where: {
+        name: "User Uploads"
+      }
+    });
+    
+    if (!defaultBrand) {
+      defaultBrand = await prisma.brands.create({
+        data: {
+          name: "User Uploads"
+        }
+      });
+    }
+    
+    // Create each product in the database
+    const createdProducts = await Promise.all(
+      products.map(async (product) => {
+        // Process the image if available
+        let imageData = null;
+        if (product.base64) {
+          imageData = {
+            original: `data:image/jpeg;base64,${product.base64}`,
+            thumbnail: `data:image/jpeg;base64,${product.base64}`
+          };
+        } else if (product.imageUri) {
+          // If we only have URI but no base64, we'll use a placeholder
+          imageData = {
+            original: product.imageUri,
+            thumbnail: product.imageUri
+          };
+        }
+        
+        // Create the product
+        return await prisma.products.create({
+          data: {
+            name: product.productName,
+            description: { text: product.description },
+            regularPrice: product.price.toString(),
+            images: imageData ? [imageData] : [],
+            brandId: defaultBrand.id
+          }
+        });
+      })
+    );
+    
+    res.status(201).json(createdProducts);
+  } catch (error) {
+    console.error('Error creating products:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = {
   path: "/posts",
   router,

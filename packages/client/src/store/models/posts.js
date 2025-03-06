@@ -86,6 +86,21 @@ export const uploadSingleImage = createThunkWithErrorHandling(
   },
 );
 
+export const createProducts = createThunkWithErrorHandling(
+  'posts/createProducts',
+  async (products) => {
+    const response = await fetchWithToken(`${BACKEND_URL}/posts/create-products`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ products }),
+    });
+    const data = await response.json();
+    return data;
+  },
+);
+
 // Slice
 const postsSlice = createSlice({
   name: 'posts',
@@ -155,6 +170,17 @@ const postsSlice = createSlice({
         // We don't need to update state here as we're handling the results in the component
       })
       .addCase(uploadSingleImage.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(createProducts.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(createProducts.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        // We could update state with the newly created products if needed
+      })
+      .addCase(createProducts.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

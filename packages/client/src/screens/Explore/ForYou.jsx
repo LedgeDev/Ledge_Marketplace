@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadImages, uploadSingleImage } from '../../store/models/posts';
+import { uploadImages, uploadSingleImage, createProducts } from '../../store/models/posts';
 import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 
 const ForYou = () => {
@@ -90,11 +90,14 @@ const ForYou = () => {
     setAnalyzedResults([]);
     
     const results = [];
+    const processedImages = [];
     
     for (let i = 0; i < images.length; i++) {
       const processedImage = await processImage(images[i].uri);
       
       if (processedImage) {
+        processedImages.push(processedImage);
+        
         try {
           const result = await dispatch(uploadSingleImage(processedImage)).unwrap();
           results.push(result);
@@ -116,11 +119,18 @@ const ForYou = () => {
           productName: 'Error',
           description: 'Failed to process this image.'
         });
+        processedImages.push(null);
       }
       
       setProgress({ current: i + 1, total: images.length });
       setAnalyzedResults([...results]);
     }
+    
+    // Update images with processed versions that include base64
+    setImages(images.map((img, index) => ({
+      ...img,
+      base64: processedImages[index]?.base64
+    })));
     
     // Enable edit mode after analysis is complete
     setEditMode(true);
@@ -144,7 +154,7 @@ const ForYou = () => {
     setAnalyzedResults(updatedResults);
   };
 
-  const handleUploadProducts = () => {
+  const handleUploadProducts = async () => {
     // Filter out invalid items before uploading
     const validProducts = analyzedResults.filter(result => result.isValid !== false);
     
@@ -157,22 +167,43 @@ const ForYou = () => {
       return;
     }
     
-    // Here you would implement the logic to upload the products to your backend
-    Alert.alert(
-      "Success", 
-      `${validProducts.length} product${validProducts.length > 1 ? 's' : ''} uploaded successfully!`,
-      [
-        { 
-          text: "OK", 
-          onPress: () => {
-            // Reset the state after upload
-            setImages([]);
-            setAnalyzedResults([]);
-            setEditMode(false);
+    try {
+      // Prepare the products data with images
+      const productsToUpload = validProducts.map((result, index) => ({
+        productName: result.productName,
+        description: result.description,
+        price: result.price,
+        imageUri: images[index].uri,
+        base64: images[index].base64 || null
+      }));
+      
+      // Call the API to create the products
+      await dispatch(createProducts(productsToUpload)).unwrap();
+      
+      // Show success message
+      Alert.alert(
+        "Success", 
+        `${validProducts.length} product${validProducts.length > 1 ? 's' : ''} uploaded successfully!`,
+        [
+          { 
+            text: "OK", 
+            onPress: () => {
+              // Reset the state after upload
+              setImages([]);
+              setAnalyzedResults([]);
+              setEditMode(false);
+            }
           }
-        }
-      ]
-    );
+        ]
+      );
+    } catch (error) {
+      console.error('Error uploading products:', error);
+      Alert.alert(
+        "Upload Failed", 
+        "There was an error uploading your products. Please try again.",
+        [{ text: "OK" }]
+      );
+    }
   };
 
   // Add new function to handle image deletion
