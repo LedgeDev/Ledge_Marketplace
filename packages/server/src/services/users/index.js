@@ -446,14 +446,28 @@ router.post('/', [], async (req, res) => {
 router.patch('/', [], async (req, res) => {
   try {
     const userId = req.headers.currentUserId;
+    
+    // Get the current user to check onboarding status
+    const currentUser = await prisma.users.findUnique({
+      where: { id: userId }
+    });
+    
+    // Prepare data for update
+    const updateData = { ...req.body };
+    
+    // Set hasCompletedOnboarding to true if it's not already true
+    if (currentUser && !currentUser.hasCompletedOnboarding) {
+      updateData.hasCompletedOnboarding = true;
+    }
 
     const user = await prisma.users.update({
       where: {
         id: userId,
       },
-      data: req.body,
+      data: updateData,
       include: userIncludes,
     });
+
     res.json(user);
   } catch (error) {
     console.error(error);
