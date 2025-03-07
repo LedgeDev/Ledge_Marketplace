@@ -15,8 +15,6 @@ const ProductItem = ({
   liked = false,
 }) => {
   
-  console.log(product);
-
   // Get the image source from the product images array
   const imageSource = product.images && product.images.length > 0 
     ? product.images[0].original 

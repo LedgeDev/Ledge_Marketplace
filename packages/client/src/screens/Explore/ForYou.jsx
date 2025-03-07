@@ -17,16 +17,22 @@ import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadImages, uploadSingleImage, createProducts } from '../../store/models/products';
 import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
+import { useNavigation } from '@react-navigation/native';
+import BuyCredits from './BuyCredits';
 
 const ForYou = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [images, setImages] = useState([]);
   const [analyzedResults, setAnalyzedResults] = useState([]);
   const { status } = useSelector(state => state.products);
+  const user = useSelector(state => state.users.data);
+  const credits = user?.aiCredits || 0;
   const isLoading = status === 'loading';
   const [progress, setProgress] = useState({ current: 0, total: 0 });
   const [editMode, setEditMode] = useState(false);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+  const [showBuyCredits, setShowBuyCredits] = useState(false);
   
   // Add keyboard listeners
   React.useEffect(() => {
@@ -49,7 +55,28 @@ const ForYou = () => {
     };
   }, []);
 
+  const navigateToBuyCredits = () => {
+    setShowBuyCredits(true);
+  };
+
+  const handleBackFromCredits = () => {
+    setShowBuyCredits(false);
+  };
+
   const pickImages = async () => {
+    // Check if user has credits before allowing to pick images
+    if (credits <= 0 && images.length === 0) {
+      Alert.alert(
+        "No Credits",
+        "You don't have any credits left to analyze images. Would you like to buy more?",
+        [
+          { text: "Cancel", style: "cancel" },
+          { text: "Buy Credits", onPress: navigateToBuyCredits }
+        ]
+      );
+      return;
+    }
+
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsMultipleSelection: true,
@@ -59,9 +86,61 @@ const ForYou = () => {
     });
 
     if (!result.canceled && result.assets.length > 0) {
-      setImages(result.assets);
+      // Check if we're adding to existing images or starting fresh
+      if (images.length > 0) {
+        // Add new images to existing ones
+        setImages(prevImages => [...prevImages, ...result.assets]);
+      } else {
+        // First time selecting images
+        setImages(result.assets);
+      }
       setAnalyzedResults([]);
       setEditMode(false);
+    }
+  };
+
+  // New function to open camera
+  const openCamera = async () => {
+    // Check if user has credits before allowing to use camera
+    if (credits <= 0 && images.length === 0) {
+      Alert.alert(
+        "No Credits",
+        "You don't have any credits left to analyze images. Would you like to buy more?",
+        [
+          { text: "Cancel", style: "cancel" },
+          { text: "Buy Credits", onPress: navigateToBuyCredits }
+        ]
+      );
+      return;
+    }
+
+    // Request camera permissions
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    
+    if (status !== 'granted') {
+      Alert.alert(
+        "Permission Denied",
+        "We need camera permissions to take pictures.",
+        [{ text: "OK" }]
+      );
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsMultipleSelection: false,
+      quality: 0.8,
+      base64: false,
+    });
+
+    if (!result.canceled && result.assets.length > 0) {
+      // Add the new image to existing images
+      setImages(prevImages => [...prevImages, ...result.assets]);
+      
+      // Only reset analyzed results if we're not in the middle of editing
+      if (!editMode) {
+        setAnalyzedResults([]);
+      }
     }
   };
 
@@ -85,6 +164,19 @@ const ForYou = () => {
 
   const handleUpload = async () => {
     if (images.length === 0) return;
+    
+    // Check if user has enough credits
+    if (credits < images.length) {
+      Alert.alert(
+        "Not Enough Credits",
+        `You need ${images.length} credits to analyze these images, but you only have ${credits}. Would you like to buy more?`,
+        [
+          { text: "Cancel", style: "cancel" },
+          { text: "Buy Credits", onPress: navigateToBuyCredits }
+        ]
+      );
+      return;
+    }
     
     setProgress({ current: 0, total: images.length });
     setAnalyzedResults([]);
@@ -223,47 +315,116 @@ const ForYou = () => {
     }
   };
 
-  // Add new function to handle image replacement
+  // Modify the function to handle image replacement
   const handleReplaceImage = async (index) => {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsMultipleSelection: false,
-      quality: 0.8,
-      base64: false,
-    });
-
-    if (!result.canceled && result.assets.length > 0) {
-      // Replace the image at the specified index
-      const newImages = [...images];
-      newImages[index] = result.assets[0];
-      setImages(newImages);
-      
-      // Process and analyze the new image
-      const processedImage = await processImage(result.assets[0].uri);
-      
-      if (processedImage) {
-        try {
-          const result = await dispatch(uploadSingleImage(processedImage)).unwrap();
-          
-          // Update the analyzed results
-          const newResults = [...analyzedResults];
-          newResults[index] = result;
-          setAnalyzedResults(newResults);
-        } catch (error) {
-          console.error('Error uploading replacement image:', error);
-          // Handle error for the replaced image
-          const newResults = [...analyzedResults];
-          newResults[index] = { 
-            isValid: false,
-            tags: ['Error processing image'], 
-            price: 'Unknown',
-            productName: 'Error',
-            description: 'There was an error processing this image.'
-          };
-          setAnalyzedResults(newResults);
+    Alert.alert(
+      "Replace Image",
+      "Choose how you want to replace this image",
+      [
+        {
+          text: "Camera",
+          onPress: async () => {
+            // Request camera permissions
+            const { status } = await ImagePicker.requestCameraPermissionsAsync();
+            
+            if (status !== 'granted') {
+              Alert.alert(
+                "Permission Denied",
+                "We need camera permissions to take pictures.",
+                [{ text: "OK" }]
+              );
+              return;
+            }
+            
+            const result = await ImagePicker.launchCameraAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+              allowsMultipleSelection: false,
+              quality: 0.8,
+              base64: false,
+            });
+            
+            if (!result.canceled && result.assets.length > 0) {
+              replaceAndAnalyzeImage(index, result.assets[0]);
+            }
+          }
+        },
+        {
+          text: "Gallery",
+          onPress: async () => {
+            const result = await ImagePicker.launchImageLibraryAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+              allowsMultipleSelection: false,
+              quality: 0.8,
+              base64: false,
+            });
+            
+            if (!result.canceled && result.assets.length > 0) {
+              replaceAndAnalyzeImage(index, result.assets[0]);
+            }
+          }
+        },
+        {
+          text: "Cancel",
+          style: "cancel"
         }
+      ]
+    );
+  };
+  
+  // Helper function to replace and analyze an image
+  const replaceAndAnalyzeImage = async (index, newImage) => {
+    // Replace the image at the specified index
+    const newImages = [...images];
+    newImages[index] = newImage;
+    setImages(newImages);
+    
+    // Process and analyze the new image
+    const processedImage = await processImage(newImage.uri);
+    
+    if (processedImage) {
+      try {
+        const result = await dispatch(uploadSingleImage(processedImage)).unwrap();
+        
+        // Update the analyzed results
+        const newResults = [...analyzedResults];
+        newResults[index] = result;
+        setAnalyzedResults(newResults);
+      } catch (error) {
+        console.error('Error uploading replacement image:', error);
+        // Handle error for the replaced image
+        const newResults = [...analyzedResults];
+        newResults[index] = { 
+          isValid: false,
+          tags: ['Error processing image'], 
+          price: 'Unknown',
+          productName: 'Error',
+          description: 'There was an error processing this image.'
+        };
+        setAnalyzedResults(newResults);
       }
     }
+  };
+
+  // Add a new function to handle the "Add More" action
+  const handleAddMore = () => {
+    Alert.alert(
+      "Add More Images",
+      "Choose how you want to add more images",
+      [
+        {
+          text: "Camera",
+          onPress: openCamera
+        },
+        {
+          text: "Gallery",
+          onPress: pickImages
+        },
+        {
+          text: "Cancel",
+          style: "cancel"
+        }
+      ]
+    );
   };
 
   const renderImageItem = ({ item, index }) => (
@@ -271,7 +432,7 @@ const ForYou = () => {
       <View className="relative">
         <Image 
           source={{ uri: item.uri }} 
-          className="w-full h-auto rounded-xl mb-2" 
+          className="w-full h-auto rounded-2xl mb-2" 
           style={{ aspectRatio: 1 }}
           resizeMode="contain"
         />
@@ -351,6 +512,16 @@ const ForYou = () => {
     </View>
   );
 
+  // If showing buy credits, render that component
+  if (showBuyCredits) {
+    return (
+      <View className="flex-1">
+        <BuyCredits onBack={handleBackFromCredits} />
+      </View>
+    );
+  }
+
+  // Otherwise render the normal ForYou component
   return (
     <KeyboardAvoidingView 
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -358,15 +529,48 @@ const ForYou = () => {
       keyboardVerticalOffset={100}
     >
       <View className="flex-1 p-4 bg-white">
+        {/* Credit counter at the top right */}
+        <TouchableOpacity 
+          className="absolute top-60 right-20 z-10 bg-blue-100 px-3 py-1 rounded-full flex-row items-center"
+          onPress={navigateToBuyCredits}
+        >
+          <Text className="font-bold text-blue-600">{credits} Credits</Text>
+        </TouchableOpacity>
+
         {images.length === 0 ? (
           <View className="flex-1 justify-center items-center">
-            <TouchableOpacity 
-              className="bg-blue-500 py-3 px-6 rounded-full"
-              onPress={pickImages}
-              disabled={isLoading}
-            >
-              <Text className="text-white font-bold text-lg">Select Images (Max 15)</Text>
-            </TouchableOpacity>
+            {credits <= 0 ? (
+              <View className="items-center p-6 bg-gray-50 rounded-lg">
+                <Text className="text-lg text-center mb-4">
+                  You need credits to analyze images. Go to buy more credits to continue uploading products, or upload them manually.
+                </Text>
+                <TouchableOpacity 
+                  className="bg-blue-500 py-3 px-6 rounded-full"
+                  onPress={navigateToBuyCredits}
+                >
+                  <Text className="text-white font-bold text-lg">Go to Buy Credits</Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <View className="flex-row space-x-4">
+                <TouchableOpacity 
+                  className="bg-blue-500 py-3 px-6 rounded-full"
+                  onPress={pickImages}
+                  disabled={isLoading}
+                >
+                  <Text className="text-white font-bold text-lg">Gallery</Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity 
+                  className="bg-green-500 py-3 px-6 rounded-full"
+                  onPress={openCamera}
+                  disabled={isLoading}
+                >
+                  <Text className="text-white font-bold text-lg">Camera</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+            {credits > 0 && <Text className="text-gray-500 mt-3">Select up to {Math.min(15, credits)} images</Text>}
           </View>
         ) : (
           <View className="flex-1">
@@ -386,13 +590,23 @@ const ForYou = () => {
                   <Text className="text-white font-bold text-lg">Upload Products</Text>
                 </TouchableOpacity>
               ) : !isLoading && !isKeyboardVisible ? (
-                <TouchableOpacity 
-                  className="bg-blue-500 py-3 px-6 rounded-full"
-                  onPress={handleUpload}
-                  disabled={isLoading}
-                >
-                  <Text className="text-white font-bold text-lg">Analyze Images</Text>
-                </TouchableOpacity>
+                <View className="flex-row space-x-4">
+                  <TouchableOpacity 
+                    className="bg-blue-500 py-3 px-6 rounded-full"
+                    onPress={handleUpload}
+                    disabled={isLoading}
+                  >
+                    <Text className="text-white font-bold text-lg">Analyze Images</Text>
+                  </TouchableOpacity>
+                  
+                  <TouchableOpacity 
+                    className="bg-green-500 py-3 px-6 rounded-full"
+                    onPress={handleAddMore}
+                    disabled={isLoading}
+                  >
+                    <Text className="text-white font-bold text-lg">Add More</Text>
+                  </TouchableOpacity>
+                </View>
               ) : null}
               
               {isLoading && (
