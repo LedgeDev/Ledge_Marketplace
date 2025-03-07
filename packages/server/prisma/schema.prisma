@@ -588,6 +588,8 @@ model users {
   searchHistory                search_history[]
   offers                       offers[]
   products                     products[]
+  aiPersonalizationText        String?
+  phoneNumber                  String?
 
   @@map("users")
 }
