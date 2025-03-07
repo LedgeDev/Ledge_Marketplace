@@ -26,13 +26,23 @@ const OnboardingView = ({ onLoad = () => {} }) => {
       },
     },
     {
+      id: 'location',
+      type: 'location',
+      question: {
+        en: 'Location for products',
+      },
+      subtitle: {
+        en: 'Now, you can add your location to show your offers in the right place.',
+      },
+    },
+    {
       id: 'phone-number',
       type: 'text',
       question: {
         en: 'Phone number for contact',
       },
       subtitle: {
-        en: 'Now, you can optionally provide your phone number to allow your buyers to contact you.',
+        en: 'Lastly, you can optionally provide your phone number to allow your buyers to contact you.',
       },
     },
   ];
@@ -41,7 +51,8 @@ const OnboardingView = ({ onLoad = () => {} }) => {
     console.log('answers', answers);
     const aiText = answers['ai-text'];
     const phoneNumber = answers['phone-number'];
-    await dispatch(patchUser({ aiPersonalizationText: aiText, phoneNumber })).unwrap();
+    const location = answers['location'];
+    await dispatch(patchUser({ aiPersonalizationText: aiText, phoneNumber, location })).unwrap();
     navigation.navigate('Explore');
   };
 
