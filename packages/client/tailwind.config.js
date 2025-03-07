@@ -46,6 +46,7 @@ module.exports = {
         'red': '#F95252',
         'red-dark': '#C00000',
         'gray-dark': '#262C30',
+        'green-light': '#BAEDBD',
       },
       fontFamily: {
         'montserrat-alt': ['MontserratAlternates-Regular', 'sans-serif'],

@@ -274,16 +274,23 @@ model link_visits {
 }
 
 model offers {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
   amount    Float
   userId    String
-  user      users     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  productId String?   @db.ObjectId
-  product   products? @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  user      users       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  productId String?     @db.ObjectId
+  product   products?   @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  status    OfferStatus @default(pending)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 
   @@map("offers")
+}
+
+enum OfferStatus {
+  pending
+  accepted
+  rejected
 }
 
 model posts {
@@ -534,53 +541,53 @@ model login_background_images {
 }
 
 model users {
-  id                            String                      @id @map("_id")
-  answers                       answers[]
-  email                         String
-  myFavourites                  Json[]
-  createdAt                     DateTime                    @default(now())
-  updatedAt                     DateTime                    @updatedAt
-  name                          String?
-  ratings                       ratings[]
-  notificationsToken            String?
-  forYouBrandsIds               String[]                    @db.ObjectId
-  forYouBrands                  brands[]                    @relation("BrandsForYou", fields: [forYouBrandsIds], references: [id])
-  forYouBrandsPoolIds           String[]                    @db.ObjectId
-  forYouBrandsPool              brands[]                    @relation("BrandsForYouPool", fields: [forYouBrandsPoolIds], references: [id])
-  linkVisits                    link_visits[]
-  brandScreenTimes              brand_screen_times[]
-  feedbacks                     feedback[]
-  levelId                       String?                     @db.ObjectId
-  level                         levels?                     @relation(fields: [levelId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  brandsExplored                Int
-  ownedBrandId                  String?                     @unique @db.ObjectId
-  ownedBrand                    brands?                     @relation(name: "ownedBrand", fields: [ownedBrandId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  productionSubmissions         production_submissions[]
-  foundersReachedLeaderboardId  String?                     @db.ObjectId
-  foundersReachedLeaderboard    foundersReachedLeaderboard? @relation(fields: [foundersReachedLeaderboardId], references: [id], onDelete: SetNull, onUpdate: Cascade)
-  dealCodes                     deal_codes[]
-  viewedPitches                 String[]
-  brandUnlockHistory            unlocked_brands_history[]
-  categoryChoices               category_choices[]
-  deletedBrands                 String[]
-  superUser                     Boolean?
-  likedPostsIds                 String[]                    @db.ObjectId
-  likedPosts                    posts[]                     @relation(fields: [likedPostsIds], references: [id])
-  lastOpened                    DateTime?                   @default(now())
-  pushNotificationHistory       push_notification_history[]
-  contentViews                  content_views[]
-  recentlyRotatedBrandsIds      String[]                    @db.ObjectId
-  recentlyRotatedBrands         brands[]                    @relation("BrandsRecentlyRotated", fields: [recentlyRotatedBrandsIds], references: [id])
-  likes                         brands_likes[]
-  events                        events[]
-  hasCompletedOnboarding        Boolean?                    @default(false)
-  location                      String?
-  profilePicture                Json?
-  friendCode                    String?
-  notInterestedBrands           not_interested_brands[]
-  searchHistory                 search_history[]
-  offers                        offers[]
-  products                      products[]
+  id                           String                      @id @map("_id")
+  answers                      answers[]
+  email                        String
+  myFavourites                 Json[]
+  createdAt                    DateTime                    @default(now())
+  updatedAt                    DateTime                    @updatedAt
+  name                         String?
+  ratings                      ratings[]
+  notificationsToken           String?
+  forYouBrandsIds              String[]                    @db.ObjectId
+  forYouBrands                 brands[]                    @relation("BrandsForYou", fields: [forYouBrandsIds], references: [id])
+  forYouBrandsPoolIds          String[]                    @db.ObjectId
+  forYouBrandsPool             brands[]                    @relation("BrandsForYouPool", fields: [forYouBrandsPoolIds], references: [id])
+  linkVisits                   link_visits[]
+  brandScreenTimes             brand_screen_times[]
+  feedbacks                    feedback[]
+  levelId                      String?                     @db.ObjectId
+  level                        levels?                     @relation(fields: [levelId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  brandsExplored               Int
+  ownedBrandId                 String?                     @unique @db.ObjectId
+  ownedBrand                   brands?                     @relation(name: "ownedBrand", fields: [ownedBrandId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  productionSubmissions        production_submissions[]
+  foundersReachedLeaderboardId String?                     @db.ObjectId
+  foundersReachedLeaderboard   foundersReachedLeaderboard? @relation(fields: [foundersReachedLeaderboardId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  dealCodes                    deal_codes[]
+  viewedPitches                String[]
+  brandUnlockHistory           unlocked_brands_history[]
+  categoryChoices              category_choices[]
+  deletedBrands                String[]
+  superUser                    Boolean?
+  likedPostsIds                String[]                    @db.ObjectId
+  likedPosts                   posts[]                     @relation(fields: [likedPostsIds], references: [id])
+  lastOpened                   DateTime?                   @default(now())
+  pushNotificationHistory      push_notification_history[]
+  contentViews                 content_views[]
+  recentlyRotatedBrandsIds     String[]                    @db.ObjectId
+  recentlyRotatedBrands        brands[]                    @relation("BrandsRecentlyRotated", fields: [recentlyRotatedBrandsIds], references: [id])
+  likes                        brands_likes[]
+  events                       events[]
+  hasCompletedOnboarding       Boolean?                    @default(false)
+  location                     String?
+  profilePicture               Json?
+  friendCode                   String?
+  notInterestedBrands          not_interested_brands[]
+  searchHistory                search_history[]
+  offers                       offers[]
+  products                     products[]
 
   @@map("users")
 }
