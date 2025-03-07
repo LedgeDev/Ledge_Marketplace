@@ -540,6 +540,18 @@ model login_background_images {
   @@map("login-background-images")
 }
 
+model money_transfers {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  user      users    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  image     String   // Base64 encoded image
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("money-transfers")
+}
+
 model users {
   id                           String                      @id @map("_id")
   answers                      answers[]
@@ -590,6 +602,8 @@ model users {
   products                     products[]
   aiPersonalizationText        String?
   phoneNumber                  String?
+  aiCredits                     Int?                        @default(10)   
+  moneyTransfers                money_transfers[]
 
   @@map("users")
 }
