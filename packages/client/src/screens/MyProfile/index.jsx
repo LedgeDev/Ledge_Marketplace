@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useRef, useMemo } from 'react';
-import { View, Text, ScrollView, Image, Modal } from 'react-native';
+import React, { useCallback, useEffect, useRef, useMemo, useState } from 'react';
+import { View, Text, ScrollView, Image, Modal, TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { patchOffer } from '../../store/models/offers';
+import { acceptOffer } from '../../store/models/offers';
 import { getUser } from '../../store/models/users';
 import ScreenWrapper from '../../newComponents/layout/ScreenWrapper';
 import Offer from './Offer';
@@ -10,7 +10,8 @@ function MyProfileScreen({}) {
   const user = useSelector((state) => state.users.data);
   const dispatch = useDispatch();
   const productOffers = useMemo(() => user.products.map((product) => product.offers).flat(), [user.products]);
-
+  const [contactInfo, setContactInfo] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     dispatch(getUser());
@@ -21,10 +22,12 @@ function MyProfileScreen({}) {
   }, [productOffers]);
 
   const handleAcceptOffer = useCallback(async (offer) => {
-    console.log('accepting offer', offer.id);
-    const res = await dispatch(patchOffer({ id: offer.id, data: { status: 'accepted' } })).unwrap();
-    console.log('accepted offer', res.status);
+    const res = await dispatch(acceptOffer(offer.id)).unwrap();
     await dispatch(getUser()).unwrap();
+    if (res.user) {
+      setContactInfo(res.user);
+      setModalVisible(true);
+    }
   }, [dispatch]);
 
   return (
@@ -60,13 +63,44 @@ function MyProfileScreen({}) {
               <Text className="font-montserrat-bold text-2xl pb-4">Offers to my products</Text>
               <View className="flex flex-col gap-4 w-full">
                 {productOffers.map((offer) => (
-                  <Offer key={offer.id} offer={offer} onAccept={handleAcceptOffer} />
+                  <Offer
+                    key={offer.id}
+                    offer={offer}
+                    onAcceptOffer={() => handleAcceptOffer(offer)}
+                    showAccept={true}
+                  />
                 ))}
               </View>
             </View>
           </View>
         </ScrollView>
       </ScreenWrapper>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View className="flex-1 justify-center items-center bg-black-600 bg-opacity-50">
+          <View className="bg-white rounded-lg p-6 w-4/5">
+            <Text className="font-montserrat-bold text-xl mb-4">Contact Information</Text>
+            {contactInfo && (
+              <View className="mb-4">
+                <Text className="text-lg">Name: {contactInfo.name}</Text>
+                <Text className="text-lg">Email: {contactInfo.email}</Text>
+                <Text className="text-lg">Phone: {contactInfo.phone}</Text>
+              </View>
+            )}
+            <TouchableOpacity
+              className="bg-blue-500 py-2 px-4 rounded"
+              onPress={() => setModalVisible(false)}
+            >
+              <Text className="text-white text-center">Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </>
   );
 }

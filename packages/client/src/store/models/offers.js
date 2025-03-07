@@ -20,14 +20,12 @@ export const createOffer = createThunkWithErrorHandling(
   },
 );
 
-export const patchOffer = createThunkWithErrorHandling(
-  'offers/patch',
-  async ({ id, data }) => {
-    const response = await fetchWithToken(`${BACKEND_URL}/offers/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(data),
+export const acceptOffer = createThunkWithErrorHandling(
+  'offers/accept',
+  async (id) => {
+    const response = await fetchWithToken(`${BACKEND_URL}/offers/accept/${id}`, {
+      method: 'POST',
     });
-    console.log(response);
     return await response.json();
   },
 );
@@ -49,13 +47,13 @@ const offersSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message;
       })
-      .addCase(patchOffer.pending, (state) => {
+      .addCase(acceptOffer.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(patchOffer.fulfilled, (state) => {
+      .addCase(acceptOffer.fulfilled, (state) => {
         state.status = 'succeeded';
       })
-      .addCase(patchOffer.rejected, (state, action) => {
+      .addCase(acceptOffer.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

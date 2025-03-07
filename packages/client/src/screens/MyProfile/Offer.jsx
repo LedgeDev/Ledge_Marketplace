@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import ExtImage from '../../newComponents/ExtImage';
 
-const Offer = ({ offer, onAccept = () => {} }) => {
+const Offer = ({ offer, onAcceptOffer = () => {}, showAccept = false }) => {
   const user = useSelector((state) => state.users.data);
   const date = new Date(offer.createdAt);
   const formattedDate = date.toLocaleDateString('en-US', {
@@ -12,7 +12,7 @@ const Offer = ({ offer, onAccept = () => {} }) => {
   });
 
   const handleAccept = () => {
-    onAccept(offer);
+    onAcceptOffer();
   };
 
   return (
@@ -29,7 +29,7 @@ const Offer = ({ offer, onAccept = () => {} }) => {
         <Text className="font-inter text-lg text-pink-dark">{offer.product?.name}</Text>
         <Text className="font-inter text-md">by {offer.product?.brand?.name}</Text>
       </View>
-      { offer.product.userId === user.id && offer.status === 'pending' && (
+      { offer.product.userId === user.id && offer.status === 'pending' && showAccept && (
         <TouchableOpacity
           onPress={handleAccept}
           className="absolute bottom-4 right-4 h-14 w-24 bg-green-light rounded-xl flex justify-center items-center"
@@ -37,7 +37,7 @@ const Offer = ({ offer, onAccept = () => {} }) => {
           <Text className="font-inter text-black text-md">Accept</Text>
         </TouchableOpacity>
       )}
-      { offer.product.userId === user.id && offer.status === 'accepted' && (
+      { offer.product.userId === user.id && offer.status === 'accepted' && showAccept && (
         <TouchableOpacity
           onPress={handleAccept}
           className="absolute bottom-4 right-4 h-14 w-24 bg-black-600 rounded-xl flex justify-center items-center"
