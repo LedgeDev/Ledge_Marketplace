@@ -17,10 +17,6 @@ function MyProfileScreen({}) {
     dispatch(getUser());
   }, []);
 
-  useEffect(() => {
-    console.log(productOffers);
-  }, [productOffers]);
-
   const handleAcceptOffer = useCallback(async (offer) => {
     const res = await dispatch(acceptOffer(offer.id)).unwrap();
     await dispatch(getUser()).unwrap();
