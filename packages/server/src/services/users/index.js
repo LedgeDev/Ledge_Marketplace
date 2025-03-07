@@ -17,7 +17,7 @@ const {
 const config = require('config');
 
 const multer = require('multer');
-const upload = multer({ storage: multer.memoryStorage() });
+const bodyParser = require('body-parser');
 
 const {
   getBrandsCategories,
@@ -891,6 +891,52 @@ router.patch('/profile', async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+
+// Replace the upload-receipt route with the new implementation
+router.post('/upload-receipt', 
+  bodyParser.json({ limit: '100mb' }),
+  async (req, res) => {
+    try {
+      const userId = req.headers.currentUserId;
+      const { receiptImage } = req.body;
+      
+      if (!receiptImage) {
+        return res.status(400).json({ success: false, message: 'Receipt image is required' });
+      }
+      
+      // Get the user
+      const user = await prisma.users.findUnique({
+        where: { id: userId }
+      });
+      
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+      }
+      
+      // Create a new money transfer record
+      const moneyTransfer = await prisma.money_transfers.create({
+        data: {
+          image: receiptImage,
+          user: {
+            connect: { id: userId }
+          }
+        }
+      });
+      
+      res.status(200).json({ 
+        success: true, 
+        message: 'Receipt uploaded successfully',
+        transferId: moneyTransfer.id
+      });
+    } catch (error) {
+      console.error('Error uploading receipt:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to upload receipt: ' + error.message 
+      });
+    }
+  }
+);
 
 module.exports = {
   path: '/users',
