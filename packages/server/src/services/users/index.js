@@ -37,7 +37,20 @@ const userIncludes = {
         },
       },
     },
-  }
+  },
+  products: {
+    include: {
+      offers: {
+        include: {
+          product: {
+            include: {
+              brand: true,
+            },
+          },
+        },
+      },
+    },
+  },
 }
 
 const adminUserIncludes = {

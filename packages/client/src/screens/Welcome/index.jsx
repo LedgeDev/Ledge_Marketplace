@@ -41,13 +41,12 @@ const WelcomeScreen = () => {
 
   const determineStage = useCallback(() => {
     if (isAuthenticated === false) {
-      console.log('[DEBUG] determineStage: login (isAuthenticated is false)');
       return 'login';
     } else if (!user) {
-      console.log('[DEBUG] determineStage: loading (user is null/undefined)');
       return 'loading';
+    } else if (!user.hasCompletedOnboarding) {
+      return 'welcome';
     } else {
-      console.log('[DEBUG] determineStage: complete (user exists)');
       return 'complete';
     }
   }, [isAuthenticated, user]);
@@ -79,14 +78,7 @@ const WelcomeScreen = () => {
 
   useFocusEffect(
     useCallback(() => {
-      console.log('[DEBUG] WelcomeScreen - useFocusEffect triggered', {
-        isAuthenticated,
-        userStatus,
-        hasUser: !!user,
-      });
-
       if (isAuthenticated === null) {
-        console.log('[DEBUG] isAuthenticated is null, setting stage to login');
         setStage('login');
         return;
       }
@@ -94,31 +86,24 @@ const WelcomeScreen = () => {
       EventBus.getInstance().fireEvent("showButton", { value: false });
 
       if (isAuthenticated === false && user) {
-        console.log('[DEBUG] Resetting user (isAuthenticated=false but user exists)');
         dispatch(resetUser());
         return;
       }
       if (isAuthenticated === true && !userStatus === 'loading' && !user) {
-        console.log('[DEBUG] Getting user (isAuthenticated=true but no user)');
         dispatch(getUser());
         return;
       }
       const newStage = determineStage();
-      console.log('[DEBUG] Setting stage to:', newStage);
       setStage(newStage);
 
       if (newStage !== 'loading') {
-        console.log('[DEBUG] Hiding splash screen (stage is not loading)');
         EventBus.getInstance().fireEvent("hideSplashScreen");
       }
 
       if (newStage === 'complete') {
-        console.log('[DEBUG] Stage is complete, preparing to navigate to Explore');
         if (user && !user.hasCompletedOnboarding) {
-          console.log('[DEBUG] Updating user welcome seen');
           dispatch(updateUserWelcomeSeen());
         }
-        console.log('[DEBUG] Navigating to Explore screen');
         navigation.replace('Explore', { hideSplashScreenOnLoad: true });
       }
     }, [isAuthenticated, user, dispatch, navigation, determineStage, userStatus]),
@@ -130,20 +115,16 @@ const WelcomeScreen = () => {
 
   switch (stage) {
     case 'login':
-      console.log('[DEBUG] Rendering LoginView');
       return <LoginView />;
     case 'welcome':
-      console.log('[DEBUG] Rendering WelcomeIntroView');
       return <WelcomeIntroView onGetStarted={handleGetStarted} />;
     case 'loading':
-      console.log('[DEBUG] Rendering loading indicator');
       return (
         <View className="flex-1 justify-center items-center">
           <ActivityIndicator size="large" color="#999999" />
         </View>
       );
     case 'onboarding':
-      console.log('[DEBUG] Rendering OnboardingView');
       return (
         <OnboardingView
           onLoad={async () => {
@@ -154,7 +135,6 @@ const WelcomeScreen = () => {
         />
       );
     default:
-      console.log('[DEBUG] Rendering default loading indicator, stage:', stage);
       return (
         <View className="flex-1 justify-center items-center">
           <ActivityIndicator size="large" color="#999999" />

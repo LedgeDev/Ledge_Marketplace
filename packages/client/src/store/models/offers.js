@@ -20,6 +20,16 @@ export const createOffer = createThunkWithErrorHandling(
   },
 );
 
+export const acceptOffer = createThunkWithErrorHandling(
+  'offers/accept',
+  async (id) => {
+    const response = await fetchWithToken(`${BACKEND_URL}/offers/accept/${id}`, {
+      method: 'POST',
+    });
+    return await response.json();
+  },
+);
+
 // Slice
 const offersSlice = createSlice({
   name: 'offers',
@@ -34,6 +44,16 @@ const offersSlice = createSlice({
         state.status = 'succeeded';
       })
       .addCase(createOffer.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(acceptOffer.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(acceptOffer.fulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addCase(acceptOffer.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

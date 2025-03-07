@@ -29,7 +29,6 @@ const ProductItem = ({
         onPress={() => onPress(product)}
         className="relative w-full h-full rounded-2xl overflow-hidden"
       >
-        {/* image */}
         <View className="absolute top-0 left-0 w-full h-full">
           <ExtImage
             className="w-full h-full"
@@ -43,7 +42,6 @@ const ProductItem = ({
             style={{ width: '100%', height: '100%' }}
           />
         </View>
-        {/* like button */}
         {showLikeButton && (
           <TouchableOpacity
             className="absolute top-0 right-0 p-3 rounded-full"

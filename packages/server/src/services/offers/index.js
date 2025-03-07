@@ -19,6 +19,26 @@ router.post("/", [], async (req, res) => {
   }
 });
 
+router.post("/accept/:id", [], async (req, res) => {
+  try {
+    const { id } = req.params;
+    const offer = await prisma.offers.update({
+      where: { id },
+      data: {
+        status: 'accepted',
+      },
+      include: {
+        user: true,
+      },
+    });
+    
+    res.status(200).json(offer);
+  } catch (error) {
+    console.error('Error accepting offer', error);
+    res.status(500).send(error.message);
+  }
+});
+
 module.exports = {
   path: "/offers",
   router,
