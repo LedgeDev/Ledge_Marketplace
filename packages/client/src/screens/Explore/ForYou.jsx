@@ -27,7 +27,7 @@ const ForYou = () => {
   const [analyzedResults, setAnalyzedResults] = useState([]);
   const { status } = useSelector(state => state.products);
   const user = useSelector(state => state.users.data);
-  const credits = user?.aiCredits || 0;
+  const credits = user?.aiCredits || 20;
   const isLoading = status === 'loading';
   const [progress, setProgress] = useState({ current: 0, total: 0 });
   const [editMode, setEditMode] = useState(false);
@@ -35,6 +35,7 @@ const ForYou = () => {
   const [showBuyCredits, setShowBuyCredits] = useState(false);
   const [manualMode, setManualMode] = useState(false);
   const [manualProducts, setManualProducts] = useState([]);
+  const [isManualProduct, setIsManualProduct] = useState(false);
   
   // Add keyboard listeners
   React.useEffect(() => {
@@ -66,8 +67,8 @@ const ForYou = () => {
   };
 
   const pickImages = async () => {
-    // Check if user has credits before allowing to pick images
-    if (credits <= 0 && images.length === 0) {
+    // Skip credit check for manual uploads
+    if (!isManualProduct && credits <= 0 && images.length === 0) {
       Alert.alert(
         "No Credits",
         "You don't have any credits left to analyze images. Would you like to buy more?",
@@ -96,15 +97,30 @@ const ForYou = () => {
         // First time selecting images
         setImages(result.assets);
       }
-      setAnalyzedResults([]);
-      setEditMode(false);
+      
+      // If this is a manual product, create placeholder results
+      if (isManualProduct) {
+        const placeholders = result.assets.map(() => ({
+          isManual: true,
+          productName: "",
+          description: "",
+          price: "",
+          isValid: true
+        }));
+        
+        setAnalyzedResults(prevResults => [...prevResults, ...placeholders]);
+        setEditMode(true);
+      } else {
+        setAnalyzedResults([]);
+        setEditMode(false);
+      }
     }
   };
 
-  // New function to open camera
+  // Modify openCamera to handle manual products
   const openCamera = async () => {
-    // Check if user has credits before allowing to use camera
-    if (credits <= 0 && images.length === 0) {
+    // Skip credit check for manual uploads
+    if (!isManualProduct && credits <= 0 && images.length === 0) {
       Alert.alert(
         "No Credits",
         "You don't have any credits left to analyze images. Would you like to buy more?",
@@ -139,8 +155,21 @@ const ForYou = () => {
       // Add the new image to existing images
       setImages(prevImages => [...prevImages, ...result.assets]);
       
-      // Only reset analyzed results if we're not in the middle of editing
-      if (!editMode) {
+      // If this is a manual product, create a placeholder result
+      if (isManualProduct) {
+        setAnalyzedResults(prevResults => [
+          ...prevResults, 
+          {
+            isManual: true,
+            productName: "",
+            description: "",
+            price: "",
+            isValid: true
+          }
+        ]);
+        setEditMode(true);
+      } else if (!editMode) {
+        // Only reset analyzed results if we're not in the middle of editing
         setAnalyzedResults([]);
       }
     }
@@ -166,6 +195,12 @@ const ForYou = () => {
 
   const handleUpload = async () => {
     if (images.length === 0) return;
+    
+    // Skip AI analysis for manual products
+    if (isManualProduct) {
+      setEditMode(true);
+      return;
+    }
     
     // Check if user has enough credits
     if (credits < images.length) {
@@ -289,35 +324,23 @@ const ForYou = () => {
 
   // Modify handleUploadProducts to include manual products
   const handleUploadProducts = async () => {
-    // For AI analyzed products
-    const validProducts = analyzedResults.filter(result => result.isValid !== false);
+    // Prepare products for upload
+    const productsToUpload = analyzedResults.map((result, index) => ({
+      productName: result.productName,
+      description: result.description,
+      price: result.price,
+      imageUri: images[index]?.uri || null,
+      base64: images[index]?.base64 || null,
+      isManual: result.isManual || false
+    })).filter(product => 
+      // Filter out products without names
+      product.productName && product.productName.trim() !== ""
+    );
     
-    // Combine AI analyzed and manual products
-    const allProducts = [
-      // AI analyzed products with images
-      ...validProducts.map((result, index) => ({
-        productName: result.productName,
-        description: result.description,
-        price: result.price,
-        imageUri: images[index].uri,
-        base64: images[index].base64 || null,
-        isManual: false
-      })),
-      // Manual products with images
-      ...manualProducts.map((product, index) => ({
-        productName: product.productName,
-        description: product.description,
-        price: product.price,
-        imageUri: images[index]?.uri || null,
-        base64: images[index]?.base64 || null,
-        isManual: true
-      }))
-    ];
-    
-    if (allProducts.length === 0) {
+    if (productsToUpload.length === 0) {
       Alert.alert(
-        "No Products", 
-        "There are no products to upload. Please add at least one product.",
+        "No Valid Products", 
+        "Please provide at least a product name for each item you want to upload.",
         [{ text: "OK" }]
       );
       return;
@@ -325,12 +348,12 @@ const ForYou = () => {
     
     try {
       // Call the API to create the products
-      await dispatch(createProducts(allProducts)).unwrap();
+      await dispatch(createProducts(productsToUpload)).unwrap();
       
       // Show success message
       Alert.alert(
         "Success", 
-        `${allProducts.length} product${allProducts.length > 1 ? 's' : ''} uploaded successfully!`,
+        `${productsToUpload.length} product${productsToUpload.length > 1 ? 's' : ''} uploaded successfully!`,
         [
           { 
             text: "OK", 
@@ -338,9 +361,8 @@ const ForYou = () => {
               // Reset the state after upload
               setImages([]);
               setAnalyzedResults([]);
-              setManualProducts([]);
               setEditMode(false);
-              setManualMode(false);
+              setIsManualProduct(false);
             }
           }
         ]
@@ -475,22 +497,31 @@ const ForYou = () => {
 
   const renderImageItem = ({ item, index }) => (
     <View className="mb-6 border border-gray-200 rounded-lg p-3">
-      <View className="relative">
-        <Image 
-          source={{ uri: item.uri }} 
-          className="w-full h-auto rounded-2xl mb-2" 
-          style={{ aspectRatio: 1 }}
-          resizeMode="contain"
-        />
-        
-        {/* Delete button (cross) in the top right corner */}
+      {item ? (
+        <View className="relative">
+          <Image 
+            source={{ uri: item.uri }} 
+            className="w-full h-auto rounded-2xl mb-2" 
+            style={{ aspectRatio: 1 }}
+            resizeMode="contain"
+          />
+          
+          {/* Delete button (cross) in the top right corner */}
+          <TouchableOpacity 
+            className="absolute top-2 right-2 bg-red-500 w-8 h-8 rounded-full items-center justify-center shadow-md"
+            onPress={() => handleDeleteImage(index)}
+          >
+            <Text className="font-bold text-lg">X</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
         <TouchableOpacity 
-          className="absolute top-2 right-2 bg-red-500 w-8 h-8 rounded-full items-center justify-center shadow-md"
-          onPress={() => handleDeleteImage(index)}
+          className="w-full h-40 rounded-2xl mb-2 bg-gray-100 items-center justify-center border border-dashed border-gray-300"
+          onPress={() => handleAddImageToProduct(index)}
         >
-          <Text className="font-bold text-lg">X</Text>
+          <Text className="text-gray-500">Tap to add an image (optional)</Text>
         </TouchableOpacity>
-      </View>
+      )}
       
       {analyzedResults[index] && (
         <View className={`p-2 rounded-lg ${analyzedResults[index].isValid === false ? 'bg-red-50' : 'bg-gray-50'}`}>
@@ -511,52 +542,280 @@ const ForYou = () => {
             </>
           ) : (
             <>
-              {editMode ? (
+              {/* Always show editable fields for manual products */}
+              <TextInput
+                className="font-bold mb-1 border-b border-gray-300 p-1"
+                value={analyzedResults[index].productName || ""}
+                onChangeText={(text) => handleProductNameChange(text, index)}
+                placeholder="Product Name"
+              />
+              
+              <TextInput
+                className="mb-2 border border-gray-300 p-1 rounded"
+                value={analyzedResults[index].description || ""}
+                onChangeText={(text) => handleDescriptionChange(text, index)}
+                placeholder="Description"
+                multiline
+                numberOfLines={3}
+              />
+              
+              <View className="flex-row items-center">
+                <Text>Value: $</Text>
                 <TextInput
-                  className="font-bold mb-1 border-b border-gray-300 p-1"
-                  value={analyzedResults[index].productName || ""}
-                  onChangeText={(text) => handleProductNameChange(text, index)}
-                  placeholder="Product Name"
+                  className="border-b border-gray-300 p-1 flex-1 mr-1"
+                  value={analyzedResults[index].price?.toString() || ""}
+                  onChangeText={(text) => handlePriceChange(text, index)}
+                  keyboardType="numeric"
+                  placeholder="0.00"
                 />
-              ) : (
-                <Text className="font-bold mb-1">{analyzedResults[index].productName || "Analysis"}</Text>
-              )}
-              
-              {analyzedResults[index].description && (
-                editMode ? (
-                  <TextInput
-                    className="mb-2 border border-gray-300 p-1 rounded"
-                    value={analyzedResults[index].description}
-                    onChangeText={(text) => handleDescriptionChange(text, index)}
-                    placeholder="Description"
-                    multiline
-                    numberOfLines={3}
-                  />
-                ) : (
-                  <Text className="mb-2">{analyzedResults[index].description}</Text>
-                )
-              )}
-              
-              {editMode ? (
-                <View className="flex-row items-center">
-                  <Text>Value: $</Text>
-                  <TextInput
-                    className="border-b border-gray-300 p-1 flex-1 mr-1"
-                    value={analyzedResults[index].price.toString()}
-                    onChangeText={(text) => handlePriceChange(text, index)}
-                    keyboardType="numeric"
-                  />
-                  <Text>USD</Text>
-                </View>
-              ) : (
-                <Text>Value: € {analyzedResults[index].price}</Text>
-              )}
+                <Text>USD</Text>
+              </View>
             </>
           )}
         </View>
       )}
     </View>
   );
+
+  // Add function to add an image to a product
+  const handleAddImageToProduct = (index) => {
+    Alert.alert(
+      "Add Image",
+      "Choose how you want to add an image",
+      [
+        {
+          text: "Camera",
+          onPress: async () => {
+            const { status } = await ImagePicker.requestCameraPermissionsAsync();
+            
+            if (status !== 'granted') {
+              Alert.alert("Permission Denied", "We need camera permissions to take pictures.");
+              return;
+            }
+            
+            const result = await ImagePicker.launchCameraAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+              quality: 0.8,
+            });
+            
+            if (!result.canceled && result.assets.length > 0) {
+              const newImages = [...images];
+              newImages[index] = result.assets[0];
+              setImages(newImages);
+            }
+          }
+        },
+        {
+          text: "Gallery",
+          onPress: async () => {
+            const result = await ImagePicker.launchImageLibraryAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+              quality: 0.8,
+            });
+            
+            if (!result.canceled && result.assets.length > 0) {
+              const newImages = [...images];
+              newImages[index] = result.assets[0];
+              setImages(newImages);
+            }
+          }
+        },
+        {
+          text: "Cancel",
+          style: "cancel"
+        }
+      ]
+    );
+  };
+
+  // Add a function to start manual entry
+  const startManualEntry = () => {
+    setIsManualProduct(true);
+    Alert.alert(
+      "Manual Product Entry",
+      "Choose how you want to add product images",
+      [
+        {
+          text: "Camera",
+          onPress: openCamera
+        },
+        {
+          text: "Gallery",
+          onPress: pickImages
+        },
+        {
+          text: "No Image",
+          onPress: () => {
+            // Create a blank product with no image
+            setAnalyzedResults([{
+              isManual: true,
+              productName: "",
+              description: "",
+              price: "",
+              isValid: true
+            }]);
+            setEditMode(true);
+          }
+        },
+        {
+          text: "Cancel",
+          style: "cancel"
+        }
+      ]
+    );
+  };
+
+  // Modify handleAddMore to include manual option
+  const handleAddMore = () => {
+    Alert.alert(
+      "Add More Images",
+      "Choose how you want to add more images",
+      [
+        {
+          text: "Camera",
+          onPress: openCamera
+        },
+        {
+          text: "Gallery",
+          onPress: pickImages
+        },
+        {
+          text: "Manual (No Image)",
+          onPress: () => {
+            // Add a blank manual product with no image, but don't change isManualProduct
+            setAnalyzedResults(prevResults => [
+              ...prevResults,
+              {
+                isManual: true,
+                productName: "",
+                description: "",
+                price: "",
+                isValid: true
+              }
+            ]);
+            setEditMode(true);
+          }
+        },
+        {
+          text: "Cancel",
+          style: "cancel"
+        }
+      ]
+    );
+  };
+
+  // Add the missing handleDeleteImage function
+  const handleDeleteImage = (index) => {
+    const newImages = [...images];
+    const newResults = [...analyzedResults];
+    
+    newImages.splice(index, 1);
+    newResults.splice(index, 1);
+    
+    setImages(newImages);
+    setAnalyzedResults(newResults);
+    
+    // If all images are deleted, reset the state
+    if (newImages.length === 0) {
+      setEditMode(false);
+      setIsManualProduct(false);
+    }
+  };
+
+  // Add the missing handleReplaceImage function
+  const handleReplaceImage = async (index) => {
+    Alert.alert(
+      "Replace Image",
+      "Choose how you want to replace this image",
+      [
+        {
+          text: "Camera",
+          onPress: async () => {
+            // Request camera permissions
+            const { status } = await ImagePicker.requestCameraPermissionsAsync();
+            
+            if (status !== 'granted') {
+              Alert.alert(
+                "Permission Denied",
+                "We need camera permissions to take pictures.",
+                [{ text: "OK" }]
+              );
+              return;
+            }
+            
+            const result = await ImagePicker.launchCameraAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+              allowsMultipleSelection: false,
+              quality: 0.8,
+              base64: false,
+            });
+            
+            if (!result.canceled && result.assets.length > 0) {
+              replaceAndAnalyzeImage(index, result.assets[0]);
+            }
+          }
+        },
+        {
+          text: "Gallery",
+          onPress: async () => {
+            const result = await ImagePicker.launchImageLibraryAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+              allowsMultipleSelection: false,
+              quality: 0.8,
+              base64: false,
+            });
+            
+            if (!result.canceled && result.assets.length > 0) {
+              replaceAndAnalyzeImage(index, result.assets[0]);
+            }
+          }
+        },
+        {
+          text: "Cancel",
+          style: "cancel"
+        }
+      ]
+    );
+  };
+
+  // Add the missing replaceAndAnalyzeImage helper function
+  const replaceAndAnalyzeImage = async (index, newImage) => {
+    // Replace the image at the specified index
+    const newImages = [...images];
+    newImages[index] = newImage;
+    setImages(newImages);
+    
+    // If this is a manual product, just update the image
+    if (analyzedResults[index]?.isManual) {
+      return;
+    }
+    
+    // Process and analyze the new image
+    const processedImage = await processImage(newImage.uri);
+    
+    if (processedImage) {
+      try {
+        const result = await dispatch(uploadSingleImage(processedImage)).unwrap();
+        
+        // Update the analyzed results
+        const newResults = [...analyzedResults];
+        newResults[index] = result;
+        setAnalyzedResults(newResults);
+      } catch (error) {
+        console.error('Error uploading replacement image:', error);
+        // Handle error for the replaced image
+        const newResults = [...analyzedResults];
+        newResults[index] = { 
+          isValid: false,
+          tags: ['Error processing image'], 
+          price: 'Unknown',
+          productName: 'Error',
+          description: 'There was an error processing this image.'
+        };
+        setAnalyzedResults(newResults);
+      }
+    }
+  };
 
   // If showing buy credits, render that component
   if (showBuyCredits) {
@@ -583,144 +842,92 @@ const ForYou = () => {
           <Text className="font-bold text-blue-600">{credits} Credits</Text>
         </TouchableOpacity>
 
-        {/* Mode toggle button */}
-        {(images.length > 0 || manualProducts.length > 0) && (
-          <TouchableOpacity 
-            className={`absolute top-60 left-4 z-10 px-3 py-1 rounded-full flex-row items-center ${manualMode ? 'bg-green-100' : 'bg-blue-100'}`}
-            onPress={toggleManualMode}
-          >
-            <Text className={`font-bold ${manualMode ? 'text-green-600' : 'text-blue-600'}`}>
-              {manualMode ? 'Manual Mode' : 'AI Analysis Mode'}
-            </Text>
-          </TouchableOpacity>
-        )}
-
-        {images.length === 0 && manualProducts.length === 0 ? (
+        {images.length === 0 && analyzedResults.length === 0 ? (
           <View className="flex-1 justify-center items-center">
-            <View className="items-center p-6 bg-gray-50 rounded-lg mb-4">
-              <Text className="text-lg text-center mb-4">
-                Choose how you want to upload your products:
-              </Text>
-              <View className="flex-row space-x-4 mb-4">
-                <TouchableOpacity 
-                  className="bg-blue-500 py-3 px-6 rounded-full"
-                  onPress={() => {
-                    if (credits <= 0) {
-                      Alert.alert(
-                        "No Credits",
-                        "You don't have any credits for AI analysis. Would you like to buy more or use manual upload?",
-                        [
-                          { text: "Buy Credits", onPress: navigateToBuyCredits },
-                          { text: "Manual Upload", onPress: () => {
-                            setManualMode(true);
-                            addManualProduct();
-                          }},
-                          { text: "Cancel", style: "cancel" }
-                        ]
-                      );
-                    } else {
-                      Alert.alert(
-                        "AI Analysis",
-                        "Use AI to automatically analyze your product images (uses credits)",
-                        [
-                          { text: "Continue", onPress: () => {
-                            setManualMode(false);
-                            pickImages();
-                          }},
-                          { text: "Cancel", style: "cancel" }
-                        ]
-                      );
-                    }
-                  }}
-                >
-                  <Text className="text-white font-bold text-lg">AI Analysis</Text>
-                </TouchableOpacity>
-                
-                <TouchableOpacity 
-                  className="bg-green-500 py-3 px-6 rounded-full"
-                  onPress={() => {
-                    setManualMode(true);
-                    addManualProduct();
-                  }}
-                >
-                  <Text className="text-white font-bold text-lg">Manual Upload</Text>
-                </TouchableOpacity>
-              </View>
-              <Text className="text-gray-500 text-center">
-                AI Analysis: Automatically detects product details (uses credits)
-              </Text>
-              <Text className="text-gray-500 text-center">
-                Manual Upload: Enter product details yourself (free)
-              </Text>
+            <Text className="text-xl font-bold mb-8">Upload Products</Text>
+            <View className="flex-row justify-center mb-6">
+              <TouchableOpacity 
+                className="bg-blue-500 py-3 px-6 rounded-full items-center mx-2"
+                onPress={() => {
+                  setIsManualProduct(false);
+                  pickImages();
+                }}
+                disabled={isLoading}
+              >
+                <Text className="text-white font-bold text-lg">Gallery</Text>
+                <Text className="text-white text-xs mt-1">(Uses Credits)</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity 
+                className="bg-green-500 py-3 px-6 rounded-full items-center mx-2"
+                onPress={() => {
+                  setIsManualProduct(false);
+                  openCamera();
+                }}
+                disabled={isLoading}
+              >
+                <Text className="text-white font-bold text-lg">Camera</Text>
+                <Text className="text-white text-xs mt-1">(Uses Credits)</Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity 
+                className="bg-black py-3 px-6 rounded-full items-center mx-2"
+                onPress={startManualEntry}
+                disabled={isLoading}
+              >
+                <Text className="text-white font-bold text-lg">Manual</Text>
+                <Text className="text-white text-xs mt-1">(Free)</Text>
+              </TouchableOpacity>
             </View>
+            
+            <Text className="text-gray-500 text-center px-6">
+              Gallery & Camera: AI analyzes your products automatically (uses credits)
+            </Text>
+            <Text className="text-gray-500 text-center px-6 mt-2">
+              Manual: Enter product details yourself (no credits needed)
+            </Text>
             
             {credits <= 0 && (
               <TouchableOpacity 
-                className="bg-blue-500 py-2 px-4 rounded-lg mt-2"
+                className="bg-blue-500 py-2 px-4 rounded-lg mt-6"
                 onPress={navigateToBuyCredits}
               >
                 <Text className="text-white font-semibold">Buy AI Credits</Text>
               </TouchableOpacity>
             )}
           </View>
-        ) : manualMode ? (
-          <View className="flex-1">
-            <FlatList
-              data={manualProducts}
-              renderItem={renderManualProductItem}
-              keyExtractor={(item, index) => `manual-${index}`}
-              contentContainerStyle={{ paddingBottom: 80 }}
-            />
-            
-            <View className="absolute bottom-4 left-0 right-0 items-center">
-              {!isKeyboardVisible && (
-                <View className="flex-row space-x-4">
-                  <TouchableOpacity 
-                    className="bg-green-500 py-3 px-6 rounded-full"
-                    onPress={addManualProduct}
-                  >
-                    <Text className="text-white font-bold text-lg">Add Product</Text>
-                  </TouchableOpacity>
-                  
-                  {manualProducts.length > 0 && (
-                    <TouchableOpacity 
-                      className="bg-blue-600 py-3 px-6 rounded-full"
-                      onPress={handleUploadProducts}
-                    >
-                      <Text className="text-white font-bold text-lg">Upload Products</Text>
-                    </TouchableOpacity>
-                  )}
-                </View>
-              )}
-            </View>
-          </View>
         ) : (
-          // Original AI analysis mode UI
           <View className="flex-1">
             <FlatList
-              data={images}
+              data={isManualProduct ? analyzedResults : images}
               renderItem={renderImageItem}
               keyExtractor={(item, index) => index.toString()}
               contentContainerStyle={{ paddingBottom: 80 }}
             />
             
             <View className="absolute bottom-4 left-0 right-0 items-center">
-              {analyzedResults.length > 0 && !isLoading && !isKeyboardVisible ? (
-                <TouchableOpacity 
-                  className="bg-green-600 py-3 px-6 rounded-full"
-                  onPress={handleUploadProducts}
-                >
-                  <Text className="text-white font-bold text-lg">Upload Products</Text>
-                </TouchableOpacity>
-              ) : !isLoading && !isKeyboardVisible ? (
+              {!isLoading && !isKeyboardVisible && (
                 <View className="flex-row space-x-4">
-                  <TouchableOpacity 
-                    className="bg-blue-500 py-3 px-6 rounded-full"
-                    onPress={handleUpload}
-                    disabled={isLoading}
-                  >
-                    <Text className="text-white font-bold text-lg">Analyze Images</Text>
-                  </TouchableOpacity>
+                  {/* Always show Analyze Images if there are unanalyzed images */}
+                  {images.length > 0 && analyzedResults.length < images.length && (
+                    <TouchableOpacity 
+                      className="bg-blue-500 py-3 px-6 rounded-full"
+                      onPress={handleUpload}
+                      disabled={isLoading}
+                    >
+                      <Text className="text-white font-bold text-lg">Analyze Images</Text>
+                    </TouchableOpacity>
+                  )}
+                  
+                  {/* Show Upload Products if there are any analyzed or manual products */}
+                  {analyzedResults.length > 0 && (
+                    <TouchableOpacity 
+                      className="bg-green-600 py-3 px-6 rounded-full"
+                      onPress={handleUploadProducts}
+                    >
+                      <Text className="text-white font-bold text-lg">Upload Products</Text>
+                    </TouchableOpacity>
+                  )}
                   
                   <TouchableOpacity 
                     className="bg-green-500 py-3 px-6 rounded-full"
@@ -730,7 +937,7 @@ const ForYou = () => {
                     <Text className="text-white font-bold text-lg">Add More</Text>
                   </TouchableOpacity>
                 </View>
-              ) : null}
+              )}
               
               {isLoading && (
                 <View className="items-center justify-center py-4 bg-white rounded-lg shadow-md px-6">
