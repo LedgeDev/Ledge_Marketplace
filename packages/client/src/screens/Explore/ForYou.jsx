@@ -33,6 +33,8 @@ const ForYou = () => {
   const [editMode, setEditMode] = useState(false);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const [showBuyCredits, setShowBuyCredits] = useState(false);
+  const [manualMode, setManualMode] = useState(false);
+  const [manualProducts, setManualProducts] = useState([]);
   
   // Add keyboard listeners
   React.useEffect(() => {
@@ -246,36 +248,89 @@ const ForYou = () => {
     setAnalyzedResults(updatedResults);
   };
 
+  // Add function to toggle between AI analysis and manual mode
+  const toggleManualMode = () => {
+    setManualMode(!manualMode);
+    // Reset analyzed results when switching modes
+    if (!manualMode) {
+      setAnalyzedResults([]);
+    }
+  };
+
+  // Add function to add a blank manual product
+  const addManualProduct = () => {
+    setManualProducts([
+      ...manualProducts,
+      {
+        productName: "",
+        description: "",
+        price: "",
+        isManual: true
+      }
+    ]);
+  };
+
+  // Add function to update manual product details
+  const updateManualProduct = (index, field, value) => {
+    const updatedProducts = [...manualProducts];
+    updatedProducts[index] = {
+      ...updatedProducts[index],
+      [field]: value
+    };
+    setManualProducts(updatedProducts);
+  };
+
+  // Add function to delete a manual product
+  const deleteManualProduct = (index) => {
+    const newProducts = [...manualProducts];
+    newProducts.splice(index, 1);
+    setManualProducts(newProducts);
+  };
+
+  // Modify handleUploadProducts to include manual products
   const handleUploadProducts = async () => {
-    // Filter out invalid items before uploading
+    // For AI analyzed products
     const validProducts = analyzedResults.filter(result => result.isValid !== false);
     
-    if (validProducts.length === 0) {
+    // Combine AI analyzed and manual products
+    const allProducts = [
+      // AI analyzed products with images
+      ...validProducts.map((result, index) => ({
+        productName: result.productName,
+        description: result.description,
+        price: result.price,
+        imageUri: images[index].uri,
+        base64: images[index].base64 || null,
+        isManual: false
+      })),
+      // Manual products with images
+      ...manualProducts.map((product, index) => ({
+        productName: product.productName,
+        description: product.description,
+        price: product.price,
+        imageUri: images[index]?.uri || null,
+        base64: images[index]?.base64 || null,
+        isManual: true
+      }))
+    ];
+    
+    if (allProducts.length === 0) {
       Alert.alert(
-        "No Valid Products", 
-        "There are no valid products to upload. Please replace or delete invalid items.",
+        "No Products", 
+        "There are no products to upload. Please add at least one product.",
         [{ text: "OK" }]
       );
       return;
     }
     
     try {
-      // Prepare the products data with images
-      const productsToUpload = validProducts.map((result, index) => ({
-        productName: result.productName,
-        description: result.description,
-        price: result.price,
-        imageUri: images[index].uri,
-        base64: images[index].base64 || null
-      }));
-      
       // Call the API to create the products
-      await dispatch(createProducts(productsToUpload)).unwrap();
+      await dispatch(createProducts(allProducts)).unwrap();
       
       // Show success message
       Alert.alert(
         "Success", 
-        `${validProducts.length} product${validProducts.length > 1 ? 's' : ''} uploaded successfully!`,
+        `${allProducts.length} product${allProducts.length > 1 ? 's' : ''} uploaded successfully!`,
         [
           { 
             text: "OK", 
@@ -283,7 +338,9 @@ const ForYou = () => {
               // Reset the state after upload
               setImages([]);
               setAnalyzedResults([]);
+              setManualProducts([]);
               setEditMode(false);
+              setManualMode(false);
             }
           }
         ]
@@ -298,53 +355,95 @@ const ForYou = () => {
     }
   };
 
-  // Add new function to handle image deletion
-  const handleDeleteImage = (index) => {
-    const newImages = [...images];
-    const newResults = [...analyzedResults];
-    
-    newImages.splice(index, 1);
-    newResults.splice(index, 1);
-    
-    setImages(newImages);
-    setAnalyzedResults(newResults);
-    
-    // If all images are deleted, reset the state
-    if (newImages.length === 0) {
-      setEditMode(false);
-    }
-  };
+  // Add a render function for manual product items
+  const renderManualProductItem = ({ item, index }) => (
+    <View className="mb-6 border border-gray-200 rounded-lg p-3">
+      <View className="relative">
+        {item.imageUri ? (
+          <Image 
+            source={{ uri: item.imageUri }} 
+            className="w-full h-auto rounded-2xl mb-2" 
+            style={{ aspectRatio: 1 }}
+            resizeMode="contain"
+          />
+        ) : (
+          <TouchableOpacity 
+            className="w-full h-40 rounded-2xl mb-2 bg-gray-100 items-center justify-center border border-dashed border-gray-300"
+            onPress={() => handleAddImageToManualProduct(index)}
+          >
+            <Text className="text-gray-500">Tap to add an image (optional)</Text>
+          </TouchableOpacity>
+        )}
+        
+        {/* Delete button */}
+        <TouchableOpacity 
+          className="absolute top-2 right-2 bg-red-500 w-8 h-8 rounded-full items-center justify-center shadow-md"
+          onPress={() => deleteManualProduct(index)}
+        >
+          <Text className="font-bold text-lg text-white">X</Text>
+        </TouchableOpacity>
+      </View>
+      
+      <View className="p-2 rounded-lg bg-gray-50">
+        <TextInput
+          className="font-bold mb-1 border-b border-gray-300 p-1"
+          value={item.productName}
+          onChangeText={(text) => updateManualProduct(index, 'productName', text)}
+          placeholder="Product Name"
+        />
+        
+        <TextInput
+          className="mb-2 border border-gray-300 p-1 rounded"
+          value={item.description}
+          onChangeText={(text) => updateManualProduct(index, 'description', text)}
+          placeholder="Description"
+          multiline
+          numberOfLines={3}
+        />
+        
+        <View className="flex-row items-center">
+          <Text>Value: $</Text>
+          <TextInput
+            className="border-b border-gray-300 p-1 flex-1 mr-1"
+            value={item.price.toString()}
+            onChangeText={(text) => updateManualProduct(index, 'price', text)}
+            keyboardType="numeric"
+            placeholder="0.00"
+          />
+          <Text>USD</Text>
+        </View>
+      </View>
+    </View>
+  );
 
-  // Modify the function to handle image replacement
-  const handleReplaceImage = async (index) => {
+  // Add function to add an image to a manual product
+  const handleAddImageToManualProduct = (index) => {
     Alert.alert(
-      "Replace Image",
-      "Choose how you want to replace this image",
+      "Add Image",
+      "Choose how you want to add an image",
       [
         {
           text: "Camera",
           onPress: async () => {
-            // Request camera permissions
             const { status } = await ImagePicker.requestCameraPermissionsAsync();
             
             if (status !== 'granted') {
-              Alert.alert(
-                "Permission Denied",
-                "We need camera permissions to take pictures.",
-                [{ text: "OK" }]
-              );
+              Alert.alert("Permission Denied", "We need camera permissions to take pictures.");
               return;
             }
             
             const result = await ImagePicker.launchCameraAsync({
               mediaTypes: ImagePicker.MediaTypeOptions.Images,
-              allowsMultipleSelection: false,
               quality: 0.8,
-              base64: false,
             });
             
             if (!result.canceled && result.assets.length > 0) {
-              replaceAndAnalyzeImage(index, result.assets[0]);
+              const updatedProducts = [...manualProducts];
+              updatedProducts[index] = {
+                ...updatedProducts[index],
+                imageUri: result.assets[0].uri
+              };
+              setManualProducts(updatedProducts);
             }
           }
         },
@@ -353,71 +452,18 @@ const ForYou = () => {
           onPress: async () => {
             const result = await ImagePicker.launchImageLibraryAsync({
               mediaTypes: ImagePicker.MediaTypeOptions.Images,
-              allowsMultipleSelection: false,
               quality: 0.8,
-              base64: false,
             });
             
             if (!result.canceled && result.assets.length > 0) {
-              replaceAndAnalyzeImage(index, result.assets[0]);
+              const updatedProducts = [...manualProducts];
+              updatedProducts[index] = {
+                ...updatedProducts[index],
+                imageUri: result.assets[0].uri
+              };
+              setManualProducts(updatedProducts);
             }
           }
-        },
-        {
-          text: "Cancel",
-          style: "cancel"
-        }
-      ]
-    );
-  };
-  
-  // Helper function to replace and analyze an image
-  const replaceAndAnalyzeImage = async (index, newImage) => {
-    // Replace the image at the specified index
-    const newImages = [...images];
-    newImages[index] = newImage;
-    setImages(newImages);
-    
-    // Process and analyze the new image
-    const processedImage = await processImage(newImage.uri);
-    
-    if (processedImage) {
-      try {
-        const result = await dispatch(uploadSingleImage(processedImage)).unwrap();
-        
-        // Update the analyzed results
-        const newResults = [...analyzedResults];
-        newResults[index] = result;
-        setAnalyzedResults(newResults);
-      } catch (error) {
-        console.error('Error uploading replacement image:', error);
-        // Handle error for the replaced image
-        const newResults = [...analyzedResults];
-        newResults[index] = { 
-          isValid: false,
-          tags: ['Error processing image'], 
-          price: 'Unknown',
-          productName: 'Error',
-          description: 'There was an error processing this image.'
-        };
-        setAnalyzedResults(newResults);
-      }
-    }
-  };
-
-  // Add a new function to handle the "Add More" action
-  const handleAddMore = () => {
-    Alert.alert(
-      "Add More Images",
-      "Choose how you want to add more images",
-      [
-        {
-          text: "Camera",
-          onPress: openCamera
-        },
-        {
-          text: "Gallery",
-          onPress: pickImages
         },
         {
           text: "Cancel",
@@ -537,42 +583,119 @@ const ForYou = () => {
           <Text className="font-bold text-blue-600">{credits} Credits</Text>
         </TouchableOpacity>
 
-        {images.length === 0 ? (
+        {/* Mode toggle button */}
+        {(images.length > 0 || manualProducts.length > 0) && (
+          <TouchableOpacity 
+            className={`absolute top-60 left-4 z-10 px-3 py-1 rounded-full flex-row items-center ${manualMode ? 'bg-green-100' : 'bg-blue-100'}`}
+            onPress={toggleManualMode}
+          >
+            <Text className={`font-bold ${manualMode ? 'text-green-600' : 'text-blue-600'}`}>
+              {manualMode ? 'Manual Mode' : 'AI Analysis Mode'}
+            </Text>
+          </TouchableOpacity>
+        )}
+
+        {images.length === 0 && manualProducts.length === 0 ? (
           <View className="flex-1 justify-center items-center">
-            {credits <= 0 ? (
-              <View className="items-center p-6 bg-gray-50 rounded-lg">
-                <Text className="text-lg text-center mb-4">
-                  You need credits to analyze images. Go to buy more credits to continue uploading products, or upload them manually.
-                </Text>
+            <View className="items-center p-6 bg-gray-50 rounded-lg mb-4">
+              <Text className="text-lg text-center mb-4">
+                Choose how you want to upload your products:
+              </Text>
+              <View className="flex-row space-x-4 mb-4">
                 <TouchableOpacity 
                   className="bg-blue-500 py-3 px-6 rounded-full"
-                  onPress={navigateToBuyCredits}
+                  onPress={() => {
+                    if (credits <= 0) {
+                      Alert.alert(
+                        "No Credits",
+                        "You don't have any credits for AI analysis. Would you like to buy more or use manual upload?",
+                        [
+                          { text: "Buy Credits", onPress: navigateToBuyCredits },
+                          { text: "Manual Upload", onPress: () => {
+                            setManualMode(true);
+                            addManualProduct();
+                          }},
+                          { text: "Cancel", style: "cancel" }
+                        ]
+                      );
+                    } else {
+                      Alert.alert(
+                        "AI Analysis",
+                        "Use AI to automatically analyze your product images (uses credits)",
+                        [
+                          { text: "Continue", onPress: () => {
+                            setManualMode(false);
+                            pickImages();
+                          }},
+                          { text: "Cancel", style: "cancel" }
+                        ]
+                      );
+                    }
+                  }}
                 >
-                  <Text className="text-white font-bold text-lg">Go to Buy Credits</Text>
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <View className="flex-row space-x-4">
-                <TouchableOpacity 
-                  className="bg-blue-500 py-3 px-6 rounded-full"
-                  onPress={pickImages}
-                  disabled={isLoading}
-                >
-                  <Text className="text-white font-bold text-lg">Gallery</Text>
+                  <Text className="text-white font-bold text-lg">AI Analysis</Text>
                 </TouchableOpacity>
                 
                 <TouchableOpacity 
                   className="bg-green-500 py-3 px-6 rounded-full"
-                  onPress={openCamera}
-                  disabled={isLoading}
+                  onPress={() => {
+                    setManualMode(true);
+                    addManualProduct();
+                  }}
                 >
-                  <Text className="text-white font-bold text-lg">Camera</Text>
+                  <Text className="text-white font-bold text-lg">Manual Upload</Text>
                 </TouchableOpacity>
               </View>
+              <Text className="text-gray-500 text-center">
+                AI Analysis: Automatically detects product details (uses credits)
+              </Text>
+              <Text className="text-gray-500 text-center">
+                Manual Upload: Enter product details yourself (free)
+              </Text>
+            </View>
+            
+            {credits <= 0 && (
+              <TouchableOpacity 
+                className="bg-blue-500 py-2 px-4 rounded-lg mt-2"
+                onPress={navigateToBuyCredits}
+              >
+                <Text className="text-white font-semibold">Buy AI Credits</Text>
+              </TouchableOpacity>
             )}
-            {credits > 0 && <Text className="text-gray-500 mt-3">Select up to {Math.min(15, credits)} images</Text>}
+          </View>
+        ) : manualMode ? (
+          <View className="flex-1">
+            <FlatList
+              data={manualProducts}
+              renderItem={renderManualProductItem}
+              keyExtractor={(item, index) => `manual-${index}`}
+              contentContainerStyle={{ paddingBottom: 80 }}
+            />
+            
+            <View className="absolute bottom-4 left-0 right-0 items-center">
+              {!isKeyboardVisible && (
+                <View className="flex-row space-x-4">
+                  <TouchableOpacity 
+                    className="bg-green-500 py-3 px-6 rounded-full"
+                    onPress={addManualProduct}
+                  >
+                    <Text className="text-white font-bold text-lg">Add Product</Text>
+                  </TouchableOpacity>
+                  
+                  {manualProducts.length > 0 && (
+                    <TouchableOpacity 
+                      className="bg-blue-600 py-3 px-6 rounded-full"
+                      onPress={handleUploadProducts}
+                    >
+                      <Text className="text-white font-bold text-lg">Upload Products</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              )}
+            </View>
           </View>
         ) : (
+          // Original AI analysis mode UI
           <View className="flex-1">
             <FlatList
               data={images}

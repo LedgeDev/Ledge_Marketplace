@@ -1,10 +1,9 @@
 import React, { useRef, useEffect, useCallback, useMemo } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Haptics from 'expo-haptics';
 import Animated, { LinearTransition, FadeIn, FadeOut } from 'react-native-reanimated';
 import { useTranslation } from '../../hooks/useTranslation';
-import ExtImage from '../ExtImage';
 import HeartOutlineIcon from '../../assets/svg/heart-outline-white';
 import HeartFilledIcon from '../../assets/svg/heart-white';
 
@@ -18,7 +17,7 @@ const ProductItem = ({
   
   // Get the image source from the product images array
   const imageSource = product.images && product.images.length > 0 
-    ? product.images[0].original 
+    ? { uri: product.images[0].original } 
     : null;
 
   return (
@@ -30,11 +29,15 @@ const ProductItem = ({
         className="relative w-full h-full rounded-2xl overflow-hidden"
       >
         <View className="absolute top-0 left-0 w-full h-full">
-          <ExtImage
-            className="w-full h-full"
-            mediaSource={product.images[0]}
-            alt={product.name}
-          />
+          {imageSource ? (
+            <Image
+              className="w-full h-full"
+              source={imageSource}
+              resizeMode="cover"
+            />
+          ) : (
+            <View className="w-full h-full bg-gray-200" />
+          )}
         </View>
         <View className="absolute top-0 left-0 w-full h-full">
           <LinearGradient
