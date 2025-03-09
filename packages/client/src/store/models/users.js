@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import fetchWithToken from '../fetchWithToken';
 import { createThunkWithErrorHandling } from '../createThunkWithErrorHandling';
 
@@ -345,6 +345,19 @@ export const updateUserProfile = createThunkWithErrorHandling(
   },
 );
 
+export const updateUserCredits = createThunkWithErrorHandling(
+  'users/updateCredits',
+  async (newCreditAmount) => {
+    const options = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ aiCredits: newCreditAmount }),
+    };
+    const response = await fetchWithToken(`${BACKEND_URL}/users/credits`, options);
+    return await response.json();
+  }
+);
+
 const userSlice = createSlice({
   name: 'users',
   initialState,
@@ -626,6 +639,17 @@ const userSlice = createSlice({
       .addCase(updateUserWelcomeSeen.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(updateUserCredits.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateUserCredits.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.data = action.payload;
+      })
+      .addCase(updateUserCredits.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
       });
   },
 });

@@ -952,6 +952,37 @@ router.post('/upload-receipt',
   }
 );
 
+// Add a new route to update user credits
+router.patch('/credits', async (req, res) => {
+  try {
+    const userId = req.headers.currentUserId;
+    const { aiCredits } = req.body;
+    
+    // Validate the credits value
+    if (aiCredits === undefined || aiCredits < 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Invalid credit amount' 
+      });
+    }
+    
+    // Update the user's credits
+    const updatedUser = await prisma.users.update({
+      where: { id: userId },
+      data: { aiCredits },
+      include: userIncludes,
+    });
+    
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error('Error updating user credits:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to update credits: ' + error.message 
+    });
+  }
+});
+
 module.exports = {
   path: '/users',
   router,

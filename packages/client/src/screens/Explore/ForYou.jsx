@@ -15,7 +15,8 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadImages, uploadSingleImage, createProducts } from '../../store/models/products';
+import { uploadSingleImage, createProducts} from '../../store/models/products';
+import { updateUserCredits } from '../../store/models/users';
 import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 import { useNavigation } from '@react-navigation/native';
 import BuyCredits from './BuyCredits';
@@ -111,13 +112,14 @@ const ForYou = () => {
         setAnalyzedResults(prevResults => [...prevResults, ...placeholders]);
         setEditMode(true);
       } else {
-        setAnalyzedResults([]);
-        setEditMode(false);
+        // Only reset analyzed results if we're not in edit mode
+        if (!editMode) {
+          setAnalyzedResults([]);
+        }
       }
     }
   };
 
-  // Modify openCamera to handle manual products
   const openCamera = async () => {
     // Skip credit check for manual uploads
     if (!isManualProduct && credits <= 0 && images.length === 0) {
@@ -220,6 +222,20 @@ const ForYou = () => {
     
     const results = [];
     const processedImages = [];
+    
+    // Deduct credits before starting the analysis
+    try {
+      // Update the user's credits in the Redux store and on the server
+      await dispatch(updateUserCredits(credits - images.length)).unwrap();
+    } catch (error) {
+      console.error('Error updating user credits:', error);
+      Alert.alert(
+        "Error",
+        "There was an error updating your credits. Please try again.",
+        [{ text: "OK" }]
+      );
+      return;
+    }
     
     for (let i = 0; i < images.length; i++) {
       const processedImage = await processImage(images[i].uri);
@@ -347,6 +363,16 @@ const ForYou = () => {
     }
     
     try {
+      // Check if all products are manual
+      const allManual = productsToUpload.every(product => product.isManual);
+      
+      // Set loading state with appropriate message
+      setProgress({ 
+        current: 0, 
+        total: productsToUpload.length,
+        isUploading: true // Add flag to indicate we're uploading, not analyzing
+      });
+      
       // Call the API to create the products
       await dispatch(createProducts(productsToUpload)).unwrap();
       
@@ -497,38 +523,42 @@ const ForYou = () => {
 
   const renderImageItem = ({ item, index }) => (
     <View className="mb-6 border border-gray-200 rounded-lg p-3">
-      {item ? (
-        <View className="relative">
-          <Image 
-            source={{ uri: item.uri }} 
-            className="w-full h-auto rounded-2xl mb-2" 
-            style={{ aspectRatio: 1 }}
-            resizeMode="contain"
-          />
-          
-          {/* Delete button (cross) in the top right corner */}
+      {/* Only show image or placeholder if this isn't a manual product with no image */}
+      {(item || !analyzedResults[index]?.isManual) ? (
+        item ? (
+          <View className="relative">
+            <Image 
+              source={{ uri: item.uri }} 
+              className="w-full h-auto rounded-2xl mb-2" 
+              style={{ aspectRatio: 1 }}
+              resizeMode="contain"
+            />
+            
+            {/* Delete button (cross) in the top right corner */}
+            <TouchableOpacity 
+              className="absolute top-2 right-2 bg-red-500 w-8 h-8 rounded-full items-center justify-center shadow-md"
+              onPress={() => handleDeleteImage(index)}
+            >
+              <Text className="font-bold text-lg text-white">X</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
           <TouchableOpacity 
-            className="absolute top-2 right-2 bg-red-500 w-8 h-8 rounded-full items-center justify-center shadow-md"
-            onPress={() => handleDeleteImage(index)}
+            className="w-full h-40 rounded-2xl mb-2 bg-gray-100 items-center justify-center border border-dashed border-gray-300"
+            onPress={() => handleAddImageToProduct(index)}
           >
-            <Text className="font-bold text-lg">X</Text>
+            <Text className="text-gray-500">Tap to add an image (optional)</Text>
           </TouchableOpacity>
-        </View>
-      ) : (
-        <TouchableOpacity 
-          className="w-full h-40 rounded-2xl mb-2 bg-gray-100 items-center justify-center border border-dashed border-gray-300"
-          onPress={() => handleAddImageToProduct(index)}
-        >
-          <Text className="text-gray-500">Tap to add an image (optional)</Text>
-        </TouchableOpacity>
-      )}
+        )
+      ) : null}
       
-      {analyzedResults[index] && (
-        <View className={`p-2 rounded-lg ${analyzedResults[index].isValid === false ? 'bg-red-50' : 'bg-gray-50'}`}>
-          {analyzedResults[index].isValid === false ? (
+      {/* Always show the form fields for manual products */}
+      {(analyzedResults[index] || isManualProduct) && (
+        <View className={`p-2 rounded-lg ${analyzedResults[index]?.isValid === false ? 'bg-red-50' : 'bg-gray-50'}`}>
+          {analyzedResults[index]?.isValid === false ? (
             <>
               <Text className="font-bold mb-1 text-red-600">Invalid Item</Text>
-              <Text className="text-red-600 mb-2">{analyzedResults[index].reason || "This item cannot be analyzed as it appears to be not sellable."}</Text>
+              <Text className="text-red-600 mb-2">{analyzedResults[index]?.reason || "This item cannot be analyzed as it appears to be not sellable."}</Text>
               
               {/* Keep only the Replace button for invalid items */}
               <View className="flex-row justify-center mt-2">
@@ -545,14 +575,14 @@ const ForYou = () => {
               {/* Always show editable fields for manual products */}
               <TextInput
                 className="font-bold mb-1 border-b border-gray-300 p-1"
-                value={analyzedResults[index].productName || ""}
+                value={analyzedResults[index]?.productName || ""}
                 onChangeText={(text) => handleProductNameChange(text, index)}
                 placeholder="Product Name"
               />
               
               <TextInput
                 className="mb-2 border border-gray-300 p-1 rounded"
-                value={analyzedResults[index].description || ""}
+                value={analyzedResults[index]?.description || ""}
                 onChangeText={(text) => handleDescriptionChange(text, index)}
                 placeholder="Description"
                 multiline
@@ -563,13 +593,23 @@ const ForYou = () => {
                 <Text>Value: $</Text>
                 <TextInput
                   className="border-b border-gray-300 p-1 flex-1 mr-1"
-                  value={analyzedResults[index].price?.toString() || ""}
+                  value={analyzedResults[index]?.price?.toString() || ""}
                   onChangeText={(text) => handlePriceChange(text, index)}
                   keyboardType="numeric"
                   placeholder="0.00"
                 />
                 <Text>USD</Text>
               </View>
+              
+              {/* Add image button for manual products without images */}
+              {!item && analyzedResults[index]?.isManual && (
+                <TouchableOpacity 
+                  className="bg-gray-200 py-2 px-4 rounded-lg mt-3 self-center"
+                  onPress={() => handleAddImageToProduct(index)}
+                >
+                  <Text className="text-gray-700">Add Image (Optional)</Text>
+                </TouchableOpacity>
+              )}
             </>
           )}
         </View>
@@ -628,7 +668,7 @@ const ForYou = () => {
     );
   };
 
-  // Add a function to start manual entry
+  // Fix the startManualEntry function to properly initialize manual products
   const startManualEntry = () => {
     setIsManualProduct(true);
     Alert.alert(
@@ -647,6 +687,7 @@ const ForYou = () => {
           text: "No Image",
           onPress: () => {
             // Create a blank product with no image
+            setImages([null]); // Use null to indicate no image
             setAnalyzedResults([{
               isManual: true,
               productName: "",
@@ -680,9 +721,10 @@ const ForYou = () => {
           onPress: pickImages
         },
         {
-          text: "Manual (No Image)",
+          text: "No Image",
           onPress: () => {
-            // Add a blank manual product with no image, but don't change isManualProduct
+            // Add a blank manual product with no image
+            setImages(prevImages => [...prevImages, null]); // Add null to images array
             setAnalyzedResults(prevResults => [
               ...prevResults,
               {
@@ -834,57 +876,73 @@ const ForYou = () => {
       keyboardVerticalOffset={100}
     >
       <View className="flex-1 p-4 bg-white">
-        {/* Credit counter at the top right */}
-        <TouchableOpacity 
-          className="absolute top-60 right-20 z-10 bg-blue-100 px-3 py-1 rounded-full flex-row items-center"
-          onPress={navigateToBuyCredits}
-        >
-          <Text className="font-bold text-blue-600">{credits} Credits</Text>
-        </TouchableOpacity>
+        {/* Credit counter only on main screen */}
+        {images.length === 0 && analyzedResults.length === 0 && (
+          <TouchableOpacity 
+            className="absolute top-40 right-20 z-10 bg-blue-100 px-3 py-1 rounded-full flex-row items-center"
+            onPress={navigateToBuyCredits}
+          >
+            <Text className="font-bold text-blue-600">{credits} Credits</Text>
+          </TouchableOpacity>
+        )}
 
         {images.length === 0 && analyzedResults.length === 0 ? (
           <View className="flex-1 justify-center items-center">
-            <Text className="text-xl font-bold mb-8">Upload Products</Text>
-            <View className="flex-row justify-center mb-6">
+            
+            {/* Only show the two main options */}
+            <View className="w-full px-6 mb-8">
               <TouchableOpacity 
-                className="bg-blue-500 py-3 px-6 rounded-full items-center mx-2"
+                className="bg-blue-500 py-4 px-6 rounded-lg items-center mb-4 w-full"
                 onPress={() => {
                   setIsManualProduct(false);
-                  pickImages();
+                  Alert.alert(
+                    "AI Product Upload",
+                    "Choose how you want to add product images",
+                    [
+                      {
+                        text: "Camera",
+                        onPress: () => {
+                          setIsManualProduct(false);
+                          openCamera();
+                        }
+                      },
+                      {
+                        text: "Gallery",
+                        onPress: () => {
+                          setIsManualProduct(false);
+                          pickImages();
+                        }
+                      },
+                      {
+                        text: "Cancel",
+                        style: "cancel"
+                      }
+                    ]
+                  );
                 }}
                 disabled={isLoading}
               >
-                <Text className="text-white font-bold text-lg">Gallery</Text>
+                <Text className="text-white font-bold text-lg">Upload Products Using AI</Text>
                 <Text className="text-white text-xs mt-1">(Uses Credits)</Text>
               </TouchableOpacity>
               
               <TouchableOpacity 
-                className="bg-green-500 py-3 px-6 rounded-full items-center mx-2"
-                onPress={() => {
-                  setIsManualProduct(false);
-                  openCamera();
-                }}
-                disabled={isLoading}
-              >
-                <Text className="text-white font-bold text-lg">Camera</Text>
-                <Text className="text-white text-xs mt-1">(Uses Credits)</Text>
-              </TouchableOpacity>
-              
-              <TouchableOpacity 
-                className="bg-black py-3 px-6 rounded-full items-center mx-2"
+                className="bg-gray-200 py-4 px-6 rounded-lg items-center w-full"
                 onPress={startManualEntry}
                 disabled={isLoading}
               >
-                <Text className="text-white font-bold text-lg">Manual</Text>
-                <Text className="text-white text-xs mt-1">(Free)</Text>
+                <Text className="text-gray-800 font-bold text-lg">Manual Upload</Text>
+                <Text className="text-gray-600 text-xs mt-1">(No Credits Required)</Text>
               </TouchableOpacity>
             </View>
             
+            {/* Remove the secondary camera/gallery buttons */}
+            
             <Text className="text-gray-500 text-center px-6">
-              Gallery & Camera: AI analyzes your products automatically (uses credits)
+              AI Upload: Our AI analyzes your products automatically
             </Text>
             <Text className="text-gray-500 text-center px-6 mt-2">
-              Manual: Enter product details yourself (no credits needed)
+              Manual Upload: Enter product details yourself
             </Text>
             
             {credits <= 0 && (
@@ -899,17 +957,48 @@ const ForYou = () => {
         ) : (
           <View className="flex-1">
             <FlatList
-              data={isManualProduct ? analyzedResults : images}
+              data={images}
               renderItem={renderImageItem}
               keyExtractor={(item, index) => index.toString()}
               contentContainerStyle={{ paddingBottom: 80 }}
+              ListHeaderComponent={
+                <View className="mb-4 mt-40">
+                  <TouchableOpacity 
+                    className="bg-gray-200 py-2 px-4 rounded-lg self-start"
+                    onPress={() => {
+                      Alert.alert(
+                        "Return to Main Screen?",
+                        "All current product drafts will be lost. Are you sure you want to continue?",
+                        [
+                          {
+                            text: "Cancel",
+                            style: "cancel"
+                          },
+                          {
+                            text: "Yes, Discard Drafts",
+                            onPress: () => {
+                              setImages([]);
+                              setAnalyzedResults([]);
+                              setEditMode(false);
+                              setIsManualProduct(false);
+                            },
+                            style: "destructive"
+                          }
+                        ]
+                      );
+                    }}
+                  >
+                    <Text className="text-gray-800">← Back to Main</Text>
+                  </TouchableOpacity>
+                </View>
+              }
             />
             
             <View className="absolute bottom-4 left-0 right-0 items-center">
               {!isLoading && !isKeyboardVisible && (
                 <View className="flex-row space-x-4">
-                  {/* Always show Analyze Images if there are unanalyzed images */}
-                  {images.length > 0 && analyzedResults.length < images.length && (
+                  {/* Only show Analyze Images if there are unanalyzed images AND we're not in manual mode */}
+                  {images.length > 0 && analyzedResults.length < images.length && !isManualProduct && (
                     <TouchableOpacity 
                       className="bg-blue-500 py-3 px-6 rounded-full"
                       onPress={handleUpload}
@@ -943,7 +1032,9 @@ const ForYou = () => {
                 <View className="items-center justify-center py-4 bg-white rounded-lg shadow-md px-6">
                   <ActivityIndicator size="large" color="#0000ff" />
                   <Text className="mt-2">
-                    Analyzing images... {progress.current}/{progress.total}
+                    {progress.isUploading 
+                      ? `Uploading products... ${progress.current}/${progress.total}`
+                      : `Analyzing images... ${progress.current}/${progress.total}`}
                   </Text>
                 </View>
               )}
